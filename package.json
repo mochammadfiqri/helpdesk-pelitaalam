@@ -1,0 +1,26 @@
+{
+    "name": "helpdesk-pelitaalam",
+    "version": "1.0.0",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build"
+    },
+    "devDependencies": {
+        "axios": "^1.1.2",
+        "laravel-vite-plugin": "^0.7.2",
+        "lodash": "^4.17.19",
+        "postcss": "^8.1.14",
+        "vite": "^4.0.0",
+        "gulp": "^4.0.2",
+        "gulp-autoprefixer": "^7.0.1",
+        "gulp-clean": "^0.4.0",
+        "gulp-install": "^1.1.0",
+        "gulp-sass": "^5.1.0",
+        "gulp-sourcemaps": "^2.6.5",
+        "gulp-open": "^3.0.1",
+        "sass": "^1.49.9"
+    },
+    "dependencies": {
+        "material-dashboard": "^3.0.9"
+    }
+}
