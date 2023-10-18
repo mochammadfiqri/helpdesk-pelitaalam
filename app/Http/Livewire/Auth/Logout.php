@@ -8,8 +8,10 @@ use Illuminate\Support\Facades\Auth;
 class Logout extends Component
 {
     public function logout() {
-        Auth::logout();
-        return redirect()->to('/');
+        // Auth::logout();
+        // return redirect()->to('/');
+        auth()->logout();
+        return redirect('/');
     }
 
     public function render()

@@ -1,18 +1,13 @@
 <x-layouts.base>
     @auth
-        @if (Request::is('dashboard'))
-            @include('layouts.sidebars.admin.sidebar')
-            {{-- @if (Auth::check())
-                @if (Auth::user()->role_id == 1)
-                    @include('layouts.sidebars.admin.sidebar')
-                @elseif (Auth::user()->role_id == 2)
-                    @include('layouts.sidebars.guru.sidebar')
-                @endif
-            @endif --}}
+        @if (Request::is(['dashboard', 'users']))
+            @include('layouts.sidebars.sidebar')
             <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-                @include('layouts.navbars.auth.nav')
-                {{ $slot }}
-                @include('layouts.footer')
+                <div class="container-fluid py-1">
+                    @include('layouts.navbars.auth.nav')
+                    {{ $slot }}
+                    @include('layouts.footer')    
+                </div>
             </main>
             @include('components.plugins.fixed-plugin')
         @endif
@@ -56,11 +51,9 @@
                     /* Change to the desired color */
                 }
             </style>
-            {{-- @include('livewire.auth.login-select') --}}
             {{ $slot }}
         @elseif (in_array(request()->route()->getName(),['login','register']))
             <main class="main-content mt-0">
-                {{-- @include('livewire.auth.login') --}}
                 {{ $slot }}
                 <script>
                     const passwordInput = document.getElementById('password');

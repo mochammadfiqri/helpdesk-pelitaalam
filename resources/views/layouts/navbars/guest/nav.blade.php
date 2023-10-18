@@ -494,15 +494,15 @@
                 <li class="nav-item my-auto ms-3 ms-lg-0">
                     {{-- @if (auth()->check())
                     @if (auth()->user()->role_id == 1)
-                    <a href="/admin/dashboard" class="btn btn-sm bg-gradient-primary mb-0 me-1 mt-2 mt-md-0">
+                    <a href="/dashboard" class="btn btn-sm bg-gradient-primary mb-0 me-1 mt-2 mt-md-0">
                         Menu Admin
                     </a>
                     @elseif (auth()->user()->role_id == 2)
-                    <a href="/student/dashboard" class="btn btn-sm bg-gradient-primary mb-0 me-1 mt-2 mt-md-0">
+                    <a href="/dashboard" class="btn btn-sm bg-gradient-primary mb-0 me-1 mt-2 mt-md-0">
                         Menu Siswa
                     </a>
                     @elseif (auth()->user()->role_id == 3)
-                    <a href="/teacher/dashboard" class="btn btn-sm bg-gradient-primary mb-0 me-1 mt-2 mt-md-0">
+                    <a href="/dashboard" class="btn btn-sm bg-gradient-primary mb-0 me-1 mt-2 mt-md-0">
                         Menu Guru
                     </a>
                     @endif
@@ -511,7 +511,18 @@
                         Login
                     </a>
                     @endif --}}
-                    <a href="/login-select"
+                    {{-- <a href="/dashboard" class="btn btn-sm bg-gradient-primary mb-0 me-1 mt-2 mt-md-0">
+                        @if (auth()->check())
+                            @if (auth()->user()->role_id == 1)
+                                Menu Admin
+                            @elseif (auth()->user()->role_id == 2)
+                                Menu Guru
+                            @endif
+                        @else
+                            <a href="/login" class="btn btn-sm  bg-gradient-primary  mb-0 me-1 mt-2 mt-md-0">Login</a>
+                        @endif
+                    </a> --}}
+                    <a href="/login"
                         class="btn btn-sm  bg-gradient-primary  mb-0 me-1 mt-2 mt-md-0">Login</a>
                 </li>
             </ul>
