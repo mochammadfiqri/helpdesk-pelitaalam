@@ -1,4 +1,5 @@
 <div class="row ">
+    <livewire:modal-user>
     <div class="col-12 mt-3">
         <div class="card my-2">
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 ">
@@ -12,29 +13,37 @@
                     </div>
                 </div>
                 <div class="row mt-3">
-                    <div class="float-start mb-2 col-12 col-md-12 col-lg-4">
-                        {{-- <x-btn-search style="display: flex; align-items: center;" placeholder="Cari Siswa..." /> --}}
+                    <div class="col-12 col-md-4 col-lg-4">
+                        <div class="d-flex flex-column justify-content-start mb-2">
+                            <x-btn-search style="display: flex; align-items: center;" placeholder="Cari Siswa...">
+                                @section('icon-x')
+                                    @if($search)
+                                        <i class="fa-solid fa-xmark cursor-pointer" wire:click="clearSearch"></i>
+                                    @endif
+                                @endsection
+                            </x-btn-search>
+                            {{-- Data : {{ var_export($search) }} --}}
+                        </div>
                     </div>
-                    <div class="col-12 col-md-12 col-lg-8">
-                        {{-- <a href="#" class="btn btn-rounded btn-outline-secondary mb-2 float-end" role="button">
-                            <i class="material-icons material-icons-round">print</i>&nbsp;&nbsp;Rekap Laporan
-                        </a> --}}
-                        <button class="btn btn-rounded btn-outline-secondary mb-2 float-end" data-bs-toggle="collapse"
-                            data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                            <i class="fa-solid fa-filter fa-xl"></i></i>&nbsp;&nbsp;&nbsp;Filter
-                        </button>
-                        <a class="btn btn-rounded bg-gradient-info mb-0 me-2 float-end" href="#">
-                            <i class="fa-solid fa-upload fa-lg"></i></i>&nbsp;&nbsp;&nbsp;Unggah Data
-                        </a>
-                        <a class="btn btn-rounded bg-gradient-info mb-0 me-2 float-end" data-bs-toggle="modal"
-                            data-bs-target="#addSiswa" data-te-ripple-init data-te-ripple-color="light">
-                            <i class="fa-solid fa-plus fa-lg"></i>&nbsp;&nbsp;&nbsp;Tambah Users
-                        </a>
+                    <div class="col-12 col-md-8 col-lg-8">
+                        <div class="d-flex justify-content-end align-items-center ">
+                            {{-- <a class="btn btn-rounded btn-outline-secondary" data-bs-toggle="collapse"
+                                data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                <i class="fa-solid fa-filter fa-lg "></i>&nbsp;&nbsp;&nbsp;Filter
+                            </a> --}}
+                            <a class="btn btn-rounded bg-gradient-info mx-2 mx-sm-1" href="#">
+                                <i class="fa-solid fa-upload "></i>&nbsp;&nbsp;&nbsp;Unggah Data
+                            </a>
+                            <a class="btn btn-rounded bg-gradient-info" data-bs-toggle="modal" data-bs-target="#addUser"
+                                data-te-ripple-init data-te-ripple-color="light">
+                                <i class="fa-solid fa-plus "></i>&nbsp;&nbsp;&nbsp;Tambah Users
+                            </a>
+                        </div>
                     </div>
                 </div>
-                <div class="collapse" id="collapseExample">
-                    <div class="row mt-2">
-                        <div class="col-12 col-md-4 col-lg-4">
+                {{-- <div class="collapse" id="collapseExample">
+                    <div class="row mt-2 ">
+                        <div class="d-flex justify-content-center ">
                             <div class="input-group input-group-outline">
                                 <select class="form-control" aria-label="Default select example">
                                     <option selected>Pilih Tingkat</option>
@@ -43,17 +52,13 @@
                                     <option value="12">Kelas XII</option>
                                 </select>
                             </div>
-                        </div>
-                        <div class="col-12 col-md-4 col-lg-4">
-                            <div class="input-group input-group-outline">
+                            <div class="input-group input-group-outline mx-2">
                                 <select class="form-control" aria-label="Default select example">
                                     <option selected>Pilih Jurusan</option>
                                     <option value="1">Asisten Keperawatan</option>
                                     <option value="2">Farmasi</option>
                                 </select>
                             </div>
-                        </div>
-                        <div class="col-12 col-md-4 col-lg-4">
                             <div class="input-group input-group-outline">
                                 <select class="form-control" aria-label="Default select example">
                                     <option selected>Pilih Rombel</option>
@@ -63,11 +68,12 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
             <div class="card-body px-0 pb-2">
                 <div class="table-responsive p-0">
                     {{-- @include('livewire.table-siswa') --}}
+                    <livewire:tbl-user>
                 </div>
             </div>
         </div>

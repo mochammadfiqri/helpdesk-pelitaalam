@@ -8,6 +8,62 @@
                     {{ $slot }}
                     @include('layouts.footer')    
                 </div>
+                <script>
+                    const passwordInput = document.getElementById('password');
+                                        const showPasswordCheckbox = document.getElementById('showpassword');
+                                    
+                                        showPasswordCheckbox.addEventListener('change', function() {
+                                            if (this.checked) {
+                                                passwordInput.type = 'text';
+                                            } else {
+                                                passwordInput.type = 'password';
+                                            }
+                                        });
+                </script>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                                            const inputs = document.querySelectorAll('.form-control');
+                                    
+                                            inputs.forEach(function (input) {
+                                                const div = input.parentNode;
+                                                const errorElement = div.querySelector('.text-danger');
+                                    
+                                                // Check initial input value
+                                                if (input.value.trim() !== '') {
+                                                    div.classList.add('is-filled');
+                                                    if (input.checkValidity() && !errorElement) {
+                                                        div.classList.add('is-valid');
+                                                    }
+                                                }
+                                    
+                                                // Check input on focusout
+                                                input.addEventListener('focusout', function () {
+                                                    if (input.value.trim() !== '') {
+                                                        div.classList.add('is-filled');
+                                                        if (input.checkValidity() && !errorElement) {
+                                                            div.classList.add('is-valid');
+                                                            div.classList.remove('is-invalid');
+                                                        } else {
+                                                            div.classList.remove('is-valid');
+                                                            div.classList.add('is-invalid');
+                                                        }
+                                                    } else {
+                                                        div.classList.remove('is-filled');
+                                                        div.classList.remove('is-valid');
+                                                        div.classList.remove('is-invalid');
+                                                    }
+                                                });
+                                            });
+                                        });
+                                    
+                                        function focused(input) {
+                                            input.parentNode.classList.add('is-focused');
+                                        }
+                                    
+                                        function defocused(input) {
+                                            input.parentNode.classList.remove('is-focused');
+                                        }
+                </script>
             </main>
             @include('components.plugins.fixed-plugin')
         @endif

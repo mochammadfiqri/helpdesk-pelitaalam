@@ -2,17 +2,14 @@
 
 namespace App\Http\Livewire\Auth;
 
-use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\RateLimiter;
-// use RealRashid\SweetAlert\Facades\Alert;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Login extends Component
 {
-    
+    use LivewireAlert;
     public $email, $password, $remember_me;
 
     public function rules() {
@@ -46,7 +43,11 @@ class Login extends Component
             return null;
         }
 
-        return redirect()->to('/dashboard');
+        // return redirect()->to('/dashboard')->with('toast_success', 'Login Berhasil');
+        return redirect('/dashboard')->with([
+            'toast_type' => 'success', // Jenis pesan (success, error, warning, info)
+            'toast_message' => 'Berhasil Login Sebagai Admin', // Isi pesan
+        ]);
     }
     
     // protected $rules = [

@@ -15,7 +15,7 @@
                             <div class="mb-3">
                                 <label class="form-label">Nama Lengkap</label>
                                 <div class="input-group input-group-outline mt-n2">
-                                    <input wire:model.defer="nama" type="text" class="form-control @error('nama') is-valid @enderror"
+                                    <input wire:model.defer="nama" type="text" class="form-control @error('nama') is-invalid @enderror"
                                         placeholder="Masukan Nama Lengkap">
                                 </div>
                                 @error('nama')
@@ -25,7 +25,7 @@
                             <div class="mb-3">
                                 <label class="form-label">E-Mail</label>
                                 <div class="input-group input-group-outline mt-n2">
-                                    <input wire:model.defer="email" type="email" class="form-control @error('email') is-valid @enderror"
+                                    <input wire:model.defer="email" type="email" class="form-control @error('email') is-invalid @enderror"
                                         placeholder="Email_Anda@gmail.com">
                                 </div>
                                 @error('email')
@@ -45,7 +45,7 @@
                                 <div class="col-6">
                                     <label class="form-label">No.Hp</label>
                                     <div class="input-group input-group-outline mt-n2">
-                                        <input wire:model.defer="no_hp" type="number" class="form-control @error('no_hp') is-valid @enderror"
+                                        <input wire:model.defer="no_hp" type="number" class="form-control @error('no_hp') is-invalid @enderror"
                                             placeholder="contoh: 08xxxxxxx">
                                     </div>
                                     @error('no_hp')
@@ -55,7 +55,7 @@
                                 <div class="col-6">
                                     <label class="form-label">Domisili</label>
                                     <div class="input-group input-group-outline mt-n2">
-                                        <input wire:model.defer="domisili" type="text" class="form-control @error('domisili') is-valid @enderror"
+                                        <input wire:model.defer="domisili" type="text" class="form-control @error('domisili') is-invalid @enderror"
                                             placeholder="Tempat Tinggal">
                                     </div>
                                     @error('domisili')

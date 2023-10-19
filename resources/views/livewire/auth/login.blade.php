@@ -46,18 +46,24 @@
                                 @error('password')
                                     <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
                                 @enderror
-                            </div>                            
-                            <div class="form-check form-switch d-flex align-items-center mb-3">
-                                <input class="form-check-input" type="checkbox" id="showpassword" >
-                                <label class="form-check-label mb-0 ms-3" for="showpassword">Lihat
-                                    Password</label>
                             </div>
-                            <div class="form-check ">
-                                <input class="form-check-input" type="checkbox" id="remember_me" wire:model.defer="remember_me">
-                                <label class="custom-control-label" for="remember_me">Remember Me</label>
-                            </div>
+                            <div class="d-flex">
+                                <div class="flex-fill">
+                                    <div class="form-check form-switch d-flex align-items-center mb-3 ms-1">
+                                        <input class="form-check-input" type="checkbox" id="showpassword">
+                                        <label class="form-check-label mb-0 ms-3" for="showpassword">Lihat
+                                            Password</label>
+                                    </div>
+                                </div>
+                                <div class="flex-fill">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="remember_me" wire:model.defer="remember_me">
+                                        <label class="custom-control-label" for="remember_me">Remember Me</label>
+                                    </div>
+                                </div>
+                            </div>                
                             <div class="text-center">
-                                <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">
+                                <button type="submit" class="btn bg-gradient-primary w-100 mt-1 mb-2">
                                     Sign in</button>
                             </div>
                             <div class="mt-2 mb-2 text-sm text-center">
