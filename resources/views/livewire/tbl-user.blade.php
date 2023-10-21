@@ -70,13 +70,17 @@
                             <span class="material-icons">more_vert</span>
                         </button>
                         <ul class="dropdown-menu px-2 py-3" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item border-radius-md">
-                                    Edit
-                                </a></li>
-                            <li><a class="dropdown-item border-radius-md" data-bs-toggle="modal"
-                                    data-bs-target="#deleteSiswa" wire:click='deleteSiswa({{ $data->id }})'>
+                            <li>
+                                <a class="dropdown-item border-radius-md" data-bs-toggle="modal"
+                                    data-bs-target="#editUser" wire:click='editUser({{ $data->id }})'>Edit
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item border-radius-md" data-bs-toggle="modal"
+                                    data-bs-target="#deleteUser" wire:click='deleteUser({{ $data->id }})'>
                                     Hapus
-                                </a></li>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </td>

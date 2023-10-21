@@ -48,10 +48,10 @@
                                 @enderror
                             </div>
                             <div class="d-flex">
-                                <div class="flex-fill">
-                                    <div class="form-check form-switch d-flex align-items-center mb-3 ms-1">
-                                        <input class="form-check-input" type="checkbox" id="showpassword">
-                                        <label class="form-check-label mb-0 ms-3" for="showpassword">Lihat
+                                <div class="flex-fill ">
+                                    <div class="form-check form-switch ">
+                                        <input class="form-check-input " type="checkbox" id="showpassword">
+                                        <label class="form-check-label" for="showpassword">Lihat
                                             Password</label>
                                     </div>
                                 </div>

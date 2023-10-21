@@ -1,5 +1,6 @@
 <div class="row ">
-    <livewire:modal-user>
+    {{-- <livewire:modal-user> --}}
+    @include('livewire.modal-user')
     <div class="col-12 mt-3">
         <div class="card my-2">
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 ">
@@ -7,7 +8,7 @@
                     <div class="row">
                         <div class="col-12">
                             <h6 class="text-white text-uppercase ps-3 float-start">
-                                Daftar Users
+                                Daftar Pengguna
                             </h6>
                         </div>
                     </div>
@@ -15,7 +16,7 @@
                 <div class="row mt-3">
                     <div class="col-12 col-md-4 col-lg-4">
                         <div class="d-flex flex-column justify-content-start mb-2">
-                            <x-btn-search style="display: flex; align-items: center;" placeholder="Cari Siswa...">
+                            <x-btn-search style="display: flex; align-items: center;" placeholder="Cari Pengguna...">
                                 @section('icon-x')
                                     @if($search)
                                         <i class="fa-solid fa-xmark cursor-pointer" wire:click="clearSearch"></i>
@@ -72,8 +73,8 @@
             </div>
             <div class="card-body px-0 pb-2">
                 <div class="table-responsive p-0">
-                    {{-- @include('livewire.table-siswa') --}}
-                    <livewire:tbl-user>
+                    @include('livewire.tbl-user')
+                    {{-- <livewire:tbl-user> --}}
                 </div>
             </div>
         </div>
