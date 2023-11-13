@@ -12,10 +12,6 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label class="form-label">Nama Lengkap</label>
-                        {{-- <a class="btn btn-rounded border mb-0 me-2 p-0 px-3" role="button" style="display: flex; align-items: center;" >
-                            <input wire:model.defer="nama" type="text" class="form-control @error('nama') is-invalid @enderror"
-                                placeholder="Masukan Nama Lengkap">
-                        </a> --}}
                         <div class="input-group input-group-outline rounded-full mt-n2">
                             <input wire:model.defer="nama" type="text" class="form-control @error('nama') is-invalid @enderror"
                                 placeholder="Masukan Nama Lengkap">
@@ -28,7 +24,7 @@
                         <label class="form-label">E-Mail</label>
                         <div class="input-group input-group-outline mt-n2">
                             <input wire:model.defer="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                                placeholder="xxxx@gmail.com">
+                                placeholder="xxxx@gmail.com" >
                         </div>
                         @error('email')
                         <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
@@ -70,7 +66,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-0">
                         <label class="form-label">Alamat</label>
                         <div class="input-group input-group-outline mt-n2">
                             <textarea wire:model.defer="alamat" id="alamat" cols="30" rows="5" class="form-control"
@@ -80,17 +76,42 @@
                         <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
                         @enderror
                     </div>
+                    <div class="row mb-0">
+                        <div class="d-flex">
+                            <div class="p-4 ps-0">
+                                {{-- @if ($foto)
+                                    <img src="{{ $foto->temporaryUrl() }}" class="avatar avatar-scale-up avatar-xxl">
+                                @else
+                                    <img src="../assets/img/user.png" class="avatar avatar-scale-up avatar-xxl">
+                                @endif --}}
+                                @if ($foto)
+                                    @if (is_string($foto))
+                                        <img src="{{ asset('storage/foto-pengguna/'.$foto) }}" class="avatar avatar-scale-up avatar-xxl">
+                                    @else
+                                        <img src="{{ $foto->temporaryUrl() }}" class="avatar avatar-scale-up avatar-xxl">
+                                    @endif
+                                @else
+                                    <img src="../assets/img/user.png" class="avatar avatar-scale-up avatar-xxl">
+                                @endif
+                            </div>
+                            <div class="flex-fill align-self-center p-0">
+                                <label class="text-sm mb-0" for="foto">Pilih Foto</label>
+                                <div class="input-group input-group-outline my-1">
+                                    <input wire:model.defer="foto" type="file" class="form-control" name="foto">
+                                </div>
+                                @error('foto')
+                                    <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
                     <div class="mb-3">
-                        {{-- Data : {{ var_export($role_id) }} --}}
                         <label class="form-label">Jenis Role</label>
                         <div class="input-group input-group-outline mt-n2">
                             <select wire:model.defer='role_id' class="form-control">
                                 <option value="">Pilih Role</option>
-                                {{-- @foreach ($users as $user)
-                                <option value="{{ $user->role->id }}">{{ $user->role->name }}</option>
-                                @endforeach --}}
                                 @foreach ($role as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -185,15 +206,42 @@
                         <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
                         @enderror
                     </div>
+                    {{-- {{ Storage::url($foto) }} --}}
+                    <div class="row mb-0">
+                        <div class="d-flex">
+                            <div class="p-4 ps-0">
+                                {{-- @if ($foto)
+                                    <img src="{{ Storage::url($foto) }}" class="avatar avatar-scale-up avatar-xxl">
+                                @else
+                                    <img src="../assets/img/user.png" class="avatar avatar-scale-up avatar-xxl">
+                                @endif --}}
+                                @if ($foto)
+                                    @if (is_string($foto))
+                                        <img src="{{ asset('storage/foto-pengguna/'.$foto) }}" class="avatar avatar-scale-up avatar-xxl">
+                                    @else
+                                        <img src="{{ $foto->temporaryUrl() }}" class="avatar avatar-scale-up avatar-xxl">
+                                    @endif
+                                @else
+                                    <img src="../assets/img/user.png" class="avatar avatar-scale-up avatar-xxl">
+                                @endif
+                            </div>
+                            <div class="flex-fill align-self-center p-0">
+                                <label class="text-sm mb-0" for="foto">Pilih Foto</label>
+                                <div class="input-group input-group-outline my-1">
+                                    <input wire:model.defer="foto" type="file" class="form-control" name="foto">
+                                </div>
+                                @error('foto')
+                                <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
                     <div class="mb-3">
                         {{-- Data : {{ var_export($role_id) }} --}}
                         <label class="form-label">Jenis Role</label>
                         <div class="input-group input-group-outline mt-n2">
                             <select wire:model.defer='role_id' class="form-control">
                                 <option value="">Pilih Role</option>
-                                {{-- @foreach ($users as $user)
-                                <option value="{{ $user->role->id }}">{{ $user->role->name }}</option>
-                                @endforeach --}}
                                 @foreach ($role as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                                 @endforeach

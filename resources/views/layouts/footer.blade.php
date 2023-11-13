@@ -2,15 +2,19 @@
     <div class="container-fluid">
         <div class="row align-items-center justify-content-lg-between">
             <div class="col-lg-6 mb-lg-0 mb-4">
+                @php
+                    $settings = \App\Models\Setting::all(); // Ambil semua data dari tabel 'settings'
+                @endphp
                 <div class="copyright text-center text-sm text-muted text-lg-start">
+                    Copyright
                     ©
                     <script>
                         document.write(new Date().getFullYear())
-                    </script>,
-                    made with <i class="fa fa-heart"></i> by
-                    <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative
-                        Tim</a>
-                    for a better web.
+                    </script>
+                    @foreach($settings as $setting)
+                        <label class="font-weight-bold">{{ $setting->title_web }}</label>
+                    @endforeach
+                    All rights reserved.
                 </div>
             </div>
             <div class="col-lg-6">

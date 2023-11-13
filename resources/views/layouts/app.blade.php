@@ -1,6 +1,6 @@
 <x-layouts.base>
     @auth
-        @if (Request::is(['dashboard', 'users']))
+        @if (Request::routeIs(['dashboard', 'users','priority','status','types','category','global_setting','knowledge']))
             @include('layouts.sidebars.sidebar')
             <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
                 <div class="container-fluid py-1">
@@ -64,6 +64,25 @@
                                             input.parentNode.classList.remove('is-focused');
                                         }
                 </script>
+                @stack('styleNavs')
+                <style>
+                    .card-label:active {
+                    border-color: #03a9f4;
+                    /* Change this to your desired color */
+                    }
+                    
+                    /* Change the color when the link is hovered */
+                    .card-label:hover {
+                    border-color: #03a9f4;
+                    /* Change to the desired color */
+                    }
+                    
+                    /* Change the color of the link text when hovered */
+                    .card-label:hover a {
+                    color: #03a9f4;
+                    /* Change to the desired color */
+                    }
+                </style>
             </main>
             @include('components.plugins.fixed-plugin')
         @endif
@@ -80,6 +99,7 @@
                 </div>
             </div>
             {{ $slot }}
+            <script type="text/javascript" id="helplook-sdk" src="https://sdk.helplook.net/pro/hlSdk.js?id=xva2ii"></script>
         </body>
         @elseif (in_array(request()->route()->getName(),['login-select']))
             <style>

@@ -1,7 +1,20 @@
 <div>
+    {{-- {{ var_export($checkedUser) }} --}}
+    @if ($checkedUser)
+        <div class="d-flex ps-4">
+            <a class="btn btn-rounded bg-gradient-danger" wire:click='deleteCheckedUser'>
+                <i class="fa-solid fa-trash-can fa-fade"></i>&nbsp;&nbsp;&nbsp;Selected User ({{ count($checkedUser) }})
+            </a>
+        </div>
+    @endif
     <table class="table align-items-center mb-0">
         <thead>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-2">
+            <th class="text-start px-0">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" wire:model="selectAll">
+                </div>
+            </th>
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-0">
                 No.</th>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-0">
                 Foto</th>
@@ -18,10 +31,15 @@
         </thead>
         <tbody>
             @if ($users->count() > 0)
-            @foreach ($users as $data)
+            @foreach ($users as $value => $data)
             <tr>
+                <td class="text-start align-content-center px-0">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="{{ $data->id }}" wire:key='{{ $data->id }}' wire:model="checkedUser">
+                    </div>
+                </td>
                 <td class="text-center ">
-                    <span class="text-secondary text-xs font-weight-bold text-center">{{ $loop->iteration }}</span>
+                    <span class="text-secondary text-xs font-weight-bold text-center">{{ $users->firstItem() + $value }}</span>
                 </td>
                 <td class="text-center ">
                     @if ($data->foto !== null)
@@ -29,7 +47,6 @@
                     @else
                         <img src="{{ asset('assets') }}/img/user.png" class="avatar avatar-sm">
                     @endif
-                    {{-- <span class="text-secondary text-xs font-weight-bold text-center">Foto</span> --}}
                 </td>
                 <td class="text-center">
                     <div class="d-flex flex-column justify-content-center">
@@ -88,26 +105,10 @@
             @endforeach
             @else
             <tr>
-                <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold"> </span>
-                </td>
-                <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold"> </span>
-                </td>
-                <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold"> </span>
-                </td>
-                <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold">Tidak ada data yang ditemukan</span>
-                </td>
-                <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold"> </span>
-                </td>
-                <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold"> </span>
-                </td>
-                <td class="align-middle text-center">
-                    <span class="text-secondary text-xs font-weight-bold"> </span>
+                <td colspan="8" >
+                    <div class="d-flex justify-content-center">
+                        <img src="../assets/img/no-record-file.svg" class="w-40">
+                    </div>
                 </td>
             </tr>
             @endif

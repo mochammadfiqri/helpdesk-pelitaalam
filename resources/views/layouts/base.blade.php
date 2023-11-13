@@ -9,7 +9,7 @@
     <title>
         HELPDESK - PELITA ALAM
     </title>
-    <!--     Fonts and icons     -->
+    <!-- Fonts and icons -->
     <link rel="stylesheet" type="text/css"
         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
     <!-- Nucleo Icons -->
@@ -58,6 +58,9 @@
         color: white;
       }
     </style>
+    
+    {{-- ckeditor5 --}}
+    <script src="../assets/ckeditor5/ckeditor.js"></script>
 
     @livewireStyles
 </head>
@@ -67,11 +70,13 @@
     @livewireScripts
 
     <!--   Core JS Files   -->
+    {{-- <script src="../assets/js/plugins/chartjs.min.js"></script> --}}
     <script src="../assets/js/core/popper.min.js"></script>
     <script src="../assets/js/core/bootstrap.min.js"></script>
     <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
     <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
     <script src="../assets/js/plugins/chartjs.min.js"></script>
+    
     <script>
         var ctx = document.getElementById("chart-bars").getContext("2d");
     
@@ -328,6 +333,11 @@
           Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
         }
     </script>
+    @stack('newTicket')
+    @stack('openTicket')
+    @stack('closedTicket')
+    @stack('unassignedTicket')
+    @stack('ckeditor')
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->

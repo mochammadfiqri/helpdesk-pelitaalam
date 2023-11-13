@@ -39,7 +39,16 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Password</label>
+                                <div class="d-flex justify-content-between">
+                                    <div class="text-sm text-center">
+                                        <label class="form-label">Password</label>
+                                    </div>
+                                    <div class="text-sm text-center">
+                                        <a href="forgot-password" class="text-primary text-gradient form-label">Lupa
+                                            Password?</a>
+                                    </div>
+                                </div>
+                                
                                 <div class="input-group input-group-outline mt-n2">
                                     <input wire:model.defer="password" type="password" id="password" class="form-control" placeholder="*****">
                                 </div>
@@ -47,29 +56,22 @@
                                     <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="d-flex">
-                                <div class="flex-fill ">
-                                    <div class="form-check form-switch ">
-                                        <input class="form-check-input " type="checkbox" id="showpassword">
-                                        <label class="form-check-label" for="showpassword">Lihat
-                                            Password</label>
-                                    </div>
+                            <div class="d-flex flex-column">
+                                <div class="form-check p-0">
+                                    <input class="form-check-input " type="checkbox" id="showpassword">
+                                    <label class="form-check-label" for="showpassword">Lihat
+                                        Password</label>
                                 </div>
-                                <div class="flex-fill">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="remember_me" wire:model.defer="remember_me">
-                                        <label class="custom-control-label" for="remember_me">Remember Me</label>
-                                    </div>
+                                <div class="form-check p-0">
+                                    <input class="form-check-input" type="checkbox" id="remember_me" wire:model.defer="remember_me">
+                                    <label class="custom-control-label" for="remember_me">Remember Me</label>
                                 </div>
                             </div>                
                             <div class="text-center">
                                 <button type="submit" class="btn bg-gradient-primary w-100 mt-1 mb-2">
                                     Sign in</button>
                             </div>
-                            <div class="mt-2 mb-2 text-sm text-center">
-                                <a href="forgot-password" class="text-primary text-gradient font-weight-bold">Lupa
-                                    Password?</a>
-                            </div>
+                            
                             <div class="mb-3 text-sm text-center">
                                 <a href="{{ route('register') }}" class="text-primary text-gradient font-weight-bold">Belum Punya Akun?</a>
                             </div>

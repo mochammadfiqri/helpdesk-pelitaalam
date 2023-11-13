@@ -19,11 +19,10 @@
                             <x-btn-search style="display: flex; align-items: center;" placeholder="Cari Pengguna...">
                                 @section('icon-x')
                                     @if($search)
-                                        <i class="fa-solid fa-xmark cursor-pointer" wire:click="clearSearch"></i>
+                                        <i class="fa-solid fa-circle-xmark fa-lg" wire:click="clearSearch"></i>
                                     @endif
                                 @endsection
                             </x-btn-search>
-                            {{-- Data : {{ var_export($search) }} --}}
                         </div>
                     </div>
                     <div class="col-12 col-md-8 col-lg-8">
@@ -35,46 +34,18 @@
                             <a class="btn btn-rounded bg-gradient-info mx-2 mx-sm-1" href="#">
                                 <i class="fa-solid fa-upload "></i>&nbsp;&nbsp;&nbsp;Unggah Data
                             </a>
-                            <a class="btn btn-rounded bg-gradient-info" data-bs-toggle="modal" data-bs-target="#addUser"
-                                data-te-ripple-init data-te-ripple-color="light">
-                                <i class="fa-solid fa-plus "></i>&nbsp;&nbsp;&nbsp;Tambah Users
+                            <a class="btn btn-rounded bg-gradient-info" data-bs-toggle="modal" data-bs-target="#addUser">
+                                <i class="fa-solid fa-user-plus fa-lg"></i>&nbsp;&nbsp;&nbsp;Tambah Users
                             </a>
                         </div>
                     </div>
                 </div>
-                {{-- <div class="collapse" id="collapseExample">
-                    <div class="row mt-2 ">
-                        <div class="d-flex justify-content-center ">
-                            <div class="input-group input-group-outline">
-                                <select class="form-control" aria-label="Default select example">
-                                    <option selected>Pilih Tingkat</option>
-                                    <option value="10">Kelas X</option>
-                                    <option value="11">Kelas XI</option>
-                                    <option value="12">Kelas XII</option>
-                                </select>
-                            </div>
-                            <div class="input-group input-group-outline mx-2">
-                                <select class="form-control" aria-label="Default select example">
-                                    <option selected>Pilih Jurusan</option>
-                                    <option value="1">Asisten Keperawatan</option>
-                                    <option value="2">Farmasi</option>
-                                </select>
-                            </div>
-                            <div class="input-group input-group-outline">
-                                <select class="form-control" aria-label="Default select example">
-                                    <option selected>Pilih Rombel</option>
-                                    <option value="1">X KEP</option>
-                                    <option value="2">X FAR</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
+                
             </div>
-            <div class="card-body px-0 pb-2">
+            <div class="card-body px-0 pb-2 pt-0">
                 <div class="table-responsive p-0">
                     @include('livewire.tbl-user')
-                    {{-- <livewire:tbl-user> --}}
+                    {{-- @livewire('tbl-user') --}}
                 </div>
             </div>
         </div>

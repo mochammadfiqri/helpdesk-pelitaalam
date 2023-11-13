@@ -16,6 +16,7 @@
         </button>
         <div class="collapse navbar-collapse pt-3 pb-2 py-lg-0 w-100" id="navigation">
             <ul class="navbar-nav navbar-nav-hover ms-auto">
+
                 <li class="nav-item dropdown dropdown-hover mx-2">
                     <a class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuPages"
                         data-bs-toggle="dropdown" aria-expanded="false">
@@ -38,11 +39,15 @@
                             <a href="./pages/author.html" class="dropdown-item border-radius-md">
                                 <span>Author</span>
                             </a>
+                            <a href="#" class="dropdown-item border-radius-md">
+                                <span>Blog</span>
+                            </a>
+
                             <h6
                                 class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1 mt-3">
                                 Account
                             </h6>
-                            <a href="./pages/sign-in.html" class="dropdown-item border-radius-md">
+                            <a href="/login" class="dropdown-item border-radius-md">
                                 <span>Sign In</span>
                             </a>
                         </div>
@@ -61,12 +66,15 @@
                             <a href="./pages/author.html" class="dropdown-item border-radius-md">
                                 <span>Author</span>
                             </a>
+                            <a href="#" class="dropdown-item border-radius-md">
+                                <span>Blog</span>
+                            </a>
 
                             <h6
                                 class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1 mt-3">
                                 Account
                             </h6>
-                            <a href="./pages/sign-in.html" class="dropdown-item border-radius-md">
+                            <a href="/login" class="dropdown-item border-radius-md">
                                 <span>Sign In</span>
                             </a>
 
@@ -491,6 +499,7 @@
                         </div>
                     </ul>
                 </li>
+
                 <li class="nav-item my-auto ms-3 ms-lg-0">
                     {{-- @if (auth()->check())
                     @if (auth()->user()->role_id == 1)
