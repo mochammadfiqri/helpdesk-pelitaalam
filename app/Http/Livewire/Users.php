@@ -43,8 +43,8 @@ class Users extends Component
             })
             ->all();
     } else {
-        $this->checkedUser = [];
-    }
+            $this->checkedUser = [];
+        }
     }
 
     public function createUser() {

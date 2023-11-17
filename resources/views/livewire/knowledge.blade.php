@@ -60,7 +60,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <div class="my-auto px-3 mb-0 " style="user-select: none">
+                                            <div class="my-auto px-3 mb-0 " >
                                                 {{ $data->type->name }}
                                             </div>
                                         </td>

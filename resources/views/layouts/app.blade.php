@@ -1,6 +1,6 @@
 <x-layouts.base>
     @auth
-        @if (Request::routeIs(['dashboard', 'users','priority','status','types','category','global_setting','knowledge']))
+        @if (Request::routeIs(['dashboard', 'users','priority','status','types','category','global_setting','knowledge', 'main_knowledge','create_knowledge','edit_knowledge']))
             @include('layouts.sidebars.sidebar')
             <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
                 <div class="container-fluid py-1">

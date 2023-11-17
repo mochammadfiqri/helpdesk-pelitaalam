@@ -1,5 +1,5 @@
 <aside
-    class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark"
+    class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-gradient-dark"
     id="sidenav-main">
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
@@ -54,12 +54,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white {{ request()->routeIs('knowledge') ? 'active bg-gradient-primary' : '' }}"
-                        href="{{ route('knowledge') }}">
+                    <a class="nav-link text-white {{ request()->routeIs('main_knowledge') ? 'active bg-gradient-primary' : '' }}"
+                        href="{{ route('main_knowledge') }}">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="fa-solid fa-graduation-cap fa-xl"></i>
                         </div>
-                        <span class="nav-link-text ms-1">Knowledge Base</span>
+                        <span class="nav-link-text px-1">Knowledge Base</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -67,7 +67,7 @@
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="fa-regular fa-comment-dots fa-xl"></i>
                         </div>
-                        <span class="nav-link-text ms-1">Chatbot</span>
+                        <span class="nav-link-text px-1">Chatbot</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -75,7 +75,7 @@
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="fa-solid fa-clipboard-question fa-xl"></i>
                         </div>
-                        <span class="nav-link-text ms-1">FAQs</span>
+                        <span class="nav-link-text px-1">FAQs</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -83,17 +83,15 @@
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="fa-solid fa-ticket fa-xl"></i>
                         </div>
-                        <span class="nav-link-text ms-1">Tickets</span>
+                        <span class="nav-link-text px-1">Tickets</span>
                     </a>
                 </li>                
-                
-                
                 <li class="nav-item">
                     <a class="nav-link text-white {{ request()->routeIs('users') ? 'active bg-gradient-primary' : '' }}" href="{{ route('users') }}">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="fa-solid fa-user fa-xl"></i>
                         </div>
-                        <span class="nav-link-text ms-1">Manage Users</span>
+                        <span class="nav-link-text px-1">Manage Users</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -102,7 +100,7 @@
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="fa-solid fa-screwdriver-wrench fa-xl"></i>
                         </div>
-                        <span class="nav-link-text ms-1">Settings</span>
+                        <span class="nav-link-text px-1">Settings</span>
                     </a>
                     <div class="collapse" id="settings" >
                         <ul class="nav ">

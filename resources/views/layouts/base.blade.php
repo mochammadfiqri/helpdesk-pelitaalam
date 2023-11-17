@@ -58,9 +58,11 @@
         color: white;
       }
     </style>
-    
+
     {{-- ckeditor5 --}}
-    <script src="../assets/ckeditor5/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
+    {{-- <script src="../assets/ckeditor5/ckeditor.js"></script>
+    <script src="../assets/ckeditor5/translations/id.js"></script> --}}
 
     @livewireStyles
 </head>
@@ -78,8 +80,7 @@
     <script src="../assets/js/plugins/chartjs.min.js"></script>
     
     <script>
-        var ctx = document.getElementById("chart-bars").getContext("2d");
-    
+        var ctx = document.getElementById("chart-bars").getContext("2d");  
         new Chart(ctx, {
           type: "bar",
           data: {
@@ -338,13 +339,13 @@
     @stack('closedTicket')
     @stack('unassignedTicket')
     @stack('ckeditor')
+    @stack('ckeditor-edit')
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="../assets/js/material-dashboard.min.js?v=3.0.4"></script>
 
-    {{-- <script src="{{ asset('vendor/livewire-alert/livewire-alert.js') }}"></script> --}}
-
+    {{-- Sweet Alert 2 --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
     <script>
       // Menyiapkan SweetAlert2 Toast sesuai dengan definisi Anda

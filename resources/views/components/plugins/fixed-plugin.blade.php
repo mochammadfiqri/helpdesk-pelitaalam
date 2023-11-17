@@ -1,6 +1,6 @@
 <div class="fixed-plugin">
     <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
-        <i class="fa-solid fa-gear fa-spin"></i>
+        <i class="fa-solid fa-gear"></i>
     </a>
     <div class="card shadow-lg">
         <div class="card-header pb-0 pt-3">

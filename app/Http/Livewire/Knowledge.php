@@ -10,6 +10,8 @@ class Knowledge extends Component
 {
     public $title, $type_id, $details, $kb_id, $search;
 
+    protected $listeners = ['editKnowledge'];
+
     public function rules() {
         return [
             'title' => ['required'],
@@ -17,6 +19,11 @@ class Knowledge extends Component
         ];
     }
 
+    public function mount()
+    {
+        // Inisialisasi data atau lakukan pengaturan awal di sini
+    }
+    
     public function createKnowledge() {
         $this->validate();
         KnowledgeBase::create([
@@ -58,7 +65,7 @@ class Knowledge extends Component
 
     public function resetModal() {
         $this->reset();
-        $this->details = '';
+        $this->details = NULL;
     }
 
     public function clearSearch()
