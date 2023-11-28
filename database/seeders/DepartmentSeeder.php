@@ -2,11 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\Type;
+use App\Models\Department;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class TypeSeeder extends Seeder
+class DepartmentSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,19 +17,19 @@ class TypeSeeder extends Seeder
     public function run()
     {
         Schema::disableForeignKeyConstraints();
-        Type::truncate();
+        Department::truncate();
         Schema::enableForeignKeyConstraints();
 
         $data = [
-            'Hardware',
-            'Software',
-            'Event',
-            'Tutorial',
-            'Website',
+            'Admin',
+            'Keuangan',
+            'Akademik',
+            'Operator',
+            'Kesiswaan',
         ];
 
         foreach ($data as $value) {
-            Type::create([
+            Department::create([
                 'name' => $value
             ]);
         }

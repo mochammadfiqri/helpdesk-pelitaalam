@@ -79,7 +79,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white " href="#">
+                    <a class="nav-link text-white {{ request()->routeIs('main_tickets') ? 'active bg-gradient-primary' : '' }}" href="{{ route('main_tickets') }}" href="#">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="fa-solid fa-ticket fa-xl"></i>
                         </div>
@@ -133,7 +133,7 @@
                                 <a class="nav-link text-white {{ request()->routeIs('types') ? 'active bg-gradient-primary' : '' }}"
                                     href="{{ route('types') }}">
                                     <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
-                                        <i class="fa-solid fa-tags fa-sm"></i>
+                                        <i class="fa-solid fa-tag fa-sm"></i>
                                     </div>
                                     <span class="nav-link-text ms-2">Types</span>
                                 </a>

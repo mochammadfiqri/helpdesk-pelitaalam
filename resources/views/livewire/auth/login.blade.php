@@ -62,6 +62,18 @@
                                     <label class="form-check-label" for="showpassword">Lihat
                                         Password</label>
                                 </div>
+                                <script>
+                                    const passwordInput = document.getElementById('password');
+                                        const showPasswordCheckbox = document.getElementById('showpassword');
+                                    
+                                        showPasswordCheckbox.addEventListener('change', function() {
+                                            if (this.checked) {
+                                                passwordInput.type = 'text';
+                                            } else {
+                                                passwordInput.type = 'password';
+                                            }
+                                        });
+                                </script>
                                 <div class="form-check p-0">
                                     <input class="form-check-input" type="checkbox" id="remember_me" wire:model.defer="remember_me">
                                     <label class="custom-control-label" for="remember_me">Remember Me</label>

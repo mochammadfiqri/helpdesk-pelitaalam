@@ -195,6 +195,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Laravel\Scout\ScoutServiceProvider::class,
+        Algolia\ScoutExtended\ScoutExtendedServiceProvider::class,
 
     ],
 
@@ -211,6 +213,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
+        'Scout' => Laravel\Scout\Facades\Search::class,
     ])->toArray(),
 
 ];

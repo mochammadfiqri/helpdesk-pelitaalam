@@ -1,6 +1,6 @@
 <x-layouts.base>
     @auth
-        @if (Request::routeIs(['dashboard', 'users','priority','status','types','category','global_setting','knowledge', 'main_knowledge','create_knowledge','edit_knowledge']))
+        @if (Request::routeIs(['dashboard', 'users','priority','status','types','category','global_setting','knowledge', 'main_knowledge','create_knowledge','edit_knowledge','main_tickets']))
             @include('layouts.sidebars.sidebar')
             <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
                 <div class="container-fluid py-1">
@@ -9,20 +9,8 @@
                     @include('layouts.footer')    
                 </div>
                 <script>
-                    const passwordInput = document.getElementById('password');
-                                        const showPasswordCheckbox = document.getElementById('showpassword');
-                                    
-                                        showPasswordCheckbox.addEventListener('change', function() {
-                                            if (this.checked) {
-                                                passwordInput.type = 'text';
-                                            } else {
-                                                passwordInput.type = 'password';
-                                            }
-                                        });
-                </script>
-                <script>
                     document.addEventListener('DOMContentLoaded', function () {
-                                            const inputs = document.querySelectorAll('.form-control');
+                        const inputs = document.querySelectorAll('.form-control');
                                     
                                             inputs.forEach(function (input) {
                                                 const div = input.parentNode;
@@ -89,7 +77,7 @@
     @endauth
 
     @guest
-        @if (in_array(request()->route()->getName(),['landing-page']))
+        @if (Request::routeIs(['landing-page','knowledge-page','ticket-page']))
         <body class="index-page bg-gray-200">
             <div class="container position-sticky z-index-sticky top-0">
                 <div class="row">

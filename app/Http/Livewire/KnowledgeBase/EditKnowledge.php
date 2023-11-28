@@ -33,11 +33,15 @@ class EditKnowledge extends Component
     {
         // Lakukan validasi jika diperlukan
 
-        KnowledgeBase::where('id', $this->kb_id)->update([
-            'title' => $this->title,
-            'type_id' => $this->type_id,
-            'details' => $this->details,
-        ]);
+        $knowledgeBase = KnowledgeBase::find($this->kb_id);
+        $knowledgeBase->title = $this->title;
+        $knowledgeBase->type_id = $this->type_id;
+        $knowledgeBase->details = $this->details;
+
+        $knowledgeBase->save(); // Use save instead of update
+
+        // Update the Algolia index
+        $knowledgeBase->searchable();
 
         return redirect()->to('/knowledge-base')->with([
             'toast_type' => 'success',

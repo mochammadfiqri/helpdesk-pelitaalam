@@ -48,27 +48,27 @@
                                 {{-- {{ $details }} --}}
                                 <label class="form-label text-bold">Details</label>
                                 <div wire:ignore class="mt-n2 mb-5">
-                                    <textarea id="details"></textarea>
+                                    <textarea id="details_add"></textarea>
                                     <script>
                                         document.addEventListener('livewire:load', function () {
-                                                        ClassicEditor
-                                                            .create(document.querySelector('#details'), {
-                                                                language: 'en'
-                                                            })
-                                                            .then(editor => {
-                                                                editor.model.document.on('change:data', () => {
-                                                                    let details = editor.getData();
-                                                                    @this.set('details', details);
-                                                                });
-                                                            })
-                                                            .catch(error => {
-                                                                console.error(error);
-                                                            });
+                                                ClassicEditor
+                                                    .create(document.querySelector('#details_add'), {
+                                                        language: 'en'
+                                                    })
+                                                    .then(editor => {
+                                                        editor.model.document.on('change:data', () => {
+                                                            let details = editor.getData();
+                                                            @this.set('details', details);
+                                                        });
+                                                    })
+                                                    .catch(error => {
+                                                        console.error(error);
                                                     });
+                                            });
                                     </script>
                                 </div>
                                 @error('details')
-                                <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
+                                    <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div style="float: right;" class="border-0 mt-3">

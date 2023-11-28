@@ -1,4 +1,62 @@
 <div>
+    <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <a class="btn shadow-blur mb-0 p-2 px-3" role="button"
+                    style="display: flex; align-items: center; background-color: white;">
+                    <i class="fa-solid fa-magnifying-glass fa-xl me-2"></i>
+                    <input type="search" id="search-bar-input" class="form-control text-black text-lg" style="background: transparent"
+                        placeholder="Whats Your Problem...">
+                    <span class="DocSearch-Button-Keys">
+                        <button wire:click='resetSearch' class="DocSearch-Button-Key px-4 py-3">Clear</button>
+                    </span>
+                </a>
+                <div class="modal-body p-0">
+                    <div class="row">
+                        <div class="col-6 shadow-dark">
+                            <div class="container">
+                                {{-- <div id="searchbox">
+                                </div>
+                                <div id="hits">
+                                </div>
+
+                                <script>
+                                    document.addEventListener("DOMContentLoaded", function () {
+                                            const search = instantsearch({
+                                                indexName: 'knowledge-base',
+                                                searchClient: algoliasearch(
+                                                    '9T5VNL71TX',
+                                                    '39a815806926d06cf349b261d85cf33a'
+                                                ),
+                                            });
+                                
+                                            const {
+                                                searchBox,
+                                                hits, 
+                                            } = instantsearch.widgets;
+                                
+                                            search.addWidgets([
+                                                searchBox({
+                                                    container: "#searchbox"
+                                                }),
+                                                hits({
+                                                    container: "#hits"
+                                                }), 
+                                            ]);
+                                
+                                            search.start();
+                                        });
+                                </script> --}}
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <p>content 2</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <header class="header-2">
         <div class="page-header min-vh-75 relative" style="background-image: url('./assets/img/bg2.jpg')">
             <span class="mask bg-gradient-primary opacity-4"></span>
@@ -6,8 +64,231 @@
                 <div class="row">
                     <div class="col-lg-7 text-center mx-auto">
                         <h1 class="text-white pt-3 mt-n5">SISTEM MANAJEMEN TI PELITA ALAM</h1>
-                        <p class="lead text-white mt-3">Free & Open Source Web UI Kit built over Bootstrap 5. <br />
+                        <p class="lead text-white mt-3 mb-5">Free & Open Source Web UI Kit built over Bootstrap 5. <br />
                             Join over 1.6 million developers around the world. </p>
+                            <style>
+                                /* Menyesuaikan lebar offcanvas */
+                                .offcanvas {
+                                    max-width: 50%;
+                                    /* Sesuaikan lebar sesuai kebutuhan Anda */
+                                }
+                            
+                                /* Menyesuaikan tinggi offcanvas */
+                                .offcanvas-body {
+                                    max-height: 50vh;
+                                    /* Sesuaikan tinggi sesuai kebutuhan Anda */
+                                    overflow-y: auto;
+                                }
+                            </style>
+                        <a class="btn btn-rounded border mb-0 me-2 p-2 px-3" data-bs-toggle="modal" data-bs-target="#searchModal" role="button" style="display: flex; align-items: center; background-color: white;" >
+                            <i class="fa-solid fa-magnifying-glass fa-xl me-2"></i>
+                                <input type="text" class="form-control text-black text-sm" style="background: transparent" placeholder="Whats Your Problem..." >
+                            <span class="DocSearch-Button-Keys">
+                                <kbd class="DocSearch-Button-Key">
+                                    <svg width="15" height="15" class="DocSearch-Control-Key-Icon">
+                                        <path
+                                            d="M4.505 4.496h2M5.505 5.496v5M8.216 4.496l.055 5.993M10 7.5c.333.333.5.667.5 1v2M12.326 4.5v5.996M8.384 4.496c1.674 0 2.116 0 2.116 1.5s-.442 1.5-2.116 1.5M3.205 9.303c-.09.448-.277 1.21-1.241 1.203C1 10.5.5 9.513.5 8V7c0-1.57.5-2.5 1.464-2.494.964.006 1.134.598 1.24 1.342M12.553 10.5h1.953"
+                                            stroke-width="1.2" stroke="currentColor" fill="none" stroke-linecap="square"></path>
+                                    </svg>
+                                </kbd>
+                                <kbd class="DocSearch-Button-Key">K</kbd>
+                            </span>
+                        </a>
+
+                        {{-- <div id="autocomplete"></div> 
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function () {
+                            const searchClient = algoliasearch(
+                              '9T5VNL71TX',
+                              '39a815806926d06cf349b261d85cf33a'
+                            ); 
+
+                            const querySuggestionsPlugin = createQuerySuggestionsPlugin({
+                                searchClient,
+                                indexName: 'knowledge-base_query_suggestions', 
+                                transformSource({ source }) {
+                                    return {
+                                    ...source,
+                                    templates: Object.assign({}, source.templates, {
+                                        header: function ({ state }) {
+                                        if (state.query) {
+                                            return null;
+                                        }
+
+                                        var fragment = document.createDocumentFragment();
+                                        var span = document.createElement('span');
+                                        span.className = 'aa-SourceHeaderTitle';
+                                        span.textContent = 'Popular searches';
+                                        fragment.appendChild(span);
+
+                                        var div = document.createElement('div');
+                                        div.className = 'aa-SourceHeaderLine';
+                                        fragment.appendChild(div);
+
+                                        return fragment;
+                                        },
+                                    }),
+                                    };
+                                },
+                                });
+                        
+                            autocomplete({
+                              container: '#autocomplete',
+                              detachedMediaQuery: '',
+                              openOnFocus: true,
+                              placeholder: 'What\'s Your Problem?',
+                              plugins: [
+                                querySuggestionsPlugin,
+                              ],
+                              getSources() {
+                                return [];
+                              },
+                            });
+                          });
+                        </script> --}}
+                        {{-- @livewire('autocomplete') --}}
+                        
+                        {{-- <header class="header">
+                            <div id="autocomplete"></div>
+                        </header>
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function () { 
+                                    const searchClient = algoliasearch(
+                                        '9T5VNL71TX',
+                                        '39a815806926d06cf349b261d85cf33a',
+                                    );
+                                    
+                                    const INSTANT_SEARCH_INDEX_NAME = 'knowledge-base';
+                                    const instantSearchRouter = historyRouter();
+
+                                    const search = instantsearch({
+                                        searchClient,
+                                        indexName: INSTANT_SEARCH_INDEX_NAME,
+                                        routing: instantSearchRouter,
+                                    });
+                        
+                                    // const {
+                                    //     searchBox,
+                                    //     hits, 
+                                    // } = instantsearch.widgets;
+
+                                    const virtualSearchBox = connectSearchBox(() => {});
+                        
+                                    search.addWidgets([
+                                        virtualSearchBox({}),
+                                        hits({
+                                            container: '#hits',
+                                            templates: {
+                                            item(hit, { html, components }) {
+                                                return html`
+                                                <div>
+                                                    ${components.Highlight({ attribute: 'title', hit })}
+                                                </div>
+                                                `;
+                                            },
+                                            },
+                                        }),
+                                    ]);
+                        
+                                    search.start();
+
+                                    // Set the InstantSearch index UI state from external events.
+                                    function setInstantSearchUiState(indexUiState) {
+                                        search.setUiState(uiState => ({
+                                            ...uiState,
+                                            [INSTANT_SEARCH_INDEX_NAME]: {
+                                            ...uiState[INSTANT_SEARCH_INDEX_NAME],
+                                            // We reset the page when the search state changes.
+                                            page: 1,
+                                            ...indexUiState,
+                                            },
+                                        }));
+                                    }
+
+                                    // Return the InstantSearch index UI state.
+                                    function getInstantSearchUiState() {
+                                        const uiState = instantSearchRouter.read();
+
+                                        return (uiState && uiState[INSTANT_SEARCH_INDEX_NAME]) || {};
+                                    }
+
+                                    const searchPageState = getInstantSearchUiState();
+
+                                    let skipInstantSearchUiStateUpdate = false;
+                                    const { setQuery } = autocomplete({
+                                        container: '#autocomplete',
+                                        placeholder: 'Search for products',
+                                        detachedMediaQuery: 'none',
+                                        initialState: {
+                                            query: searchPageState.query || '',
+                                        },
+                                        onSubmit({ state }) {
+                                            setInstantSearchUiState({ query: state.query });
+                                        },
+                                        onReset() {
+                                            setInstantSearchUiState({ query: '' });
+                                        },
+                                        onStateChange({ prevState, state }) {
+                                            if (!skipInstantSearchUiStateUpdate && prevState.query !== state.query) {
+                                            setInstantSearchUiState({ query: state.query });
+                                            }
+                                            skipInstantSearchUiStateUpdate = false;
+                                        },
+                                    })
+
+                                    // This keeps Autocomplete aware of state changes coming from routing
+                                    // and updates its query accordingly
+                                    window.addEventListener('popstate', () => {
+                                        skipInstantSearchUiStateUpdate = true;
+                                        setQuery(search.helper?.state.query || '');
+                                    });
+                                });
+                        </script> --}}
+                        {{-- <div id="searchbox">
+                        </div>
+                        <div id="hits">
+                        </div>
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function () {
+                                    const search = instantsearch({
+                                        indexName: 'knowledge-base',
+                                        searchClient: algoliasearch(
+                                            '9T5VNL71TX',
+                                            '39a815806926d06cf349b261d85cf33a'
+                                        ),
+                                    });
+                        
+                                    const {
+                                        searchBox,
+                                        hits, 
+                                    } = instantsearch.widgets;
+                        
+                                    search.addWidgets([
+                                        searchBox({
+                                            container: "#searchbox"
+                                        }),
+                                        hits({
+                                            container: "#hits",
+                                            templates: {
+                                            item: (hit, { html, components }) => html`
+                                            <div>
+                                                <div class="hit-title align-items-start">
+                                                    ${components.Highlight({ hit, attribute: 'title' })}
+                                                </div>
+                                                <div class="hit-details">
+                                                    ${components.Highlight({ hit, attribute: 'details' })}
+                                                </div>
+                                                <div class="hit-price">$${hit.price}</div>
+                                            </div>
+                                            `,
+                                            },
+                                        }), 
+                                    ]);
+                        
+                                    search.start();
+                                });
+                        </script> --}}
+
                     </div>
                 </div>
             </div>

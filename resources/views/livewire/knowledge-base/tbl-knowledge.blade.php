@@ -51,7 +51,7 @@
             @endforeach
             @else
             <tr>
-                <td colspan="2">
+                <td colspan="4">
                     <div class="d-flex justify-content-center">
                         <img src="../assets/img/no-record-file.svg" class="w-40">
                     </div>
@@ -66,7 +66,7 @@
             </script>
         </tbody>
     </table>
-    <div class="float-end me-3">
+    <div class="float-end me-3 mt-3">
         {{ $knowledge_base->links() }}
     </div>
 </div>

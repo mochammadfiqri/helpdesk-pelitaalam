@@ -6,6 +6,8 @@
         "build": "vite build"
     },
     "devDependencies": {
+        "@babel/preset-env": "^7.23.3",
+        "@babel/preset-react": "^7.23.3",
         "axios": "^1.1.2",
         "gulp": "^4.0.2",
         "gulp-autoprefixer": "^9.0.0",
@@ -21,9 +23,19 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "@algolia/autocomplete-js": "^1.12.1",
+        "@algolia/autocomplete-plugin-query-suggestions": "^1.12.1",
+        "@algolia/autocomplete-plugin-recent-searches": "^1.12.1",
+        "@algolia/autocomplete-theme-classic": "^1.12.1",
+        "@docsearch/css": "^3.5.2",
+        "@docsearch/js": "^3.5.2",
+        "@preact/preset-vite": "^2.7.0",
+        "algoliasearch": "^4.20.0",
         "chart.js": "^4.4.0",
         "chartjs-plugin-datalabels": "^2.2.0",
+        "instantsearch.js": "^4.60.0",
         "material-dashboard": "^3.0.9",
+        "preact": "^10.19.2",
         "sweetalert2": "^11.6.13"
     }
 }

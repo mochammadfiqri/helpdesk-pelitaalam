@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+    <link rel="preconnect" href="https://9T5VNL71TX.algolia.net" crossorigin />
     <title>
         HELPDESK - PELITA ALAM
     </title>
@@ -64,6 +65,19 @@
     {{-- <script src="../assets/ckeditor5/ckeditor.js"></script>
     <script src="../assets/ckeditor5/translations/id.js"></script> --}}
 
+    {{-- docseacrh --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+
+    {{-- instantsearch.js --}}
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@8.1.0/themes/reset-min.css"
+      integrity="sha256-2AeJLzExpZvqLUxMfcs+4DWcMwNfpnjUeAAvEtPr0wU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@8.1.0/themes/satellite-min.css"
+      integrity="sha256-p/rGN4RGy6EDumyxF9t7LKxWGg6/MZfGhJM/asKkqvA=" crossorigin="anonymous"> --}}
+
+    {{-- autocomplete.js --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-theme-classic" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docs-searchbar.js@latest/dist/cdn/docs-searchbar.min.css" />
     @livewireStyles
 </head>
 
@@ -76,255 +90,7 @@
     <script src="../assets/js/core/popper.min.js"></script>
     <script src="../assets/js/core/bootstrap.min.js"></script>
     <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
-    <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
-    <script src="../assets/js/plugins/chartjs.min.js"></script>
-    
-    <script>
-        var ctx = document.getElementById("chart-bars").getContext("2d");  
-        new Chart(ctx, {
-          type: "bar",
-          data: {
-            labels: ["M", "T", "W", "T", "F", "S", "S"],
-            datasets: [{
-              label: "Sales",
-              tension: 0.4,
-              borderWidth: 0,
-              borderRadius: 4,
-              borderSkipped: false,
-              backgroundColor: "rgba(255, 255, 255, .8)",
-              data: [50, 20, 10, 22, 50, 10, 40],
-              maxBarThickness: 6
-            }, ],
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: {
-                display: false,
-              }
-            },
-            interaction: {
-              intersect: false,
-              mode: 'index',
-            },
-            scales: {
-              y: {
-                grid: {
-                  drawBorder: false,
-                  display: true,
-                  drawOnChartArea: true,
-                  drawTicks: false,
-                  borderDash: [5, 5],
-                  color: 'rgba(255, 255, 255, .2)'
-                },
-                ticks: {
-                  suggestedMin: 0,
-                  suggestedMax: 500,
-                  beginAtZero: true,
-                  padding: 10,
-                  font: {
-                    size: 14,
-                    weight: 300,
-                    family: "Roboto",
-                    style: 'normal',
-                    lineHeight: 2
-                  },
-                  color: "#fff"
-                },
-              },
-              x: {
-                grid: {
-                  drawBorder: false,
-                  display: true,
-                  drawOnChartArea: true,
-                  drawTicks: false,
-                  borderDash: [5, 5],
-                  color: 'rgba(255, 255, 255, .2)'
-                },
-                ticks: {
-                  display: true,
-                  color: '#f8f9fa',
-                  padding: 10,
-                  font: {
-                    size: 14,
-                    weight: 300,
-                    family: "Roboto",
-                    style: 'normal',
-                    lineHeight: 2
-                  },
-                }
-              },
-            },
-          },
-        });
-    
-    
-        var ctx2 = document.getElementById("chart-line").getContext("2d");
-    
-        new Chart(ctx2, {
-          type: "line",
-          data: {
-            labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-            datasets: [{
-              label: "Mobile apps",
-              tension: 0,
-              borderWidth: 0,
-              pointRadius: 5,
-              pointBackgroundColor: "rgba(255, 255, 255, .8)",
-              pointBorderColor: "transparent",
-              borderColor: "rgba(255, 255, 255, .8)",
-              borderColor: "rgba(255, 255, 255, .8)",
-              borderWidth: 4,
-              backgroundColor: "transparent",
-              fill: true,
-              data: [50, 40, 300, 320, 500, 350, 200, 230, 500],
-              maxBarThickness: 6
-    
-            }],
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: {
-                display: false,
-              }
-            },
-            interaction: {
-              intersect: false,
-              mode: 'index',
-            },
-            scales: {
-              y: {
-                grid: {
-                  drawBorder: false,
-                  display: true,
-                  drawOnChartArea: true,
-                  drawTicks: false,
-                  borderDash: [5, 5],
-                  color: 'rgba(255, 255, 255, .2)'
-                },
-                ticks: {
-                  display: true,
-                  color: '#f8f9fa',
-                  padding: 10,
-                  font: {
-                    size: 14,
-                    weight: 300,
-                    family: "Roboto",
-                    style: 'normal',
-                    lineHeight: 2
-                  },
-                }
-              },
-              x: {
-                grid: {
-                  drawBorder: false,
-                  display: false,
-                  drawOnChartArea: false,
-                  drawTicks: false,
-                  borderDash: [5, 5]
-                },
-                ticks: {
-                  display: true,
-                  color: '#f8f9fa',
-                  padding: 10,
-                  font: {
-                    size: 14,
-                    weight: 300,
-                    family: "Roboto",
-                    style: 'normal',
-                    lineHeight: 2
-                  },
-                }
-              },
-            },
-          },
-        });
-    
-        var ctx3 = document.getElementById("chart-line-tasks").getContext("2d");
-    
-        new Chart(ctx3, {
-          type: "line",
-          data: {
-            labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-            datasets: [{
-              label: "Mobile apps",
-              tension: 0,
-              borderWidth: 0,
-              pointRadius: 5,
-              pointBackgroundColor: "rgba(255, 255, 255, .8)",
-              pointBorderColor: "transparent",
-              borderColor: "rgba(255, 255, 255, .8)",
-              borderWidth: 4,
-              backgroundColor: "transparent",
-              fill: true,
-              data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-              maxBarThickness: 6
-    
-            }],
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: {
-                display: false,
-              }
-            },
-            interaction: {
-              intersect: false,
-              mode: 'index',
-            },
-            scales: {
-              y: {
-                grid: {
-                  drawBorder: false,
-                  display: true,
-                  drawOnChartArea: true,
-                  drawTicks: false,
-                  borderDash: [5, 5],
-                  color: 'rgba(255, 255, 255, .2)'
-                },
-                ticks: {
-                  display: true,
-                  padding: 10,
-                  color: '#f8f9fa',
-                  font: {
-                    size: 14,
-                    weight: 300,
-                    family: "Roboto",
-                    style: 'normal',
-                    lineHeight: 2
-                  },
-                }
-              },
-              x: {
-                grid: {
-                  drawBorder: false,
-                  display: false,
-                  drawOnChartArea: false,
-                  drawTicks: false,
-                  borderDash: [5, 5]
-                },
-                ticks: {
-                  display: true,
-                  color: '#f8f9fa',
-                  padding: 10,
-                  font: {
-                    size: 14,
-                    weight: 300,
-                    family: "Roboto",
-                    style: 'normal',
-                    lineHeight: 2
-                  },
-                }
-              },
-            },
-          },
-        });
-    </script>
+    <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script> 
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
         if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -334,12 +100,7 @@
           Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
         }
     </script>
-    @stack('newTicket')
-    @stack('openTicket')
-    @stack('closedTicket')
-    @stack('unassignedTicket')
-    @stack('ckeditor')
-    @stack('ckeditor-edit')
+    @stack('scriptDashboard')
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
@@ -373,6 +134,34 @@
                 @endif
             });
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+
+    {{-- instantsearch.js --}}
+    <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.20.0/dist/algoliasearch-lite.umd.js"
+      integrity="sha256-DABVk+hYj0mdUzo+7ViJC6cwLahQIejFvC+my2M/wfM=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.60.0/dist/instantsearch.production.min.js"
+      integrity="sha256-9242vN47QUX50UG5Gf5XDO1YREWCEJRyXHofh5fsl24=" crossorigin="anonymous"></script>
+
+    {{-- autocomplete.js --}}
+    <script src="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-js"></script>
+    <script>
+      const { autocomplete } = window['@algolia/autocomplete-js'];
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-plugin-query-suggestions"></script>
+    <script>
+      const { createQuerySuggestionsPlugin } = window[
+        '@algolia/autocomplete-plugin-query-suggestions'
+      ];
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-plugin-recent-searches"></script>
+    <script>
+      const { createRecentSearchesPlugin } = window[
+        '@algolia/autocomplete-plugin-recent-searches'
+      ];
+    </script>
+
+    {{-- <script src="https://cdn.jsdelivr.net/npm/docs-searchbar.js@latest/dist/cdn/docs-searchbar.min.js"></script> --}}
 </body>
 
 </html>
