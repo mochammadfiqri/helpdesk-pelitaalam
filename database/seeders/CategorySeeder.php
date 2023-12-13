@@ -20,6 +20,12 @@ class CategorySeeder extends Seeder
             'Internet',
             'Website',
             'Technical',
+            'E-Learning',
+            'Data Hilang',
+            'Printer',
+            'Password',
+            'Proyektor',
+            'Virus/Malware'
         ];
 
         foreach ($data as $value) {

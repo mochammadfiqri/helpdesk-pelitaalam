@@ -24,8 +24,13 @@ class DepartmentSeeder extends Seeder
             'Admin',
             'Keuangan',
             'Akademik',
+            'Staff TU',
             'Operator',
             'Kesiswaan',
+            'Kepala Sekolah',
+            'Wakil Kepala Sekolah',
+            'Wali Kelas',
+            'Guru',
         ];
 
         foreach ($data as $value) {

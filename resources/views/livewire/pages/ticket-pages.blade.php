@@ -22,45 +22,37 @@
                         <div class="modal-body">
                             <div class="mb-3">
                                 <div class="row">
-                                    <div class="col-6">
-                                        <label class="form-label text-bold">Name</label>
+                                    <div class="col-4">
+                                        <label class="form-label text-bold">Email</label>
                                         <div class="input-group input-group-outline rounded-full mt-n2">
-                                            <input wire:model.defer="subject" type="text"
-                                                class="form-control @error('subject') is-invalid @enderror"
-                                                placeholder="Enter Full Name">
+                                            <input wire:model.defer="email" type="email" class="form-control @error('email') is-invalid @enderror"
+                                                placeholder="Enter Email">
+                                        </div>
+                                        @error('email')
+                                            <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-8">
+                                        <label class="form-label text-bold">Subject</label>
+                                        <div class="input-group input-group-outline rounded-full mt-n2">
+                                            <input wire:model.defer="subject" type="text" class="form-control "
+                                                placeholder="Enter subject">
                                         </div>
                                         @error('subject')
                                         <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
                                         @enderror
                                     </div> 
-                                    <div class="col-6">
-                                        <label class="form-label text-bold">Email</label>
-                                        <div class="input-group input-group-outline rounded-full mt-n2">
-                                            <input wire:model.defer="subject" type="text" class="form-control @error('subject') is-invalid @enderror"
-                                                placeholder="Enter Email">
-                                        </div>
-                                        @error('subject')
-                                        <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
-                                        @enderror
-                                    </div>
                                 </div>
-                            </div>
-                            <div>
-                                <label class="form-label text-bold">Subject</label>
-                                <div class="input-group input-group-outline rounded-full mt-n2">
-                                    <input wire:model.defer="subject" type="text" class="form-control @error('subject') is-invalid @enderror"
-                                        placeholder="Enter subject">
-                                </div>
-                            </div>
+                            </div> 
                             <div class="row my-3">
                                 <div class="col-4">
                                     <label class="form-label text-bold">Department</label>
                                     <div class="input-group input-group-outline mt-n2">
-                                        <select wire:model.defer="" class="form-control">
+                                        <select wire:model.defer="department_id" class="form-control">
                                             <option value="">Select a department</option>
-                                            {{-- @foreach ($type as $item)
-                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                            @endforeach --}}
+                                            @foreach ($department as $item)
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     @error('department_id')
@@ -72,9 +64,9 @@
                                     <div class="input-group input-group-outline mt-n2">
                                         <select wire:model.defer="type_id" class="form-control">
                                             <option value="">Select a Type</option>
-                                            {{-- @foreach ($type as $item)
-                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                            @endforeach --}}
+                                            @foreach ($type as $item)
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     @error('type_id')
@@ -86,9 +78,9 @@
                                     <div class="input-group input-group-outline mt-n2">
                                         <select wire:model.defer="category_id" class="form-control">
                                             <option value="">Select a Category</option>
-                                            {{-- @foreach ($type as $item)
+                                            @foreach ($category as $item)
                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                            @endforeach --}}
+                                            @endforeach
                                         </select>
                                     </div>
                                     @error('category_id')
@@ -98,7 +90,7 @@
                             </div> 
                             <div class="mb-0">
                                 <label class="form-label text-bold">Details</label>
-                                <div wire:ignore class="mt-n2 mb-5">
+                                <div wire:ignore class="mt-n2 mb-2">
                                     <textarea id="details_add"></textarea>
                                     <script>
                                         document.addEventListener('livewire:load', function () {
@@ -122,7 +114,7 @@
                                     <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="mb-3 ">
+                            <div class="mb-3 mt-3">
                                 <label for="fileInput" class="form-label">
                                     <i class="fa-solid fa-file-circle-plus fa-xl"></i>
                                     <input type="file" class="form-control" id="fileInput" style="display: none;">

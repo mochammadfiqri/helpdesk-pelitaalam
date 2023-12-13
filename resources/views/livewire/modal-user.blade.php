@@ -43,6 +43,19 @@
                             <label class="form-check-label mb-0 ms-3" for="showpassword">Lihat
                                 Password</label>
                         </div>
+                        {{-- Script Lihat Password --}}
+                        <script>
+                            const passwordInput = document.getElementById('password');
+                                const showPasswordCheckbox = document.getElementById('showpassword');
+                            
+                                showPasswordCheckbox.addEventListener('change', function() {
+                                    if (this.checked) {
+                                        passwordInput.type = 'text';
+                                    } else {
+                                        passwordInput.type = 'password';
+                                    }
+                                });
+                        </script>
                     </div>
                     <div class="row mb-3">
                         <div class="col-6">

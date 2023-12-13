@@ -8,20 +8,21 @@ use App\Models\KnowledgeBase;
 
 class EditKnowledge extends Component
 {
-    public $title, $type_id, $details, $kb_id, $search;
+    public $title, $type_id, $details, $slug, $kb_id, $search;
 
     public function mount()
     {
-        $this->kb_id = session('editing_kb_id');
+        $this->slug = session('editing_kb_slug');
         $this->loadKnowledgeDetails();
     }
 
     public function loadKnowledgeDetails()
     {
-        $knowledge_base = KnowledgeBase::find($this->kb_id);
-
+        $knowledge_base = KnowledgeBase::where('slug', $this->slug)->first();
         if ($knowledge_base) {
+            $this->kb_id = $knowledge_base->id;
             $this->title = $knowledge_base->title;
+            $this->slug = $knowledge_base->slug;
             $this->details = $knowledge_base->details;
             $this->type_id = $knowledge_base->type_id;
         } else {
@@ -35,6 +36,7 @@ class EditKnowledge extends Component
 
         $knowledgeBase = KnowledgeBase::find($this->kb_id);
         $knowledgeBase->title = $this->title;
+        $knowledgeBase->slug = $this->slug;
         $knowledgeBase->type_id = $this->type_id;
         $knowledgeBase->details = $this->details;
 

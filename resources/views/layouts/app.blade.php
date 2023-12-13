@@ -1,6 +1,24 @@
 <x-layouts.base>
     @auth
-        @if (Request::routeIs(['dashboard', 'users','priority','status','types','category','global_setting','knowledge', 'main_knowledge','create_knowledge','edit_knowledge','main_tickets']))
+        @if (Request::routeIs([
+                'dashboard', 
+                'users',
+                'priority',
+                'status',
+                'types',
+                'category',
+                'department',
+                'global_setting',
+                'knowledge', 
+                'main_knowledge',
+                'create_knowledge',
+                'edit_knowledge',
+                'main_ticket', 
+                'create_ticket', 
+                'edit_ticket', 
+                'main_dataset',
+            ]))
+            @stack('datasetModal')
             @include('layouts.sidebars.sidebar')
             <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
                 <div class="container-fluid py-1">

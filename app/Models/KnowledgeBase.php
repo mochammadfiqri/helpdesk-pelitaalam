@@ -15,6 +15,7 @@ class KnowledgeBase extends Model
 
     protected $fillable = [
         'title',
+        'slug',
         'details',
         'type_id',
     ];
@@ -59,5 +60,10 @@ class KnowledgeBase extends Model
                 $model->slug = Str::slug($model->title);
             }
         });
+    }
+
+    public function setSlugAttribute($value)
+    {
+        $this->attributes['slug'] = Str::slug($value);
     }
 }

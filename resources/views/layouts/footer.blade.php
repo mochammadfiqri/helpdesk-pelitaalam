@@ -2,18 +2,18 @@
     <div class="container-fluid">
         <div class="row align-items-center justify-content-lg-between">
             <div class="col-lg-6 mb-lg-0 mb-4">
-                @php
+                {{-- @php
                     $settings = \App\Models\Setting::all(); // Ambil semua data dari tabel 'settings'
-                @endphp
+                @endphp --}}
                 <div class="copyright text-center text-sm text-muted text-lg-start">
                     Copyright
                     ©
                     <script>
                         document.write(new Date().getFullYear())
                     </script>
-                    @foreach($settings as $setting)
+                    {{-- @foreach($settings as $setting)
                         <label class="font-weight-bold">{{ $setting->title_web }}</label>
-                    @endforeach
+                    @endforeach --}}
                     All rights reserved.
                 </div>
             </div>

@@ -22,9 +22,10 @@ class TypeSeeder extends Seeder
         $data = [
             'Hardware',
             'Software',
-            'Event',
-            'Tutorial',
-            'Website',
+            'Jaringan Internet',
+            'Masalah Aplikasi',
+            'Masalah Akun',
+            'Keamanan Informasi',
         ];
 
         foreach ($data as $value) {

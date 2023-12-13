@@ -5,8 +5,10 @@ use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\LandingPage;
 use App\Http\Livewire\Auth\Register;
 use App\Http\Livewire\Categories;
+use App\Http\Livewire\Department;
 use App\Http\Livewire\ETicket\CreateTicket;
 use App\Http\Livewire\ETicket\EditTicket;
+use App\Http\Livewire\ETicket\MainDataset;
 use App\Http\Livewire\ETicket\MainTicket;
 use App\Http\Livewire\GlobalSetting;
 use App\Http\Livewire\KnowledgeBase\CreateKnowledge;
@@ -19,6 +21,7 @@ use App\Http\Livewire\Priority;
 use App\Http\Livewire\Status;
 use App\Http\Livewire\Types;
 use App\Http\Livewire\Users;
+use App\Models\DatasetTickets;
 use App\Models\Tickets;
 
 /*
@@ -38,23 +41,7 @@ Route::middleware('onlyGuest')->group(function () {
     Route::get('/knowledge', KnowledgePages::class)->name('knowledge-page');
     Route::get('/e-ticket', TicketPages::class)->name('ticket-page');
     Route::get('/login', Login::class)->name('login');
-    Route::get('/register', Register::class)->name('register');
-
-    // Route::get('/search-autocomplete', Search::class)->name('landing-page');
-
-    // Route::get('/search-autocomplete', function (Request $request) {
-    //     $query = $request->input('q');
-
-    //     // Fetch data from your database or other source
-    //     $data = [
-    //         // Your search results data
-    //     ];
-
-    //     return response()->json([
-    //         'hits' => $data,
-    //         'query' => $query
-    //     ]);
-    // });
+    Route::get('/register', Register::class)->name('register'); 
 });
 
 Route::middleware('auth')->group(function() {
@@ -63,14 +50,16 @@ Route::middleware('auth')->group(function() {
 
     Route::middleware('onlyAdmin')->group(function() {
         Route::get('/knowledge-base', MainKnowledge::class)->name('main_knowledge');
-        Route::get('/knowledge-base/create', CreateKnowledge::class)->name('create_knowledge');
-        Route::get('/knowledge-base/edit', EditKnowledge::class)->name('edit_knowledge');
+        Route::get('/knowledge-base/create-new-knowledge', CreateKnowledge::class)->name('create_knowledge');
+        Route::get('/knowledge-base/{slug}', EditKnowledge::class)->name('edit_knowledge');
 
-        Route::get('/tickets', MainTicket::class)->name('main_tickets');
-        Route::get('/tickets/create', CreateTicket::class)->name('create_tickets');
-        Route::get('/tickets', EditTicket::class)->name('edit_tickets');
+        Route::get('/tickets', MainTicket::class)->name('main_ticket');
+        Route::get('/tickets/create-new-ticket', CreateTicket::class)->name('create_ticket');
+        Route::get('/tickets/dataset', MainDataset::class)->name('main_dataset');
+        Route::get('/tickets/{ticket_id}', EditTicket::class)->name('edit_ticket');
 
         Route::get('/categories', Categories::class)->name('category');
+        Route::get('/department', Department::class)->name('department');
         Route::get('/users', Users::class)->name('users');
         Route::get('/priorities', Priority::class)->name('priority');
         Route::get('/statuses', Status::class)->name('status');

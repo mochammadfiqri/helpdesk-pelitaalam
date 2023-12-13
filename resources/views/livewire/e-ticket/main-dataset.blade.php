@@ -1,4 +1,5 @@
 <div class="row ">
+    @include('livewire.e-ticket.import-dataset')
     <div class="col-12 mt-3">
         <div class="card my-2">
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 ">
@@ -6,7 +7,7 @@
                     <div class="row">
                         <div class="col-12">
                             <h6 class="text-white text-uppercase ps-3 float-start">
-                                E - Ticketing
+                                Dataset Ticket
                             </h6>
                         </div>
                     </div>
@@ -17,7 +18,7 @@
                             <x-btn-search style="display: flex; align-items: center;" placeholder="Search Ticket...">
                                 @section('icon-x')
                                 @if($search)
-                                    <i class="fa-solid fa-circle-xmark fa-lg" wire:click="clearSearch"></i>
+                                <i class="fa-solid fa-circle-xmark fa-lg" wire:click="clearSearch"></i>
                                 @endif
                                 @endsection
                             </x-btn-search>
@@ -25,18 +26,17 @@
                     </div>
                     <div class="col-12 col-md-8 col-lg-8">
                         <div class="d-flex justify-content-end align-items-center ">
-                            <a href="{{ route('main_dataset') }}" class="btn btn-rounded bg-gradient-info mx-2 mx-sm-1">
-                                <i class="fa-solid fa-file-lines fa-lg"></i>&nbsp;&nbsp;&nbsp;Dataset
+                            <a class="btn btn-rounded bg-gradient-info mx-2 mx-sm-1" data-bs-toggle="modal" data-bs-target="#importDataset">
+                                <i class="fa-solid fa-file-import fa-lg"></i>&nbsp;&nbsp;&nbsp;Import Dataset
                             </a>
-                            <a href="{{ route('create_ticket') }}"
-                                class="btn btn-rounded bg-gradient-info mx-2 mx-sm-1">
-                                <i class="fa-solid fa-plus fa-lg"></i>&nbsp;&nbsp;&nbsp;Create Ticket
+                            <a href="{{ route('main_dataset') }}" class="btn btn-rounded bg-gradient-info mx-2 mx-sm-1">
+                                <i class="fa-solid fa-plus fa-lg"></i>&nbsp;&nbsp;&nbsp;Add Dataset
                             </a>
                         </div>
                     </div>
                 </div>
                 <div class="mb-3 mt-1">
-                    @include('livewire.e-ticket.tbl-ticket')
+                    @include('livewire.e-ticket.tbl-dataset')
                 </div>
             </div>
         </div>

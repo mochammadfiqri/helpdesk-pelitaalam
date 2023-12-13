@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('knowledge_bases', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('slug');
+            $table->string('slug')->nullable();
             $table->longText('details');
             $table->integer('views');
             $table->unsignedBigInteger('type_id');

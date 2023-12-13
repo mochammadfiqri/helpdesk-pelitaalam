@@ -13,9 +13,8 @@ class MainKnowledge extends Component
     protected $paginationTheme = 'bootstrap';
     public $checkedPost = [];
     public $selectAll = false;
-    public $stackSearch;
 
-    public $title, $type_id, $details, $kb_id, $search;
+    public $title, $type_id, $details, $kb_id, $slug, $search;
 
     public function updatedSelectAll() {
         if ($this->selectAll) {
@@ -35,12 +34,12 @@ class MainKnowledge extends Component
             'toast_type' => 'success', // Jenis pesan (success, error, warning, info)
             'toast_message' => 'Knowledge Berhasil di Hapus !', // Isi pesan
         ]);
-    }
-
-    public function editKnowledge($id)
+    } 
+    
+    public function editKnowledge($slug)
     {
-        session(['editing_kb_id' => $id]);
-        return redirect()->to(route('edit_knowledge'));
+        session(['editing_kb_slug' => $slug]);
+        return redirect()->to(route('edit_knowledge', ['slug' => $slug]));
     }
 
     public function clearSearch()

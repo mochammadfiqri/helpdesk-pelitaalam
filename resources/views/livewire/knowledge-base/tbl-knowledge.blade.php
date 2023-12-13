@@ -5,7 +5,7 @@
             <i class="fa-solid fa-trash-can fa-fade"></i>&nbsp;&nbsp;&nbsp;Delete ({{ count($checkedPost) }})
         </a>
     @endif
-    <table class="table table-hover align-items-center justify-content-start mb-0">
+    <table class="table @if($knowledge_base->count() > 0) table-hover @endif align-items-center justify-content-start mb-0">
         <thead>
             <tr> 
                 <th class="px-0" style="width: 1rem">
@@ -25,7 +25,8 @@
         <tbody>
             @if ($knowledge_base->count() > 0)
             @foreach ($knowledge_base as $data)
-            <tr wire:click="editKnowledge({{ $data->id }})" style="cursor: pointer;" > 
+            {{-- <tr wire:click="editKnowledge({{ $data->id }})" style="cursor: pointer;" >  --}}
+            <tr wire:click="editKnowledge('{{ $data->slug }}')" style="cursor: pointer;">
                 <td>
                     <div class="form-check p-0 mx-auto">
                         <input class="form-check-input" type="checkbox" value="{{ $data->id }}" wire:key='{{ $data->id }}'

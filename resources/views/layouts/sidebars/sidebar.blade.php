@@ -79,7 +79,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white {{ request()->routeIs('main_tickets') ? 'active bg-gradient-primary' : '' }}" href="{{ route('main_tickets') }}" href="#">
+                    <a class="nav-link text-white {{ (request()->routeIs('main_ticket') || request()->routeIs('main_dataset')) ? 'active bg-gradient-primary' : '' }}"
+                        href="{{ route('main_ticket') }}">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="fa-solid fa-ticket fa-xl"></i>
                         </div>
@@ -114,10 +115,18 @@
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link text-white  {{ request()->routeIs('category') ? 'active bg-gradient-primary' : '' }}" href="{{ route('category') }}">
+                                <a class="nav-link text-white {{ request()->routeIs('category') ? 'active bg-gradient-primary' : '' }}" href="{{ route('category') }}">
                                     <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
                                         <i class="fa-solid fa-layer-group fa-sm"></i>
                                         <span class="nav-link-text text-sm ms-2">Categories</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white {{ request()->routeIs('department') ? 'active bg-gradient-primary' : '' }}" href="{{ route('department') }}">
+                                    <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
+                                        <i class="fa-regular fa-building fa-sm"></i>
+                                        <span class="nav-link-text text-sm ms-2">Department</span>
                                     </div>
                                 </a>
                             </li>

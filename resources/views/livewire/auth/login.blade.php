@@ -62,6 +62,7 @@
                                     <label class="form-check-label" for="showpassword">Lihat
                                         Password</label>
                                 </div>
+                                {{-- Script Lihat Password --}}
                                 <script>
                                     const passwordInput = document.getElementById('password');
                                         const showPasswordCheckbox = document.getElementById('showpassword');
