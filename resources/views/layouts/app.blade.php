@@ -91,6 +91,20 @@
                 </style>
             </main>
             @include('components.plugins.fixed-plugin')
+        @elseif (in_array(request()->route()->getName(),['landing-page','knowledge-page','ticket-page']))
+            <body class="index-page bg-gray-200">
+                <div class="container position-sticky z-index-sticky top-0">
+                    <div class="row">
+                        <div class="col-12">
+                            @include('layouts.navbars.guest.nav')
+                        </div>
+                    </div>
+                </div>
+                {{ $slot }}
+                {{-- <script type="text/javascript" id="helplook-sdk" src="https://sdk.helplook.net/pro/hlSdk.js?id=xva2ii"></script> --}}
+                <iframe width="350" height="430" allow="microphone;"
+                    src="https://console.dialogflow.com/api-client/demo/embedded/3ca582aa-e105-4cba-9534-5e6bd9adcd3f"></iframe>
+            </body>
         @endif
     @endauth
 
@@ -105,35 +119,10 @@
                 </div>
             </div>
             {{ $slot }}
-            <script type="text/javascript" id="helplook-sdk" src="https://sdk.helplook.net/pro/hlSdk.js?id=xva2ii"></script>
+            {{-- <script type="text/javascript" id="helplook-sdk" src="https://sdk.helplook.net/pro/hlSdk.js?id=xva2ii"></script> --}}
+            <iframe width="350" height="430" allow="microphone;"
+                src="https://console.dialogflow.com/api-client/demo/embedded/3ca582aa-e105-4cba-9534-5e6bd9adcd3f"></iframe>
         </body>
-        @elseif (in_array(request()->route()->getName(),['login-select']))
-            <style>
-                .nav-pills .nav-link.active {
-                    background-color: #e91e63;
-                    color: white;
-                    /* Adjust text color as needed */
-                }
-            
-                /* Change the outline color when the link is clicked */
-                .card:active {
-                    border-color: #e91e63;
-                    /* Change this to your desired color */
-                }
-            
-                /* Change the color when the link is hovered */
-                .card:hover {
-                    border-color: #e91e63;
-                    /* Change to the desired color */
-                }
-            
-                /* Change the color of the link text when hovered */
-                .card:hover a {
-                    color: #e91e63;
-                    /* Change to the desired color */
-                }
-            </style>
-            {{ $slot }}
         @elseif (in_array(request()->route()->getName(),['login','register']))
             <main class="main-content mt-0">
                 {{ $slot }}
@@ -196,4 +185,6 @@
             </main>
         @endif
     @endguest
+
+
 </x-layouts.base>

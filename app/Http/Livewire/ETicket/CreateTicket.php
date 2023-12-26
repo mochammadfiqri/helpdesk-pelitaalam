@@ -9,120 +9,101 @@ use Livewire\Component;
 use App\Models\Category;
 use App\Models\Department;
 use App\Models\Priorities;
-use Phpml\Classification\NaiveBayes;
-use Phpml\Tokenization\WordTokenizer;
-use Phpml\Classification\KNearestNeighbors;
+use App\Models\DatasetTickets;
 
 class CreateTicket extends Component
 {
-    public $ticket_key, $name, $email, $subject, $details, $user_id, $assigned_user_id, $type_id, $priority_id, $status_id, $category_id, $department_id, $file;
+    public $ticket_key, $name, $email, $subject, $details, $user_id, $assigned_user_id, $type_id, $priority_id;
+    public $status_id, $category_id, $department_id, $sender_id, $receiver_id, $file;
 
     public function rules() {
         return [
             'user_id' => ['required'],
-            'priority_id' => ['required'],
-            'department_id' => ['required'],
-            'type_id' => ['required'],
-            'category_id' => ['required'],
+            // 'priority_id' => ['required'],
+            // 'department_id' => ['required'],
+            // 'type_id' => ['required'],
+            // 'category_id' => ['required'],
             'subject' => ['required'],
             'details' => ['required'],
         ];
     }
-
-    // public function createTicket() {
-    //     $user = User::find($this->user_id);
-
-    //     $this->validate();
-    //     Tickets::create([
-    //         'email' => $user->email,
-    //         'user_id' => $this->user_id,
-    //         'assigned_user_id' => $this->assigned_user_id,
-    //         'priority_id' => $this->priority_id,
-    //         'department_id' => $this->department_id,
-    //         'type_id' => $this->type_id,
-    //         'category_id' => $this->category_id,
-    //         'subject' => $this->subject,
-    //         'details' => $this->details,
-    //     ]);
-    //     $this->fresh();
-    //     return redirect()->to('/tickets')->with([
-    //         'toast_type' => 'success', // Jenis pesan (success, error, warning, info)
-    //         'toast_message' => 'Berhasil Menambahkan Tickets', // Isi pesan
-    //     ]);
-    // }
-
+    
     public function createTicket() { 
-        //Preprocessing: Tokenization, Filtering and Stemming
-        // $stemmerFactory = new StemmerFactory();
-        // $stemmer  = $stemmerFactory->createStemmer();
-        // $stopWordRemoverFactory = new StopWordRemoverFactory();
-        // $stopWordRemover = $stopWordRemoverFactory->createStopWordRemover();
+        // //Priority Predict
+        $nb = naive_bayes();
+        $dataset = DatasetTickets::all();
+        // Bagi data menjadi data latih (training) dan data uji (testing)
+        $trainingData = $dataset->slice(0, floor(0.8 * count($dataset))); // 80% data latih
+        // Latih model dengan data latih
+        foreach ($trainingData as $key => $value) {
+            $nb->train($value->priority_id, tokenize($value->details));
+        }
+        //Probabilitas
+        $predict_priority_id = $nb->predict(tokenize($this->details));
+        // Ubah output prediksi menjadi nama priority
+        // $priorityName = Priorities::pluck('name', 'id');
+        $predictedPriority = array_search(max($predict_priority_id), $predict_priority_id);
+        // $predictedPriorityName = $priorityName[$predictedPriority];
+        // Tampilkan hasil prediksi
+        // dd($predictedPriorityName);
 
-        // $filteredWords = $stopWordRemover->remove($this->details);
-        // $stemToken   = $stemmer->stem($filteredWords);
+        //Type Predict
+        $nb = naive_bayes();
+        $dataset = DatasetTickets::all();
+        $trainingData = $dataset->slice(0, floor(0.8 * count($dataset)));
+        foreach ($trainingData as $key => $value) {
+            $nb->train($value->type_id, tokenize($value->details));
+        }
+        $predict_type_id = $nb->predict(tokenize($this->details));
+        $predictedType = array_search(max($predict_type_id), $predict_type_id);
+        // Tampilkan hasil prediksi
+        // dd($predictedTypeName);
 
-        // $tokenizer = new WhitespaceTokenizer();
-        // $tokens = $tokenizer->tokenize($stemToken);
+        //Category Predict
+        $nb = naive_bayes();
+        $dataset = DatasetTickets::all();
+        $trainingData = $dataset->slice(0, floor(0.8 * count($dataset)));
+        foreach ($trainingData as $key => $value) {
+            $nb->train($value->category_id, tokenize($value->details));
+        }
+        $predict_category_id = $nb->predict(tokenize($this->details));
+        $predictedCategory = array_search(max($predict_category_id), $predict_category_id);
+        // Tampilkan hasil prediksi
+        // dd($predictedCategoryName);
 
-        // dd($tokens);
+        //Department Predict
+        $nb = naive_bayes();
+        $dataset = DatasetTickets::all();
+        $trainingData = $dataset->slice(0, floor(0.8 * count($dataset)));
+        foreach ($trainingData as $key => $value) {
+            $nb->train($value->department_id, tokenize($value->details));
+        }
+        $predict_department_id = $nb->predict(tokenize($this->details));
+        $predictedDepartment = array_search(max($predict_department_id), $predict_department_id);
+        // Tampilkan hasil prediksi
+        // dd($predictedDepartmentName);
 
-        // $tokenizer = new WordTokenizer();
-        // $tokens = $tokenizer->tokenize($this->details);
-        // dd($tokens);
-
-        $data = [
-            [
-                'subject' => 'Website tidak bisa dibuka',
-                'details' => 'Website tidak bisa dibuka di semua browser',
-                'priority' => 'High',
-                'type' => 'Website',
-                'category' => 'Internet',
-            ],
-            [
-                'subject' => 'Aplikasi tidak bisa dibuka',
-                'details' => 'Aplikasi tidak bisa dibuka di semua perangkat',
-                'priority' => 'Medium',
-                'type' => 'Aplikasi',
-                'category' => 'Software',
-            ],
-            [
-                'subject' => 'Data hilang',
-                'details' => 'Data hilang dari database',
-                'priority' => 'Low',
-                'type' => 'Data',
-                'category' => 'Technical',
-            ],
-        ];
-
-        $classifier = new NaiveBayes();
-        $labels = array_column($data, 'priority');
-        $classifier->train($data, $labels);
-
-        $ticket = [
-            'subject' => 'Laptop bluescreen',
-            'details' => 'Selamat siang, tolong perbaiki laptop saya, laptop saya mengalami bluescreen. Terima kasih',
-        ];
-
-        $prediction = $classifier->predict($ticket);
+        $user = User::find($this->user_id);
         
-        dd(["Priority: " . $prediction['priority'] . "\n"],["Type: " . $prediction['type'] . "\n"],["Category: " . $prediction['category'] . "\n"]);
-
-        // $user = User::find($this->user_id);
-
-        // $data = [
-        //     'email' => $user->email,
-        //     'user_id' => $this->user_id,
-        //     'assigned_user_id' => $this->assigned_user_id,
-        //     'priority_id' => $priority->id,
-        //     'department_id' => $this->department_id,
-        //     'type_id' => $type->id,
-        //     'category_id' => $category->id,
-        //     'subject' => $this->subject,
-        //     'details' => $this->details,
-
-        // ];
- 
-     
+        $this->validate();
+        Tickets::create([
+            'email' => $user->email,
+            'subject' => $this->subject,
+            'details' => $this->details,
+            'user_id' => $this->user_id,
+            'assigned_user_id' => $this->assigned_user_id,
+            'priority_id' => "$predictedPriority",
+            'department_id' => "$predictedDepartment",
+            'type_id' => "$predictedType",
+            'category_id' => "$predictedCategory",
+            // 'sender_id' => $this->user_id,
+            // 'receiver_id' => $this->assigned_user_id,
+        ]);
+        $this->fresh();
+        return redirect()->to('/tickets')->with([
+            'toast_type' => 'success', // Jenis pesan (success, error, warning, info)
+            'toast_message' => 'Berhasil Menambahkan Tickets', // Isi pesan
+        ]);
     }
 
     public function fresh() {

@@ -45,7 +45,7 @@
                     @if ($data->foto !== null)
                         <img src="{{ asset('storage/'.$data->foto) }}" class="avatar avatar-sm">
                     @else
-                        <img src="{{ asset('assets') }}/img/user.png" class="avatar avatar-sm">
+                        <img src="https://ui-avatars.com/api/?background=random&bold=true&name={{ $data->nama }}" class="avatar avatar-sm">
                     @endif
                 </td>
                 <td class="text-center">

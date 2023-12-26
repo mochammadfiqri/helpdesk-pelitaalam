@@ -44,68 +44,8 @@
                                         <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                    {{-- <div class="col-4">
-                                        <label class="form-label text-bold">Priority</label>
-                                        <div class="input-group input-group-outline mt-n2">
-                                            <select wire:model.defer='priority_id' class="form-control">
-                                                <option value="">Select Priority</option>
-                                                @foreach ($priority as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        @error('priority_id')
-                                        <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
-                                        @enderror
-                                    </div> --}}
                                 </div>
                             </div>
-                            {{-- <div class="mb-3">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <label class="form-label text-bold">Department</label>
-                                        <div class="input-group input-group-outline mt-n2">
-                                            <select wire:model.defer='department_id' class="form-control">
-                                                <option value="">Select Department</option>
-                                                @foreach ($department as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        @error('department_id')
-                                        <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                    <div class="col-4">
-                                        <label class="form-label text-bold">Type</label>
-                                        <div class="input-group input-group-outline mt-n2">
-                                            <select wire:model.defer='type_id' class="form-control">
-                                                <option value="">Select Type</option>
-                                                @foreach ($type as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        @error('type_id')
-                                        <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                    <div class="col-4">
-                                        <label class="form-label text-bold">Category</label>
-                                        <div class="input-group input-group-outline mt-n2">
-                                            <select wire:model.defer='category_id' class="form-control">
-                                                <option value="">Select Category</option>
-                                                @foreach ($category as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        @error('category_id')
-                                        <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div> --}}
                             <div class="mb-3">
                                 <div class="row">
                                     <div class="col-12">

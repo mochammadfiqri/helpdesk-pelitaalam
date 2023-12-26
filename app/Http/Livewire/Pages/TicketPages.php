@@ -8,6 +8,7 @@ use App\Models\Tickets;
 use Livewire\Component;
 use App\Models\Category;
 use App\Models\Department;
+use App\Models\DatasetTickets;
 
 class TicketPages extends Component
 {
@@ -16,54 +17,94 @@ class TicketPages extends Component
     public function rules() {
         return [
             'email' => ['required', 'email', 'exists:users,email'],
-            'user_id' => ['required'],
-            'department_id' => ['required'],
-            'type_id' => ['required'],
-            'category_id' => ['required'],
-            'subject' => ['required'],
-            'details' => ['required'],
+            'subject' => ['required', 'unique:dataset_tickets'],
+            'details' => ['required', 'unique:dataset_tickets'],
         ];
     }
 
     public function createTicket() { 
-        $this->validate();
-        dd(
-            $this->email,
-            $this->subject,
-            $this->department_id,
-            $this->type_id,
-            $this->category_id,
-            $this->details
-        );
-
-        $user = User::where('email', $this->email)->first();
-
-        dd($user);
         
-        Tickets::create([
-            'user_id' => $user->id,
-            'email' => $user->email,
-            'subject' => $this->subject,
-            'department_id' => $this->department_id,
-            'type_id' => $this->type_id,
-            'category_id' => $this->category_id,
-            'details' => $this->details,
-        ]);
+
+        // //Priority Predict
+        $nb = naive_bayes();
+        $dataset = DatasetTickets::all();
+        $trainingData = $dataset->slice(0, floor(0.8 * count($dataset))); // 80% data latih
+        foreach ($trainingData as $key => $value) {
+            $nb->train($value->priority_id, tokenize($value->details));
+        }
+        //Probabilitas
+        $predict_priority_id = $nb->predict(tokenize($this->details));
+        $predictedPriority = array_search(max($predict_priority_id), $predict_priority_id);
+
+        //Type Predict
+        $nb = naive_bayes();
+        $dataset = DatasetTickets::all();
+        $trainingData = $dataset->slice(0, floor(0.8 * count($dataset)));
+        foreach ($trainingData as $key => $value) {
+            $nb->train($value->type_id, tokenize($value->details));
+        }
+        $predict_type_id = $nb->predict(tokenize($this->details));
+        $predictedType = array_search(max($predict_type_id), $predict_type_id);
+
+        //Category Predict
+        $nb = naive_bayes();
+        $dataset = DatasetTickets::all();
+        $trainingData = $dataset->slice(0, floor(0.8 * count($dataset)));
+        foreach ($trainingData as $key => $value) {
+            $nb->train($value->category_id, tokenize($value->details));
+        }
+        $predict_category_id = $nb->predict(tokenize($this->details));
+        $predictedCategory = array_search(max($predict_category_id), $predict_category_id);
+
+        //Department Predict
+        $nb = naive_bayes();
+        $dataset = DatasetTickets::all();
+        $trainingData = $dataset->slice(0, floor(0.8 * count($dataset)));
+        foreach ($trainingData as $key => $value) {
+            $nb->train($value->department_id, tokenize($value->details));
+        }
+        $predict_department_id = $nb->predict(tokenize($this->details));
+        $predictedDepartment = array_search(max($predict_department_id), $predict_department_id);
+
+        // $user = User::where('email', $this->email)->first();
+        // $this->validate();
         // $data = [
         //     'user_id' => $user->id,
-        //     'email' => $user->email,
+        //     'email' => $this->email,
+        //     'priority_id' => "$predictedPriority",
+        //     'department_id' => "$predictedDepartment",
+        //     'type_id' => "$predictedType",
+        //     'category_id' => "$predictedCategory",
         //     'subject' => $this->subject,
-        //     'department_id' => $this->department_id,
-        //     'type_id' => $this->type_id,
-        //     'category_id' => $this->category_id,
         //     'details' => $this->details,
         // ];
+
         // dd($data);
-        $this->fresh();
-        return redirect()->to('/e-ticket')->with([
-            'toast_type' => 'success', // Jenis pesan (success, error, warning, info)
-            'toast_message' => 'Tiket berhasil dibuat untuk pengguna dengan email' . $user->email, // Isi pesan
-        ]);
+
+        try {
+            $user = User::where('email', $this->email)->first();
+            $this->validate();
+            Tickets::create([
+                'user_id' => $user->id,
+                'email' => $this->email,
+                'subject' => $this->subject,
+                'details' => $this->details,
+                'priority_id' => "$predictedPriority",
+                'department_id' => "$predictedDepartment",
+                'type_id' => "$predictedType",
+                'category_id' => "$predictedCategory",
+            ]);
+            $this->fresh();
+            return redirect()->to('/')->with([
+                'toast_type' => 'success', // Jenis pesan (success, error, warning, info)
+                'toast_message' => 'Berhasil Mengajukan Ticket', // Isi pesan
+            ]);
+        } catch (\Throwable $th) {
+            return redirect()->to('/')->with([
+                'toast_type' => 'error', // Jenis pesan (success, error, warning, info)
+                'toast_message' => 'Gagal Mengajukan Ticket', // Isi pesan
+            ]);
+        }
     }
 
     public function fresh() {

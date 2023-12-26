@@ -26,6 +26,8 @@ class Tickets extends Model
         'status_id',
         'category_id',
         'department_id',
+        'receiver_id',
+        'sender_id',
         'file',
     ];
 
@@ -48,9 +50,21 @@ class Tickets extends Model
         parent::boot();
 
         static::creating(function ($ticket) {
-            $ticket->ticket_key = '#' . strtoupper(uniqid());
+            $ticket->ticket_key = 't-' . strtoupper(uniqid());
         });
     }
+
+    public function messages() {
+        return $this->hasMany(Message::class);
+    }
+    
+    // public function getReceiver() {
+    //     if ($this->sender_id === auth()->id()) {
+    //         return User::firstWhere('id', $this->receiver_id);
+    //     } else {
+    //         return User::firstWhere('id', $this->sender_id);
+    //     }
+    // }
 
     public function type(): BelongsTo
     {

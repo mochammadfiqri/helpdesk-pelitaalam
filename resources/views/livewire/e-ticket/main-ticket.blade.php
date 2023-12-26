@@ -24,10 +24,33 @@
                         </div>
                     </div>
                     <div class="col-12 col-md-8 col-lg-8">
-                        <div class="d-flex justify-content-end align-items-center ">
-                            <a href="{{ route('main_dataset') }}" class="btn btn-rounded bg-gradient-info mx-2 mx-sm-1">
-                                <i class="fa-solid fa-file-lines fa-lg"></i>&nbsp;&nbsp;&nbsp;Dataset
-                            </a>
+                        <div class="d-flex justify-content-between justify-content-lg-end align-items-center ">
+                            @if (Auth::user()->role_id == 1)
+                                <a href="{{ route('main_dataset') }}" class="btn btn-rounded bg-gradient-info mx-2 mx-sm-1">
+                                    <i class="fa-solid fa-file-lines fa-lg"></i>&nbsp;&nbsp;&nbsp;Dataset
+                                </a>
+                            @endif
+                            @if (Auth::user()->role_id != 1)
+                                <div class="btn-group dropstart">
+                                    <button type="button" class="btn btn-rounded btn-outline-secondary float-end dropdown-toggle mx-2 mx-sm-1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa-solid fa-filter fa-xl"></i></i>&nbsp;&nbsp;&nbsp;Filter
+                                    </button>
+                                    <ul class="dropdown-menu p-2 ">
+                                        <li>
+                                            <div class="form-check ps-2 ">
+                                                <input class="form-check-input" type="checkbox" wire:model="myTickets">
+                                                <label class="custom-control-label align-items-center" for="customCheck1">My Tickets</label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check ps-2">
+                                                <input class="form-check-input" type="checkbox" wire:model="assignTickets">
+                                                <label class="custom-control-label" for="customCheck1">Assign Tickets</label>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            @endif
                             <a href="{{ route('create_ticket') }}"
                                 class="btn btn-rounded bg-gradient-info mx-2 mx-sm-1">
                                 <i class="fa-solid fa-plus fa-lg"></i>&nbsp;&nbsp;&nbsp;Create Ticket

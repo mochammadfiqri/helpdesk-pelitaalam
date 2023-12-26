@@ -46,31 +46,10 @@ class Login extends Component
         // return redirect()->to('/dashboard')->with('toast_success', 'Login Berhasil');
         return redirect('/dashboard')->with([
             'toast_type' => 'success', // Jenis pesan (success, error, warning, info)
-            'toast_message' => 'Berhasil Login Sebagai Admin', // Isi pesan
+            'toast_message' => 'Berhasil Login ', // Isi pesan
         ]);
     }
-    
-    // protected $rules = [
-    //     'email' => 'required|email:rfc,dns',
-    //     'password' => 'required',
-    // ];
 
-    // public function mount()
-    // {
-    //     $this->fill(['email' => 'admin@gmail.com', 'password' => 'admin']);
-    // }
-
-    // public function login()
-    // {
-    //     if (auth()->attempt(['email' => $this->email, 'password' => $this->password], $this->remember_me)) {
-    //         $user = User::where(["email" => $this->email])->first();
-    //         auth()->login($user, $this->remember_me);
-    //         return redirect('/dashboard')->with('toast_success', 'Login Berhasil');
-    //     } else {
-    //         return redirect('/login')->with('toast_error', 'Login Gagal');
-    //     }
-    // }
-    
     public function render()
     {
         return view('livewire.auth.login');

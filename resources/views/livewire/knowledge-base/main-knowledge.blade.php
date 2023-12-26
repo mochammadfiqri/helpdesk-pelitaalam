@@ -25,9 +25,11 @@
                     </div>
                     <div class="col-12 col-md-8 col-lg-8">
                         <div class="d-flex justify-content-end align-items-center ">
-                            <a class="btn btn-rounded bg-gradient-info " href="#">
-                                <i class="fa-solid fa-upload "></i>&nbsp;&nbsp;&nbsp;Unggah Data
-                            </a>
+                            @if (Auth::user()->role_id == 1)
+                                <a class="btn btn-rounded bg-gradient-info " href="#">
+                                    <i class="fa-solid fa-upload "></i>&nbsp;&nbsp;&nbsp;Unggah Data
+                                </a>
+                            @endif
                             <a href="{{ route('create_knowledge') }}" class="btn btn-rounded bg-gradient-info mx-2 mx-sm-1">
                                 <i class="fa-solid fa-plus fa-lg"></i>&nbsp;&nbsp;&nbsp;Tambah Knowledge Base
                             </a>

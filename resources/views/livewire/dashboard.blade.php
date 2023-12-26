@@ -445,7 +445,7 @@
                         <div class="text-start pt-1">
                             {{-- <p class="text-sm mb-0 text-capitalize">New Ticket</p> --}}
                             <h5 class="text-sm mb-0 text-capitalize">New Ticket</h5>
-                            <h3 class="mb-0 mt-4">0</h3>
+                            <h3 class="mb-0 mt-4">{{ $newTicketCount }}</h3>
                         </div>
                     </div>
                     <div class="col-md-6 p-1">
@@ -465,7 +465,7 @@
                         <div class="text-start pt-1">
                             {{-- <p class="text-sm mb-0 text-capitalize">New Ticket</p> --}}
                             <h5 class="text-sm mb-0 text-capitalize">Open Ticket</h5>
-                            <h3 class="mb-0 mt-4">0</h3>
+                            <h3 class="mb-0 mt-4">{{ $openTicketCount }}</h3>
                         </div>
                     </div>
                     <div class="col-md-6 p-1">
@@ -485,7 +485,7 @@
                         <div class="text-start pt-1">
                             {{-- <p class="text-sm mb-0 text-capitalize">New Ticket</p> --}}
                             <h5 class="text-sm mb-0 text-capitalize">Closed Ticket</h5>
-                            <h3 class="mb-0 mt-1 ">0</h3>
+                            <h3 class="mb-0 mt-1 ">{{ $closedTicketCount }}</h3>
                         </div>
                     </div>
                     <div class="col-md-6 p-1">
@@ -504,7 +504,7 @@
                     <div class="col-md-6 p-3">
                         <div class="text-start pt-1">
                             <h5 class="text-sm mb-0 text-capitalize">Unaassigned Ticket</h5>
-                            <h3 class="mb-0 mt-1">0</h3>
+                            <h3 class="mb-0 mt-1">{{ $unassignedTicketCount }}</h3>
                         </div>
                     </div>
                     <div class="col-md-6 p-1">

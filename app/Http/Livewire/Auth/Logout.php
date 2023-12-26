@@ -8,12 +8,10 @@ use Illuminate\Support\Facades\Auth;
 class Logout extends Component
 {
     public function logout() {
-        // Auth::logout();
-        // return redirect()->to('/');
         auth()->logout();
         return redirect('/')->with([
             'toast_type' => 'success', // Jenis pesan (success, error, warning, info)
-            'toast_message' => 'Berhasil LogOut', // Isi pesan
+            'toast_message' => 'Berhasil Log out', // Isi pesan
         ]);
     }
 

@@ -25,7 +25,7 @@
                     <h6 class="my-auto">Status</h6>
                 </th>
                 <th>
-                    <h6 class="my-auto">Date</h6>
+                    <h6 class="my-auto">Created</h6>
                 </th>
                 <th>
                     <h6 class="my-auto">Updated</h6>

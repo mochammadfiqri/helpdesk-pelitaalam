@@ -50,6 +50,7 @@ class MainDataset extends Component
     public function render()
     {
         $dataset = DatasetTickets::paginate(5);
+        
         return view('livewire.e-ticket.main-dataset', [
             'dataset' => $dataset,
         ]);

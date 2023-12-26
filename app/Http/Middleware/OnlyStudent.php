@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class OnlyStaff
+class OnlyStudent
 {
     /**
      * Handle an incoming request.
@@ -17,10 +17,10 @@ class OnlyStaff
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!in_array(Auth::user()->role_id, [3, 4, 5])) {
+        if (Auth::user()->role_id != 2) {
             return redirect()->route('landing-page');
         }
-        
+
         return $next($request);
     }
 }

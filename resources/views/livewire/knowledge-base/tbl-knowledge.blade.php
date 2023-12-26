@@ -8,11 +8,13 @@
     <table class="table @if($knowledge_base->count() > 0) table-hover @endif align-items-center justify-content-start mb-0">
         <thead>
             <tr> 
+                @if (Auth::user()->role_id == 1)
                 <th class="px-0" style="width: 1rem">
-                        <div class="form-check p-0 ms-2">
-                            <input class="form-check-input" type="checkbox" wire:model="selectAll">
-                        </div>
-                    </th>
+                    <div class="form-check p-0 ms-2">
+                        <input class="form-check-input" type="checkbox" wire:model="selectAll">
+                    </div>
+                </th>
+                @endif
                 <th>
                     <h6 class="my-auto">Title</h6>
                 </th>
@@ -25,14 +27,15 @@
         <tbody>
             @if ($knowledge_base->count() > 0)
             @foreach ($knowledge_base as $data)
-            {{-- <tr wire:click="editKnowledge({{ $data->id }})" style="cursor: pointer;" >  --}}
             <tr wire:click="editKnowledge('{{ $data->slug }}')" style="cursor: pointer;">
+                @if (Auth::user()->role_id == 1)
                 <td>
                     <div class="form-check p-0 mx-auto">
                         <input class="form-check-input" type="checkbox" value="{{ $data->id }}" wire:key='{{ $data->id }}'
                             wire:model="checkedPost" onclick="stopPropagation(event)">
                     </div>
                 </td>
+                @endif
                 <td>
                     <div class="my-auto px-3 mb-0 ">
                         {{ $data->title }}

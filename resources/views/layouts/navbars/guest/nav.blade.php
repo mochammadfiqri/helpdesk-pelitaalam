@@ -34,7 +34,7 @@
                                 <span>Home</span>
                             </a>
                             <a href="{{ route('ticket-page') }}" class="dropdown-item border-radius-md">
-                                <span>E - Ticket</span>
+                                <span>Open Ticket</span>
                             </a>
                             <a href="./pages/author.html" class="dropdown-item border-radius-md">
                                 <span>Author</span>
@@ -472,25 +472,13 @@
                 </li>
 
                 <li class="nav-item my-auto ms-3 ms-lg-0">
-                    {{-- @if (auth()->check())
-                    @if (auth()->user()->role_id == 1)
-                    <a href="/dashboard" class="btn btn-sm bg-gradient-primary mb-0 me-1 mt-2 mt-md-0">
-                        Menu Admin
-                    </a>
-                    @elseif (auth()->user()->role_id == 2)
-                    <a href="/dashboard" class="btn btn-sm bg-gradient-primary mb-0 me-1 mt-2 mt-md-0">
-                        Menu Siswa
-                    </a>
-                    @elseif (auth()->user()->role_id == 3)
-                    <a href="/dashboard" class="btn btn-sm bg-gradient-primary mb-0 me-1 mt-2 mt-md-0">
-                        Menu Guru
-                    </a>
-                    @endif
+                    @if (auth()->check())
+                        <a href="/dashboard" class="btn btn-sm bg-gradient-primary mb-0 me-1 mt-2 mt-md-0">
+                            Dashboard
+                        </a>
                     @else
-                    <a href="/login" class="btn btn-sm bg-gradient-primary mb-0 me-1 mt-2 mt-md-0">
-                        Login
-                    </a>
-                    @endif --}}
+                        <a href="/login" class="btn btn-sm bg-gradient-primary mb-0 me-1 mt-2 mt-md-0">Login</a>
+                    @endif
                     {{-- <a href="/dashboard" class="btn btn-sm bg-gradient-primary mb-0 me-1 mt-2 mt-md-0">
                         @if (auth()->check())
                             @if (auth()->user()->role_id == 1)
@@ -502,8 +490,7 @@
                             <a href="/login" class="btn btn-sm  bg-gradient-primary  mb-0 me-1 mt-2 mt-md-0">Login</a>
                         @endif
                     </a> --}}
-                    <a href="/login"
-                        class="btn btn-sm  bg-gradient-primary  mb-0 me-1 mt-2 mt-md-0">Login</a>
+                    {{-- <a href="/login" class="btn btn-sm  bg-gradient-primary  mb-0 me-1 mt-2 mt-md-0">Login</a> --}}
                 </li>
             </ul>
         </div>

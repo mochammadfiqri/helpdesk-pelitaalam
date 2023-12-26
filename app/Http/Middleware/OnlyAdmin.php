@@ -18,7 +18,7 @@ class OnlyAdmin
     public function handle(Request $request, Closure $next)
     {
         if (Auth::user()->role_id != 1) {
-            return redirect()->route('dashboard');
+            return redirect()->route('landing-page');
         }
 
         return $next($request);

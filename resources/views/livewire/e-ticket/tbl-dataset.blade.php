@@ -26,7 +26,7 @@
         <tbody>
             @if ($dataset->count() > 0)
             @foreach ($dataset as $data)
-            <tr wire:click="editTicket('{{ $data->id }}')" style="cursor: pointer;">
+            <tr wire:click="editTicket({{ $data->id }})" style="cursor: pointer;">
                 <td>
                     <div class="form-check p-0 mx-auto">
                         <input class="form-check-input" type="checkbox" value="{{ $data->id }}"
@@ -40,7 +40,7 @@
                 </td>
                 <td data-bs-toggle="tooltip" data-bs-placement="top" data-container="body" data-animation="true" title="{{ $data->details }}">
                     <div class="my-auto px-3 mb-0 ">
-                        {{ Str::limit($data->details, 50) }}
+                        {{ Str::limit(htmlspecialchars_decode($data->details), 50) }}
                     </div>
                 </td>
                 <td>
@@ -67,7 +67,8 @@
             </script>
         </tbody>
     </table>
-    <div class="float-end me-3 mt-3">
+    <div class="d-flex me-3 mt-3">
+        <button type="button" class="btn btn-danger btn-rounded shadow-dark me-auto" onclick="window.history.back();"><i class="fa-solid fa-arrow-left-long fa-lg"></i>&nbsp;&nbsp;&nbsp;Ticket Pages</button>
         {{ $dataset->links() }}
     </div>
 </div>

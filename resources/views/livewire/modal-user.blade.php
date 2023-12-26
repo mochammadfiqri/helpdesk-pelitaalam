@@ -235,7 +235,7 @@
                                         <img src="{{ $foto->temporaryUrl() }}" class="avatar avatar-scale-up avatar-xxl">
                                     @endif
                                 @else
-                                    <img src="../assets/img/user.png" class="avatar avatar-scale-up avatar-xxl">
+                                    <img src="https://ui-avatars.com/api/?background=random&bold=true&name={{ $nama }}" class="avatar avatar-scale-up avatar-xxl">
                                 @endif
                             </div>
                             <div class="flex-fill align-self-center p-0">
