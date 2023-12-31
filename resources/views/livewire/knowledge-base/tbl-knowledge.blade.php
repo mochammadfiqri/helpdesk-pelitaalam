@@ -19,7 +19,7 @@
                     <h6 class="my-auto">Title</h6>
                 </th>
                 <th>
-                    <h6 class="my-auto">Type</h6>
+                    <h6 class="my-auto">Category</h6>
                 </th>
                 <th class="text-xxs font-weight-bolder opacity-7"> </th>
             </tr>
@@ -43,7 +43,7 @@
                 </td>
                 <td>
                     <div class="my-auto px-3 mb-0 ">
-                        {{ $data->type->name }}
+                        {{ $data->category->name }}
                     </div>
                 </td>
                 <td>

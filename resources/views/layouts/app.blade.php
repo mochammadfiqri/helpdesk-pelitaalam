@@ -17,8 +17,9 @@
                 'create_ticket', 
                 'edit_ticket', 
                 'main_dataset',
+                // 'edit_dataset',
+                'chatbot-setting',
             ]))
-            @stack('datasetModal')
             @include('layouts.sidebars.sidebar')
             <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
                 <div class="container-fluid py-1">
@@ -91,7 +92,7 @@
                 </style>
             </main>
             @include('components.plugins.fixed-plugin')
-        @elseif (in_array(request()->route()->getName(),['landing-page','knowledge-page','ticket-page']))
+        @elseif (in_array(request()->route()->getName(),['landing-page','knowledge-page','ticket-page','chatbot','knowledge-post']))
             <body class="index-page bg-gray-200">
                 <div class="container position-sticky z-index-sticky top-0">
                     <div class="row">
@@ -102,14 +103,14 @@
                 </div>
                 {{ $slot }}
                 {{-- <script type="text/javascript" id="helplook-sdk" src="https://sdk.helplook.net/pro/hlSdk.js?id=xva2ii"></script> --}}
-                <iframe width="350" height="430" allow="microphone;"
-                    src="https://console.dialogflow.com/api-client/demo/embedded/3ca582aa-e105-4cba-9534-5e6bd9adcd3f"></iframe>
+                {{-- <iframe width="350" height="430" allow="microphone;"
+                    src="https://console.dialogflow.com/api-client/demo/embedded/3ca582aa-e105-4cba-9534-5e6bd9adcd3f"></iframe> --}}
             </body>
         @endif
     @endauth
 
     @guest
-        @if (Request::routeIs(['landing-page','knowledge-page','ticket-page']))
+        @if (Request::routeIs(['landing-page','knowledge-page','ticket-page','chatbot','knowledge-post']))
         <body class="index-page bg-gray-200">
             <div class="container position-sticky z-index-sticky top-0">
                 <div class="row">
@@ -119,9 +120,28 @@
                 </div>
             </div>
             {{ $slot }}
+            <style>
+                .card-label:active {
+                    border-color: #03a9f4;
+                    /* Change this to your desired color */
+                }
+            
+                /* Change the color when the link is hovered */
+                .card-label:hover {
+                    border-color: #03a9f4;
+                    /* Change to the desired color */
+                }
+            
+                /* Change the color of the link text when hovered */
+                .card-label:hover a {
+                    color: #03a9f4;
+                    /* Change to the desired color */
+                }
+            </style>
             {{-- <script type="text/javascript" id="helplook-sdk" src="https://sdk.helplook.net/pro/hlSdk.js?id=xva2ii"></script> --}}
-            <iframe width="350" height="430" allow="microphone;"
-                src="https://console.dialogflow.com/api-client/demo/embedded/3ca582aa-e105-4cba-9534-5e6bd9adcd3f"></iframe>
+            {{-- <iframe width="350" height="430" allow="microphone;"
+                src="https://console.dialogflow.com/api-client/demo/embedded/3ca582aa-e105-4cba-9534-5e6bd9adcd3f"></iframe> --}}
+            {{-- <livewire:botman.chatbot-messenger> --}}
         </body>
         @elseif (in_array(request()->route()->getName(),['login','register']))
             <main class="main-content mt-0">

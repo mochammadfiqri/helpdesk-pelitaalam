@@ -1,5 +1,5 @@
 <nav
-    class="navbar navbar-expand-lg  blur border-radius-xl top-0 z-index-fixed shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
+    class="navbar navbar-expand-lg blur border-radius-xl top-0 z-index-fixed shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
     <div class="container-fluid px-0">
         <a class="navbar-brand font-weight-bolder ms-sm-3" href="https://http://127.0.0.1:8000/"
             rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom" target="_blank">
@@ -26,7 +26,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-animation ms-n3 dropdown-md p-3 border-radius-xl mt-0 mt-lg-3"
                         aria-labelledby="dropdownMenuPages">
-                        <div class="d-none d-lg-block">
+                        <div class=" d-lg-block">
                             <h6 class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1">
                                 Landing Pages
                             </h6>
@@ -36,25 +36,32 @@
                             <a href="{{ route('ticket-page') }}" class="dropdown-item border-radius-md">
                                 <span>Open Ticket</span>
                             </a>
-                            <a href="./pages/author.html" class="dropdown-item border-radius-md">
+                            <a href="#author" class="dropdown-item border-radius-md">
                                 <span>Author</span>
                             </a>
                             <a href="{{ route('knowledge-page') }}" class="dropdown-item border-radius-md">
                                 <span>Knowledge</span>
                             </a>
-
-                            <h6
-                                class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1 mt-3">
+                            <a href="{{ route('chatbot') }}" class="dropdown-item border-radius-md">
+                                <span>Chatbot</span>
+                            </a>
+                            <h6 class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1 mt-3">
                                 Account
                             </h6>
-                            <a href="/login" class="dropdown-item border-radius-md">
-                                <span>Sign In</span>
-                            </a>
+                            @if (auth()->check())
+                                <a href="/dashboard" class="dropdown-item border-radius-md">
+                                    <span>Dashboard</span>
+                                </a>
+                            @else
+                                <a href="/login" class="dropdown-item border-radius-md">
+                                    <span>Sign In</span>
+                                </a>    
+                            @endif
                         </div> 
                     </div>
                 </li>
 
-                <li class="nav-item dropdown dropdown-hover mx-2">
+                {{-- <li class="nav-item dropdown dropdown-hover mx-2">
                     <a class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuBlocks"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="material-icons opacity-6 me-2 text-md">view_day</i>
@@ -363,9 +370,9 @@
                         </div>
 
                     </ul>
-                </li>
+                </li> --}}
 
-                <li class="nav-item dropdown dropdown-hover mx-2">
+                {{-- <li class="nav-item dropdown dropdown-hover mx-2">
                     <a class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuDocs"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="material-icons opacity-6 me-2 text-md">article</i>
@@ -469,7 +476,7 @@
                             </div>
                         </div>
                     </ul>
-                </li>
+                </li> --}}
 
                 <li class="nav-item my-auto ms-3 ms-lg-0">
                     @if (auth()->check())

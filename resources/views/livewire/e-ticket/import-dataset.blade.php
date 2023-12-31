@@ -21,7 +21,7 @@
             <form wire:submit.prevent="importDatasetTicket">
                 <div class="modal-body">
                     <label class="text-sm mb-0" for="file">Pilih File .xlsx / .csv</label>
-                    <span class="mb-0 float-end"><small><a href="#">Download Template</a></small></span>
+                    <span class="mb-0 float-end"><small><a href="{{ asset('assets/template/dataset-ticket.xlsx') }}">Download Template</a></small></span>
                     <div class="input-group input-group-outline my-1">
                         <input wire:model.defer="file" type="file" class="form-control">
                     </div>

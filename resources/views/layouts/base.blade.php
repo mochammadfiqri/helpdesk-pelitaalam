@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+    <link rel="icon" type="image/png" href="../assets/img/logo-smkpelita-100x100px.ico">
     <link rel="preconnect" href="https://9T5VNL71TX.algolia.net" crossorigin />
     <title>
         HELPDESK - PELITA ALAM
@@ -62,17 +62,9 @@
 
     {{-- ckeditor5 --}}
     <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
-    {{-- <script src="../assets/ckeditor5/ckeditor.js"></script>
-    <script src="../assets/ckeditor5/translations/id.js"></script> --}}
 
     {{-- docseacrh --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
-
-    {{-- instantsearch.js --}}
-    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@8.1.0/themes/reset-min.css"
-      integrity="sha256-2AeJLzExpZvqLUxMfcs+4DWcMwNfpnjUeAAvEtPr0wU=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@8.1.0/themes/satellite-min.css"
-      integrity="sha256-p/rGN4RGy6EDumyxF9t7LKxWGg6/MZfGhJM/asKkqvA=" crossorigin="anonymous"> --}}
 
     {{-- autocomplete.js --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-theme-classic" />
@@ -161,7 +153,6 @@
       ];
     </script>
 
-    {{-- <script src="https://cdn.jsdelivr.net/npm/docs-searchbar.js@latest/dist/cdn/docs-searchbar.min.js"></script> --}}
 </body>
 
 </html>

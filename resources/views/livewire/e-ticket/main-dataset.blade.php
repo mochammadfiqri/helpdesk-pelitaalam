@@ -29,9 +29,9 @@
                             <a class="btn btn-rounded bg-gradient-info mx-2 mx-sm-1" data-bs-toggle="modal" data-bs-target="#importDataset">
                                 <i class="fa-solid fa-file-import fa-lg"></i>&nbsp;&nbsp;&nbsp;Import Dataset
                             </a>
-                            <a href="{{ route('main_dataset') }}" class="btn btn-rounded bg-gradient-info mx-2 mx-sm-1">
+                            {{-- <a href="{{ route('main_dataset') }}" class="btn btn-rounded bg-gradient-info mx-2 mx-sm-1">
                                 <i class="fa-solid fa-plus fa-lg"></i>&nbsp;&nbsp;&nbsp;Add Dataset
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
                 </div>

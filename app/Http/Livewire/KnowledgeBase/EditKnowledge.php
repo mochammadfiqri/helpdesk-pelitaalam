@@ -2,13 +2,14 @@
 
 namespace App\Http\Livewire\KnowledgeBase;
 
+use App\Models\Category;
 use App\Models\Type;
 use Livewire\Component;
 use App\Models\KnowledgeBase;
 
 class EditKnowledge extends Component
 {
-    public $title, $type_id, $details, $slug, $kb_id, $search;
+    public $title, $category_id, $details, $slug, $kb_id, $search;
 
     public function mount()
     {
@@ -24,7 +25,7 @@ class EditKnowledge extends Component
             $this->title = $knowledge_base->title;
             $this->slug = $knowledge_base->slug;
             $this->details = $knowledge_base->details;
-            $this->type_id = $knowledge_base->type_id;
+            $this->category_id = $knowledge_base->category_id;
         } else {
             return redirect()->to('/knowledge-base');
         }
@@ -37,7 +38,7 @@ class EditKnowledge extends Component
         $knowledgeBase = KnowledgeBase::find($this->kb_id);
         $knowledgeBase->title = $this->title;
         $knowledgeBase->slug = $this->slug;
-        $knowledgeBase->type_id = $this->type_id;
+        $knowledgeBase->category_id = $this->category_id;
         $knowledgeBase->details = $this->details;
 
         $knowledgeBase->save(); // Use save instead of update
@@ -53,10 +54,10 @@ class EditKnowledge extends Component
     
     public function render()
     {
-        $type = Type::all();
+        $category = Category::all();
 
         return view('livewire.knowledge-base.edit-knowledge', [
-            'type' => $type,
+            'category' => $category,
         ]);
     }
 }

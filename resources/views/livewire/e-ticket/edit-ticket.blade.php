@@ -159,7 +159,7 @@
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
                                     </select>
-                                    @if (Auth::user()->role_id != 2)
+                                    @if (Auth::user()->role_id == 1)
                                     <span class="pt-2 ps-1" id="enableDisableBtnStatus" onclick="toggleDisabled('statusSelect', 'iconStatus')">
                                         <i id="iconStatus" class="fa-solid fa-pen-to-square fa-md"></i>
                                     </span>
@@ -177,9 +177,11 @@
                                 <label class="form-label text-bold">Subject</label>
                                 <div class="input-group input-group-outline rounded-full mt-n2">
                                     <input wire:model.defer="subject" type="text" id="subject" style="border: none" disabled class="form-control " placeholder="Enter subject">
+                                    @if (Auth::user()->role_id == 1)
                                     <span class="pt-2 ps-1" id="enableDisableBtnSubject" onclick="toggleDisabled('subject', 'iconSubject')">
                                         <i id="iconSubject" class="fa-solid fa-pen-to-square fa-md"></i>
                                     </span>
+                                    @endif
                                 </div>
                                 @error('subject')
                                 <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
@@ -189,29 +191,33 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label text-bold">Details</label>
-                        {{-- <span class="pt-2 ps-1" id="enableDisableBtnDetails" wire:click="toggleDetails">
-                            <i id="iconDetails" class="fa-solid fa-pen-to-square fa-md"></i>
-                        </span> --}}
-                        <div wire:ignore class="mt-n2 mb-2">
-                            <textarea class="form-control" rows="1" id="details_add" style="background: transparent">{{ $details }}</textarea>
-                            <script>
-                                document.addEventListener('livewire:load', function () {
-                                    var detailsEditor = ClassicEditor
-                                        .create(document.querySelector('#details_add'), {
-                                            language: 'en'
-                                        })
-                                        .then(editor => {
-                                            editor.model.document.on('change:data', () => {
-                                                let details = editor.getData();
-                                                @this.set('details', details);
+                        @if (Auth::user()->role_id == 1)
+                            <div wire:ignore class="mt-n2 mb-2">
+                                <textarea class="form-control" rows="1" id="details_add" style="background: transparent" >{{ $details }}</textarea>
+                                <script>
+                                    document.addEventListener('livewire:load', function () {
+                                        var detailsEditor = ClassicEditor
+                                            .create(document.querySelector('#details_add'), {
+                                                language: 'en'
+                                            })
+                                            .then(editor => {
+                                                editor.model.document.on('change:data', () => {
+                                                    let details = editor.getData();
+                                                    @this.set('details', details);
+                                                });
+                                            })
+                                            .catch(error => {
+                                                console.error(error);
                                             });
-                                        })
-                                        .catch(error => {
-                                            console.error(error);
-                                        });
-                                });
-                            </script>
-                        </div>
+                                    });
+                                </script>
+                            </div>
+                        @else
+                            <div class="input-group mt-n2 mb-2">
+                                <textarea class="form-control" style="height: auto" disabled>{!! $details !!}</textarea>
+                                {{-- <input type="text" class="form-control" value="{{ $details }}" disabled> --}}
+                            </div>
+                        @endif
                         @error('details')
                         <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
                         @enderror
@@ -224,13 +230,15 @@
                         </label>
                     </div>
                     <div class="d-flex flex-wrap" >
-                        {{-- @if (Auth::user()->role_id == 1)
-                            <button type="button" class="btn btn-info btn-rounded shadow-dark me-auto " wire:click='importToDataset'>Import To Dataset</button>
-                        @endif --}}
-                        <button type="button" class="btn btn-danger btn-rounded shadow-dark me-2" wire:click='fresh'
+                        <button type="button" class="btn btn-secondary btn-rounded shadow-dark me-2" wire:click='fresh'
                             onclick="window.history.back();">Cancel</button>
-                        <button type="submit" wire:click.prevent="updateTicket" class="btn btn-success btn-rounded shadow-dark ">Update
-                            Ticket</button>
+                        @if (Auth::user()->role_id == 1)
+                            <button type="submit" wire:click.prevent="updateTicket" class="btn btn-success btn-rounded shadow-dark ">Update
+                                Ticket</button>
+                        @endif
+                        <div class="ms-auto">
+                            <button wire:click.prevent="removeTicket" class="btn btn-danger btn-rounded shadow-dark float end">Remove Ticket</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -309,7 +317,6 @@
                                                             <path
                                                                 d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
                                                         </svg>
-                                    
                                                     </span>
                                                 </div>
                                             </div>

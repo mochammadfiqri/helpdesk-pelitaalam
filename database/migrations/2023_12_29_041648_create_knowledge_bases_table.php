@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->nullable();
             $table->longText('details');
-            $table->integer('views');
-            $table->unsignedBigInteger('type_id');
-            $table->foreign('type_id')->references('id')->on('types');
+            $table->integer('views')->default(0);
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
         });
     }

@@ -55,10 +55,11 @@
                         <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div style="float: right;" class="border-0 mt-3">
+                    <div class="border-0 mt-3">
                         <button type="submit" class="btn btn-success btn-rounded shadow-dark float-end">Update</button>
-                        <button type="button" class="btn btn-danger btn-rounded shadow-dark me-2"
+                        <button type="button" class="btn btn-secondary btn-rounded shadow-dark me-2 float-end"
                             wire:click="resetModal" data-bs-dismiss="modal">Batal</button>
+                        <button wire:click="removeType" type="button" class="btn btn-danger btn-rounded shadow-dark float-start ms-auto">Remove</button>
                     </div>
                 </div>
             </form>

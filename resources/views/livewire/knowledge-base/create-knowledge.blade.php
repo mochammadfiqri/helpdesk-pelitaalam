@@ -29,16 +29,16 @@
                                         @enderror
                                     </div>
                                     <div class="col-4">
-                                        <label class="form-label text-bold">Type</label>
+                                        <label class="form-label text-bold">Category</label>
                                         <div class="input-group input-group-outline mt-n2">
-                                            <select wire:model.defer='type_id' class="form-control">
-                                                <option value="">Pilih Type</option>
-                                                @foreach ($type as $item)
+                                            <select wire:model.defer='category_id' class="form-control">
+                                                <option value="">Pilih Category</option>
+                                                @foreach ($category as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
-                                        @error('type_id')
+                                        @error('category_id')
                                         <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -51,19 +51,19 @@
                                     <textarea id="details_add"></textarea>
                                     <script>
                                         document.addEventListener('livewire:load', function () {
-                                                ClassicEditor
-                                                    .create(document.querySelector('#details_add'), {
-                                                        language: 'en'
-                                                    })
-                                                    .then(editor => {
-                                                        editor.model.document.on('change:data', () => {
-                                                            let details = editor.getData();
-                                                            @this.set('details', details);
-                                                        });
-                                                    })
-                                                    .catch(error => {
-                                                        console.error(error);
+                                            ClassicEditor
+                                                .create(document.querySelector('#details_add'), {
+                                                    language: 'en'
+                                                })
+                                                .then(editor => {
+                                                    editor.model.document.on('change:data', () => {
+                                                        let details = editor.getData();
+                                                        @this.set('details', details);
                                                     });
+                                                })
+                                                .catch(error => {
+                                                    console.error(error);
+                                                });
                                             });
                                     </script>
                                 </div>
@@ -71,7 +71,7 @@
                                     <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div style="float: right;" class="border-0 mt-3">
+                            <div style="float: right;" class="border-0">
                                 <button type="submit"
                                     class="btn btn-success btn-rounded shadow-dark float-end">Simpan</button>
                                 <button type="button" class="btn btn-danger btn-rounded shadow-dark me-2"

@@ -6,7 +6,7 @@
             aria-hidden="true" id="iconSidenav"></i>
         <a class="navbar-brand m-0" href="/" >
             <div class="d-flex align-items-center">
-                <img src="../assets/img/logo-ct.png" class="navbar-brand-img h-100" alt="main_logo">
+                <img src="../assets/img/logo-smkpelita.png" class="navbar-brand-img h-100" alt="main_logo">
                 <div class="d-flex flex-column ms-2">
                     <span class="font-weight-bold text-white">
                         HELPDESK
@@ -54,7 +54,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white {{ request()->routeIs('main_knowledge') ? 'active bg-gradient-primary' : '' }}"
+                    <a class="nav-link text-white {{ (request()->routeIs('main_knowledge') || request()->routeIs('edit_knowledge') || request()->routeIs('create_knowledge') ) ? 'active bg-gradient-primary' : '' }}"
                         href="{{ route('main_knowledge') }}">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="fa-solid fa-graduation-cap fa-xl"></i>
@@ -63,23 +63,24 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white " href="#">
+                    <a class="nav-link text-white {{ request()->routeIs('chatbot-setting') ? 'active bg-gradient-primary' : '' }}" 
+                        href="{{ route('chatbot-setting') }}">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="fa-regular fa-comment-dots fa-xl"></i>
                         </div>
                         <span class="nav-link-text px-1">Chatbot</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link text-white " href="#">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="fa-solid fa-clipboard-question fa-xl"></i>
                         </div>
                         <span class="nav-link-text px-1">FAQs</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
-                    <a class="nav-link text-white {{ (request()->routeIs('main_ticket') || request()->routeIs('main_dataset') || request()->routeIs('edit_ticket') || request()->routeIs('create_ticket')) ? 'active bg-gradient-primary' : '' }}"
+                    <a class="nav-link text-white {{ (request()->routeIs('main_ticket') || request()->routeIs('main_dataset') || request()->routeIs('edit_ticket') || request()->routeIs('create_ticket') || request()->routeIs('edit_dataset')) ? 'active bg-gradient-primary' : '' }}"
                         href="{{ route('main_ticket') }}">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="fa-solid fa-ticket fa-xl"></i>
@@ -105,7 +106,7 @@
                     </a>
                     <div class="collapse" id="settings" >
                         <ul class="nav ">
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link text-white {{ request()->routeIs('global_setting') ? 'active bg-gradient-primary' : '' }}"
                                     href="{{ route('global_setting') }}">
                                     <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
@@ -113,7 +114,7 @@
                                         <span class="nav-link-text text-sm ms-2">Global</span>
                                     </div>
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item ">
                                 <a class="nav-link text-white {{ request()->routeIs('category') ? 'active bg-gradient-primary' : '' }}" href="{{ route('category') }}">
                                     <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
@@ -127,14 +128,6 @@
                                     <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
                                         <i class="fa-regular fa-building fa-sm"></i>
                                         <span class="nav-link-text text-sm ms-2">Department</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white " href="#">
-                                    <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
-                                        <i class="fa-solid fa-tags fa-sm"></i>
-                                        <span class="nav-link-text text-sm ms-2">Tags</span>
                                     </div>
                                 </a>
                             </li>
@@ -168,7 +161,7 @@
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#front_pages"
                         class="nav-link text-white {{ request()->is('front_pages') ? 'active' : '' }}" aria-controls="front_pages"
                         role="button" aria-expanded="false">
@@ -198,7 +191,7 @@
                             </li>
                         </ul>
                     </div>
-                </li>
+                </li> --}}
             @elseif (Auth::user()->role_id == 2)
                 <li class="nav-item mb-2 mt-0">
                     <a data-bs-toggle="collapse" href="#ProfileNav" class="nav-link text-white" aria-controls="ProfileNav" role="button"

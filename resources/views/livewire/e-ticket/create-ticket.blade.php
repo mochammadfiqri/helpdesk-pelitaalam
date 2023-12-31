@@ -18,13 +18,8 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <label class="form-label text-bold">User</label>
-                                        <div class="input-group input-group-outline mt-n2">
-                                            <select wire:model.defer='user_id' class="form-control">
-                                                <option value="">Select User</option>
-                                                @foreach ($user as $item)
-                                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                                                @endforeach
-                                            </select>
+                                        <div class="input-group mt-n2">
+                                            <input wire:model.defer="user_id" type="text" class="form-control" disabled>
                                         </div>
                                         @error('user_id')
                                         <span class="text-danger text-xs font-weight-light">{{ $message }}</span>

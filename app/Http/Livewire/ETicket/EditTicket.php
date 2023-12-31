@@ -33,8 +33,6 @@ class EditTicket extends Component
         $this->loadTicketEditing();
     }
 
-     
-
     public function loadTicketEditing() {
         $ticket = Tickets::where('ticket_key', $this->ticket_key)->first();
 
@@ -59,28 +57,16 @@ class EditTicket extends Component
         }
     }
 
-    public function sendMessage()
-    {
+    public function sendMessage() {
         if ($this->sentMessage == null) {
             return null;
         }
-        // $this->validate([
-        //     'body' => 'required|string',
-        // ]);
 
         $discussionId = Tickets::where('ticket_key', $this->ticket_key)->first();
          // Tentukan sender_id dan receiver_id berdasarkan peran pengguna saat ini
         $senderId = auth()->user()->id;
         // $receiverId = ($senderId == $discussionId->sender_id) ? $discussionId->user_id : $discussionId->sender_id;
         $receiverId = ($senderId == $discussionId->sender_id) ? $discussionId->assigned_user_id : $discussionId->user_id;
-
-        // buat pesan baru
-        // dd([
-        //     'discussion_id' => $discussionId->id,
-        //     'sender_id' => $senderId,
-        //     'receiver_id' => $receiverId,
-        //     'body' => $this->sentMessage,
-        // ]);
 
         Message::create([
             'discussion_id' => $discussionId->id,
@@ -159,6 +145,25 @@ class EditTicket extends Component
         }
     }
 
+    public function removeTicket() {
+        // Temukan tiket berdasarkan ticket_key
+        $ticket = Tickets::where('ticket_key', $this->ticket_key)->first();
+
+        // Hapus tiket jika ditemukan
+        if ($ticket) {
+            // Hapus semua pesan terkait dengan tiket
+            Message::where('discussion_id', $ticket->id)->delete();
+
+            // Hapus tiket
+            $ticket->delete();
+
+            return redirect()->to('/tickets')->with([
+                'toast_type' => 'success',
+                'toast_message' => 'Berhasil Menghapus Ticket',
+            ]);
+        }
+    }
+
     public function fresh() {
         $this->reset();
         $this->details = NULL;
@@ -174,12 +179,6 @@ class EditTicket extends Component
         $category = Category::all();
         $status = Statuses::all();
 
-        // $checkedDiscussion = Tickets::where('receiver_id', auth()->user()->id)
-        //     ->where('sender_id', $this->user_id)
-        //     ->orWhere('receiver_id', $this->user_id)
-        //     ->where('sender_id', auth()->user()->id)
-        //     ->get();
-
         $checkedDiscussion = Message::where('discussion_id', $this->discussionId)
             ->where(function ($query) {
                 $query->where('sender_id', auth()->user()->id)
@@ -192,9 +191,6 @@ class EditTicket extends Component
             ->orderBy('created_at', 'asc') // Sesuaikan dengan kolom timestamp yang sesuai
             ->get();
 
-        
-        // $receiverInstance = Tickets::where('receiver_id', $this->receiverId)->first();
-        
         return view('livewire.e-ticket.edit-ticket', [
             // 'receiverInstance' => $receiverInstance,
             'checkedDiscussion' => $checkedDiscussion,

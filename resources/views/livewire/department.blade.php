@@ -12,16 +12,6 @@
                         </div>
                     </div>
                 </div>
-                {{-- <div class="row mt-3">
-                    <div class="col-12 col-md-8 col-lg-12">
-                        <div class="d-flex justify-content-end align-items-center ">
-                            <a class="btn btn-rounded bg-gradient-info" data-bs-toggle="modal"
-                                data-bs-target="#addDepartment">
-                                <i class="fa-solid fa-tag fa-lg"></i>&nbsp;&nbsp;&nbsp;Add Department
-                            </a>
-                        </div>
-                    </div>
-                </div> --}}
                 <div class="row mt-3">
                     <div class="col-5 col-md-4 col-lg-2">
                         <div class="justify-content-start align-items-center ">

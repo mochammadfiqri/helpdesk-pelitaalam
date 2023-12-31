@@ -61,6 +61,24 @@ class Department extends Component
         }
     }
 
+    public function deleteCheckedPost() {
+        try {
+            ModelsDepartment::whereIn('id', $this->checkedPost)->delete();
+    
+            $this->checkedPost = [];
+            
+            return redirect('/department')->with([
+                'toast_type' => 'success', // Jenis pesan (success, error, warning, info)
+                'toast_message' => 'Pengguna Berhasil di Hapus!', // Isi pesan
+            ]);
+        } catch (\Throwable $th) {
+            return redirect('/department')->with([
+                'toast_type' => 'error', // Jenis pesan (success, error, warning, info)
+                'toast_message' => 'Pengguna gagal di Hapus!', // Isi pesan
+            ]);
+        }
+    }
+
     public function resetModal() {
         $this->reset();
     }

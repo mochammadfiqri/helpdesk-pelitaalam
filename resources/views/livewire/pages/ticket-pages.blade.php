@@ -22,7 +22,7 @@
                         <div class="modal-body">
                             <div class="mb-3">
                                 <div class="row">
-                                    <div class="col-4">
+                                    <div class="col-12 col-lg-4">
                                         <label class="form-label text-bold">Email</label>
                                         <div class="input-group input-group-outline rounded-full mt-n2">
                                             <input wire:model.defer="email" type="email" class="form-control @error('email') is-invalid @enderror"
@@ -32,7 +32,7 @@
                                             <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                    <div class="col-8">
+                                    <div class="col-12 col-lg-8">
                                         <label class="form-label text-bold">Subject</label>
                                         <div class="input-group input-group-outline rounded-full mt-n2">
                                             <input wire:model.defer="subject" type="text" class="form-control "

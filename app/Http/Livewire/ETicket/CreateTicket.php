@@ -28,6 +28,10 @@ class CreateTicket extends Component
         ];
     }
     
+    public function mount() {
+        $this->fill(['user_id' => auth()->user()->email]);
+    }
+
     public function createTicket() { 
         // //Priority Predict
         $nb = naive_bayes();
@@ -83,21 +87,17 @@ class CreateTicket extends Component
         // Tampilkan hasil prediksi
         // dd($predictedDepartmentName);
 
-        $user = User::find($this->user_id);
-        
         $this->validate();
         Tickets::create([
-            'email' => $user->email,
+            'email' => auth()->user()->email,
             'subject' => $this->subject,
             'details' => $this->details,
-            'user_id' => $this->user_id,
+            'user_id' =>auth()->user()->id,
             'assigned_user_id' => $this->assigned_user_id,
             'priority_id' => "$predictedPriority",
             'department_id' => "$predictedDepartment",
             'type_id' => "$predictedType",
             'category_id' => "$predictedCategory",
-            // 'sender_id' => $this->user_id,
-            // 'receiver_id' => $this->assigned_user_id,
         ]);
         $this->fresh();
         return redirect()->to('/tickets')->with([

@@ -18,48 +18,12 @@ class MainTicket extends Component
     public $assignTickets = true;
     public $discussions, $selectedDiscussion, $auth_id, $receiverInstance, $selectDiscussion;
     
-    // protected $listeners = ['chatTicketSelected'];
-    // public function chatTicketSelected(Tickets $discussion, $receiverId) {
-    //     $this->selectedDiscussion = $discussion;
-    //     $receiverInstance = Tickets::find($receiverId);
-    // }
-
-    // public function getChatUserInstance(Tickets $discussion, $request) {
-    //     $this->auth_id = auth()->id();
-
-    //     //get selected discussion
-    //     if ($discussion->sender_id == $this->auth_id) {
-    //         $this->receiverInstance = Tickets::firstWhere('id', $discussion->receiver_id);
-    //     } else {
-    //         $this->receiverInstance = Tickets::firstWhere('id', $discussion->sender_id);
-    //     }
-
-    //     if (isset($request)) {
-    //         return $this->receiverInstance->$request;
-    //     }
-    // }
-
     public function editTicket($ticket_id) {
-        
-        // $this->call('chatTicketSelected', [
-        //     'discussion' => Tickets::find($ticket_id),
-        //     'receiverId' => $user_id,
-        // ]);
-
-        // si pembuat tiket bisa jadi receiver maupun sender
-        // user_id itu adalah pembuat tiket
-
-        // $this->ticket_id = $ticket_id;
-        // $discussion = Tickets::where('ticket_key', $this->ticket_id)->first();
 
         session(['editing_ticket' => $ticket_id]);
-        // session(['receiver_ticket' => $receiver_id]);
 
         return redirect()->to(route('edit_ticket', ['ticket_id' => $ticket_id]));
-        // return redirect()->to(route('edit_ticket', ['ticket_id' => $ticket_id, 'receiver_id' => $receiver_id]));
-
-        // $this->emitTo('e-ticket.edit-ticket', 'loadDiscussion', $discussion, $receiver_id);
-        // dd($discussion, $receiver_id);
+        
     }
 
     public function render()

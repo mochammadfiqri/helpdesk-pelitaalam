@@ -14,7 +14,7 @@
         "cviebrock/eloquent-sluggable": "^9.0",
         "google/apiclient": "2.15.0",
         "google/cloud-dialogflow": "^1.10",
-        "guzzlehttp/guzzle": "^7.2",
+        "guzzlehttp/guzzle": "^7.8",
         "jantinnerezo/livewire-alert": "^3.0",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
@@ -22,6 +22,7 @@
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.12",
         "maatwebsite/excel": "^3.1",
+        "openai-php/client": "^0.8.1",
         "yooper/php-text-analysis": "^1.9"
     },
     "require-dev": {
@@ -70,7 +71,8 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
-            "pestphp/pest-plugin": true
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true
         }
     },
     "minimum-stability": "stable",

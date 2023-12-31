@@ -33,16 +33,16 @@
                                 </div>
                             </div>
                             <div class="col-4">
-                                <label class="form-label">Type</label>
+                                <label class="form-label">Category</label>
                                 <div class="input-group input-group-outline mt-n2">
-                                    <select wire:model.defer='type_id' class="form-control">
-                                        <option value="">Pilih Type</option>
-                                        @foreach ($type as $item)
+                                    <select wire:model.defer='category_id' class="form-control">
+                                        <option value="">Pilih Category</option>
+                                        @foreach ($category as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                                @error('type_id')
+                                @error('category_id')
                                 <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -52,30 +52,29 @@
                         <label class="form-label">Details</label>
                         <div wire:ignore class="mt-n2 mb-5">
                             <textarea id="details_edit">{{ $details }}</textarea>
-                            {{-- <div id="details_edit"></div> --}}
                             <script>
                                 document.addEventListener('livewire:load', function () {
-                                                ClassicEditor
-                                                    .create(document.querySelector('#details_edit'), {
-                                                        language: 'en'
-                                                    })
-                                                    .then(editor => {
-                                                        editor.model.document.on('change:data', () => {
-                                                            let details = editor.getData();
-                                                            @this.set('details', details);
-                                                        });
-                                                    })
-                                                    .catch(error => {
-                                                        console.error(error);
-                                                    });
+                                    ClassicEditor
+                                        .create(document.querySelector('#details_edit'), {
+                                            language: 'en'
+                                        })
+                                        .then(editor => {
+                                            editor.model.document.on('change:data', () => {
+                                                let details = editor.getData();
+                                                @this.set('details', details);
                                             });
+                                        })
+                                        .catch(error => {
+                                            console.error(error);
+                                        });
+                                });
                             </script>
                         </div>
                         @error('details')
-                        <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
+                            <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="border-0 mt-3">
+                    <div class="border-0">
                         <button type="submit" wire:click="updateKnowledge" class="btn btn-success btn-rounded shadow-dark float-end">Update</button>
                         <button type="button" class="btn btn-danger btn-rounded shadow-dark me-2 float-end"
                             data-bs-dismiss="modal" onclick="window.history.back();">Batal</button>

@@ -2,13 +2,14 @@
 
 namespace App\Http\Livewire\KnowledgeBase;
 
+use App\Models\Category;
 use App\Models\Type;
 use Livewire\Component;
 use App\Models\KnowledgeBase;
 
 class CreateKnowledge extends Component
 {
-    public $title, $type_id, $details, $kb_id, $search;
+    public $title, $category_id, $details, $kb_id, $search;
     
     public function rules() {
         return [
@@ -22,7 +23,7 @@ class CreateKnowledge extends Component
         KnowledgeBase::create([
             'title' => $this->title,
             'details' => $this->details,
-            'type_id' => $this->type_id,
+            'category_id' => $this->category_id,
         ]);
         $this->fresh();
         return redirect()->to('/knowledge-base')->with([
@@ -38,10 +39,10 @@ class CreateKnowledge extends Component
 
     public function render()
     {
-        $type = Type::all();
+        $category = Category::all();
         
         return view('livewire.knowledge-base.create-knowledge', [
-            'type' => $type,
+            'category' => $category,
         ]);
     }
 }

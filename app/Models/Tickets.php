@@ -50,21 +50,25 @@ class Tickets extends Model
         parent::boot();
 
         static::creating(function ($ticket) {
-            $ticket->ticket_key = 't-' . strtoupper(uniqid());
+            $ticket->ticket_key = now()->format('Ymd') . '-' . self::generateTicketNumber();
+
         });
+    }
+
+    public static function generateTicketNumber()
+    {
+        // Ambil nomor urut tiket terakhir dan tambahkan 1
+        $lastTicket = self::orderBy('id', 'desc')->first();
+
+        $number = $lastTicket ? intval(substr($lastTicket->ticket_key, -4)) + 1 : 1;
+
+        // Format nomor urut menjadi panjang tetap, misalnya 4 digit
+        return str_pad($number, 4, '0', STR_PAD_LEFT);
     }
 
     public function messages() {
         return $this->hasMany(Message::class);
     }
-    
-    // public function getReceiver() {
-    //     if ($this->sender_id === auth()->id()) {
-    //         return User::firstWhere('id', $this->receiver_id);
-    //     } else {
-    //         return User::firstWhere('id', $this->sender_id);
-    //     }
-    // }
 
     public function type(): BelongsTo
     {

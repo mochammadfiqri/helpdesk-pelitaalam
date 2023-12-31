@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\KnowledgeBase;
 
+use App\Models\Category;
 use App\Models\Type;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -14,7 +15,7 @@ class MainKnowledge extends Component
     public $checkedPost = [];
     public $selectAll = false;
 
-    public $title, $type_id, $details, $kb_id, $slug, $search;
+    public $title, $category_id, $details, $kb_id, $slug, $search;
 
     public function updatedSelectAll() {
         if ($this->selectAll) {
@@ -53,11 +54,11 @@ class MainKnowledge extends Component
             ->orderBy('created_at', 'desc') // Sesuaikan dengan kolom dan urutan yang diinginkan
             ->paginate(5);
 
-        $type = Type::all();
+        $category = Category::all();
         
         return view('livewire.knowledge-base.main-knowledge', [
             'knowledge_base' => $knowledge_base,
-            'type' => $type,
+            'category' => $category,
         ]);
     }
 }

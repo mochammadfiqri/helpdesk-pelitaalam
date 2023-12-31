@@ -17,7 +17,7 @@ class KnowledgeBase extends Model
         'title',
         'slug',
         'details',
-        'type_id',
+        'category_id',
     ];
     
     public function toSearchableArray()
@@ -44,9 +44,9 @@ class KnowledgeBase extends Model
         ];
     }
 
-    public function type(): BelongsTo
+    public function category(): BelongsTo
     {
-        return $this->belongsTo(Type::class, 'type_id', 'id');
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
     protected static function boot()

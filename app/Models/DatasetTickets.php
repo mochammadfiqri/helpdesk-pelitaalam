@@ -22,4 +22,16 @@ class DatasetTickets extends Model
     {
         return $this->belongsTo(Priorities::class, 'priority_id', 'id');
     }
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(Type::class, 'type_id', 'id');
+    }
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+    public function department(): BelongsTo
+    {
+        return $this->belongsTo(Department::class, 'department_id', 'id');
+    }
 }

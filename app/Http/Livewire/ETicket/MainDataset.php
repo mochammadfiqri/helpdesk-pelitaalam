@@ -11,7 +11,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class MainDataset extends Component
 {
-    public $search, $file;
+    public $search, $file, $dataset_id;
     use WithFileUploads;
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
@@ -41,6 +41,12 @@ class MainDataset extends Component
         } else {
             $this->checkedPost = [];
         }
+    }
+
+    public function editDataset($dataset_id) {
+        // $this->dataset_id = $dataset_id;
+        session(['editing_dataset' => $dataset_id]);
+        return redirect()->to(route('edit_dataset', ['dataset_id' => $dataset_id]));
     }
 
     public function resetModal() {

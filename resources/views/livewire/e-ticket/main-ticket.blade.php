@@ -50,11 +50,11 @@
                                         </li>
                                     </ul>
                                 </div>
+                                <a href="{{ route('create_ticket') }}"
+                                    class="btn btn-rounded bg-gradient-info mx-2 mx-sm-1">
+                                    <i class="fa-solid fa-plus fa-lg"></i>&nbsp;&nbsp;&nbsp;Create Ticket
+                                </a>
                             @endif
-                            <a href="{{ route('create_ticket') }}"
-                                class="btn btn-rounded bg-gradient-info mx-2 mx-sm-1">
-                                <i class="fa-solid fa-plus fa-lg"></i>&nbsp;&nbsp;&nbsp;Create Ticket
-                            </a>
                         </div>
                     </div>
                 </div>

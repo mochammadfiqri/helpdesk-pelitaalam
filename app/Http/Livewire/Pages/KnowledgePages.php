@@ -13,6 +13,11 @@ class KnowledgePages extends Component
     protected $paginationTheme = 'bootstrap';
     public $search;
 
+    public function viewPost($slug) {
+        session(['knowledgePost' => $slug]);
+        return redirect()->to(route('knowledge-post', ['slug' => $slug]));
+    }
+    
     public function render()
     {
         $knowledge_base = KnowledgeBase::where('title', 'like', '%' . $this->search . '%')

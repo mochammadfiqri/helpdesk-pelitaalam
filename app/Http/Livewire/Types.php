@@ -49,6 +49,30 @@ class Types extends Component
         ]);
     }
 
+    public function removeType() {
+        // jika ingin menghapus type, cek terlebih dahulu di table yg berelasi, apakah ada atau tidak.
+        // jika ada maka tidak bisa di hapus
+        try {
+            $type = Type::find($this->type_id);
+    
+            if ($type) {
+                $this->name = $type->name;
+            }
+            $type->delete();
+            
+            return redirect('/types')->with([
+                'toast_type' => 'success', // Jenis pesan (success, error, warning, info)
+                'toast_message' => 'Type Berhasil di Hapus!', // Isi pesan
+            ]);
+        } catch (\Throwable $th) {
+            return redirect('/types')->with([
+                'toast_type' => 'error', // Jenis pesan (success, error, warning, info)
+                'toast_message' => 'Type Gagal di Hapus!', // Isi pesan
+            ]);
+        }
+
+    }
+
     public function resetModal() {
         $this->reset();
     }
