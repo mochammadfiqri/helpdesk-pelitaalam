@@ -4,10 +4,14 @@ namespace App\Http\Livewire;
 
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Message;
+use App\Models\Tickets;
 use Livewire\Component;
+use App\Imports\UsersImport;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 
 class Users extends Component
@@ -15,10 +19,11 @@ class Users extends Component
     use WithPagination;
     use WithFileUploads;
     protected $paginationTheme = 'bootstrap';
-    public $email, $password, $remember_me, $nama, $no_hp, $domisili, $alamat, $foto, $role_id, $user_id;
+    public $email, $password, $remember_me, $nama, $no_hp, $domisili, $alamat, $foto, $role_id, $user_id, $file;
     public $paginate = 5;
     public $search = '';
     public $checkedUser = [];
+    public $filter = [];
     public $selectAll = false;
 
     public function rules() {
@@ -32,6 +37,20 @@ class Users extends Component
             'foto' => ['nullable','max:1024'],
             'role_id' => ['required'],
         ];
+    }
+
+    public function importUsers() {
+        $this->validate([
+            'file' => 'required|mimes:xlsx,xls,csv',
+        ]);
+
+        // dd($this->file);
+        Excel::import(new UsersImport, $this->file->getRealPath());
+
+        return redirect('/users')->with([
+            'toast_type' => 'success',
+            'toast_message' => 'Import Berhasil',
+        ]);
     }
 
     public function updatedSelectAll() {
@@ -124,44 +143,86 @@ class Users extends Component
         ]);
     }
 
-    public function deleteUser($user_id) {
-        $this->user_id = $user_id;
-    }
+    // public function deleteUser($user_id) {
+    //     $this->user_id = $user_id;
+    // }
 
-    public function destroyUser() {
-        $user = User::find($this->user_id);
-        if ($user) {
-            $this->nama = $user->nama;
+    // public function destroyUser() {
+    //     $user = User::find($this->user_id);
+    //     if ($user) {
+    //         $this->nama = $user->nama;
+    //     }
+
+    //     if ($user->foto) {
+    //         Storage::delete($user->foto);
+    //     }
+
+    //     $user->delete();
+
+    //     return redirect('/users')->with([
+    //         'toast_type' => 'success', // Jenis pesan (success, error, warning, info)
+    //         'toast_message' => 'Pengguna Berhasil di Hapus!', // Isi pesan
+    //     ]);
+    // }
+
+    // public function deleteCheckedUser() {
+    //     $users = User::whereIn('id', $this->checkedUser)->get();
+    //     $tickets = Tickets::where('user_id', $this->checkedUser)->first();
+
+    //     foreach ($tickets as $ticket) {
+            
+    //         if ($ticket) {
+    //             Message::where('discussion_id', $ticket->id)->delete();
+    //             $ticket->delete();
+    //         }
+    //     }
+
+    //     foreach ($users as $user) {
+    //         if ($user) {
+    //             Tickets::where('user_id', $this->checkedUser)->delete();
+    //         }
+
+    //         if ($user->foto) {
+    //             Storage::delete($user->foto);
+    //         }
+    //     }
+
+    //     User::whereIn('id', $this->checkedUser)->delete();
+    //     $this->checkedUser = [];
+
+    //     return redirect('/users')->with([
+    //         'toast_type' => 'success', // Jenis pesan (success, error, warning, info)
+    //         'toast_message' => 'Pengguna Berhasil di Hapus!', // Isi pesan
+    //     ]);
+    // }
+
+    public function deleteCheckedUser() {
+    $users = User::whereIn('id', $this->checkedUser)->get();
+
+    foreach ($users as $user) {
+        // Hapus tiket dan pesan terkait
+        $tickets = Tickets::where('user_id', $user->id)->get();
+        foreach ($tickets as $ticket) {
+            Message::where('discussion_id', $ticket->id)->delete();
+            $ticket->delete();
         }
 
+        // Hapus foto jika ada
         if ($user->foto) {
             Storage::delete($user->foto);
         }
-
-        $user->delete();
-
-        return redirect('/users')->with([
-            'toast_type' => 'success', // Jenis pesan (success, error, warning, info)
-            'toast_message' => 'Pengguna Berhasil di Hapus!', // Isi pesan
-        ]);
     }
 
-    public function deleteCheckedUser() {
-        $users = User::whereIn('id', $this->checkedUser)->get();
+    // Hapus pengguna
+    User::whereIn('id', $this->checkedUser)->delete();
+    $this->checkedUser = [];
 
-        foreach ($users as $user) {
-            if ($user->foto) {
-                Storage::delete($user->foto);
-            }
-        }
+    return redirect('/users')->with([
+        'toast_type' => 'success',
+        'toast_message' => 'Pengguna Berhasil di Hapus!',
+    ]);
+}
 
-        User::whereIn('id', $this->checkedUser)->delete();
-        $this->checkedUser = [];
-        return redirect('/users')->with([
-            'toast_type' => 'success', // Jenis pesan (success, error, warning, info)
-            'toast_message' => 'Pengguna Berhasil di Hapus!', // Isi pesan
-        ]);
-    }
 
     public function resetModal() {
         $this->reset();
@@ -174,18 +235,33 @@ class Users extends Component
 
     public function render()
     {
+        // $users = User::where('role_id', '!=', 1)
+        //     ->when($this->search, function ($query) {
+        //         $query->where(function ($query) {
+        //             $query->where('nama', 'like', '%' . $this->search . '%')
+        //                 ->orWhere('email', 'like', '%' . $this->search . '%')
+        //                 ->orWhere('no_hp', 'like', '%' . $this->search . '%')
+        //                 ->orWhere('domisili', 'like', '%' . $this->search . '%')
+        //                 ->orWhere('alamat', 'like', '%' . $this->search . '%');
+        //         });
+        //     })
+        //     ->orderBy('nama', 'asc')
+        //     ->paginate($this->paginate);
         $users = User::where('role_id', '!=', 1)
-            ->when($this->search, function ($query) {
-                $query->where(function ($query) {
-                    $query->where('nama', 'like', '%' . $this->search . '%')
-                        ->orWhere('email', 'like', '%' . $this->search . '%')
-                        ->orWhere('no_hp', 'like', '%' . $this->search . '%')
-                        ->orWhere('domisili', 'like', '%' . $this->search . '%')
-                        ->orWhere('alamat', 'like', '%' . $this->search . '%');
-                });
-            })
-            ->orderBy('nama', 'asc')
-            ->paginate($this->paginate);
+        ->when($this->search, function ($query) {
+            $query->where(function ($query) {
+                $query->where('nama', 'like', '%' . $this->search . '%')
+                    ->orWhere('email', 'like', '%' . $this->search . '%')
+                    ->orWhere('no_hp', 'like', '%' . $this->search . '%')
+                    ->orWhere('domisili', 'like', '%' . $this->search . '%')
+                    ->orWhere('alamat', 'like', '%' . $this->search . '%');
+            });
+        })
+        ->when(count($this->filter), function ($query) {
+            $query->whereIn('role_id', array_keys($this->filter));
+        })
+        ->orderBy('nama', 'asc')
+        ->paginate($this->paginate);
 
         $role = Role::where('id', '!=', '1')->get();
 

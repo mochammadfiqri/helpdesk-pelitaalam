@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('admin'),
             'no_hp' => '085237742424',
             'domisili' => 'Kota Bekasi',
-            'alamat' => 'Jl. Jalan',
+            'alamat' => 'Jl. cempaka',
             'role_id' => '1',
         ]);
     }

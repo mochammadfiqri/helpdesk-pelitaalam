@@ -1,6 +1,7 @@
 <div class="row ">
     {{-- <livewire:modal-user> --}}
     @include('livewire.modal-user')
+    @include('livewire.import-users')
     <div class="col-12 mt-3">
         <div class="card my-2">
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 ">
@@ -27,15 +28,29 @@
                     </div>
                     <div class="col-12 col-md-8 col-lg-8">
                         <div class="d-flex justify-content-end align-items-center ">
-                            {{-- <a class="btn btn-rounded btn-outline-secondary" data-bs-toggle="collapse"
-                                data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                                <i class="fa-solid fa-filter fa-lg "></i>&nbsp;&nbsp;&nbsp;Filter
-                            </a> --}}
-                            <a class="btn btn-rounded bg-gradient-info mx-2 mx-sm-1" href="#">
-                                <i class="fa-solid fa-upload "></i>&nbsp;&nbsp;&nbsp;Unggah Data
+                            <div class="btn-group dropstart">
+                                <a class="btn btn-rounded btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-filter fa-lg "></i>&nbsp;&nbsp;&nbsp;Filter
+                                </a>
+                                <ul class="dropdown-menu p-2" aria-labelledby="dropdownMenuButton">
+                                    <li>
+                                        @foreach ($role as $role)
+                                        <div class="form-check ps-2">
+                                            <input class="form-check-input" type="checkbox" wire:model="filter.{{ $role->id }}" id="flexCheck{{ $role->id }}">
+                                            <label class="form-check-label" for="flexCheck{{ $role->id }}">
+                                                {{ $role->name }}
+                                            </label>
+                                        </div>
+                                        @endforeach
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <a class="btn btn-rounded bg-gradient-info mx-2 mx-sm-1" data-bs-toggle="modal" data-bs-target="#importUsers">
+                                <i class="fa-solid fa-upload "></i>&nbsp;&nbsp;&nbsp;Import Users
                             </a>
                             <a class="btn btn-rounded bg-gradient-info" data-bs-toggle="modal" data-bs-target="#addUser">
-                                <i class="fa-solid fa-user-plus fa-lg"></i>&nbsp;&nbsp;&nbsp;Tambah Users
+                                <i class="fa-solid fa-user-plus fa-lg"></i>&nbsp;&nbsp;&nbsp;Add Users
                             </a>
                         </div>
                     </div>

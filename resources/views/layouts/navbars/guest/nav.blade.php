@@ -45,6 +45,9 @@
                             <a href="{{ route('chatbot') }}" class="dropdown-item border-radius-md">
                                 <span>Chatbot</span>
                             </a>
+                            {{-- <a href="{{ route('chatbot') }}" class="dropdown-item border-radius-md">
+                                <span>Chatbot</span>
+                            </a> --}}
                             <h6 class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1 mt-3">
                                 Account
                             </h6>
@@ -486,18 +489,6 @@
                     @else
                         <a href="/login" class="btn btn-sm bg-gradient-primary mb-0 me-1 mt-2 mt-md-0">Login</a>
                     @endif
-                    {{-- <a href="/dashboard" class="btn btn-sm bg-gradient-primary mb-0 me-1 mt-2 mt-md-0">
-                        @if (auth()->check())
-                            @if (auth()->user()->role_id == 1)
-                                Menu Admin
-                            @elseif (auth()->user()->role_id == 2)
-                                Menu Guru
-                            @endif
-                        @else
-                            <a href="/login" class="btn btn-sm  bg-gradient-primary  mb-0 me-1 mt-2 mt-md-0">Login</a>
-                        @endif
-                    </a> --}}
-                    {{-- <a href="/login" class="btn btn-sm  bg-gradient-primary  mb-0 me-1 mt-2 mt-md-0">Login</a> --}}
                 </li>
             </ul>
         </div>

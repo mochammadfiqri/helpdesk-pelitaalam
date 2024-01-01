@@ -92,12 +92,12 @@
                                     data-bs-target="#editUser" wire:click='editUser({{ $data->id }})'>Edit
                                 </a>
                             </li>
-                            <li>
+                            {{-- <li>
                                 <a class="dropdown-item border-radius-md" data-bs-toggle="modal"
                                     data-bs-target="#deleteUser" wire:click='deleteUser({{ $data->id }})'>
                                     Hapus
                                 </a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
                 </td>

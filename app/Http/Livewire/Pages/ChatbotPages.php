@@ -49,6 +49,11 @@ class ChatbotPages extends Component
     {
         $context = session()->get('chat', [['role' => 'user', 'content' => 'Sekarang kamu adalah seorang IT di SMK Pelita Alam. Tugas kamu adalah menjawab pertanyaan seputar Teknologi']]);
 
+        // Hapus sesi 'chat' jika tidak berada di route '/chat-ai'
+        if (!request()->is('chat-ai')) {
+            session()->forget('chat');
+        }
+        
         return view('livewire.pages.chatbot-pages', [
             'context' => $context,
         ]);

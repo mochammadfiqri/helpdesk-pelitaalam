@@ -23,8 +23,8 @@ class MainDataset extends Component
             'file' => 'required|mimes:xlsx,xls,csv',
         ]);
 
-        // dd($this->file);
         Excel::import(new DatasetTicketImport, $this->file->getRealPath());
+        // dd($import);
 
         return redirect('/tickets/dataset')->with([
             'toast_type' => 'success',
