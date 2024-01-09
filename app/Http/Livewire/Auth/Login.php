@@ -20,10 +20,10 @@ class Login extends Component
     }
 
     // Sementara
-    public function mount()
-    {
-        $this->fill(['email' => 'admin@gmail.com', 'password' => 'admin']);
-    }
+    // public function mount()
+    // {
+    //     $this->fill(['email' => 'admin@gmail.com', 'password' => 'admin']);
+    // }
 
     public function login() {
         $this->validate();
