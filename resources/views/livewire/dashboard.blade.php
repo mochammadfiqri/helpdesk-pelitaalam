@@ -188,6 +188,196 @@
                 });
             });
         </script>
+
+        {{-- Generally --}}
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                        // Contoh data jumlah
+                        var dataJumlah = [30, 50, 20];
+        
+                        // Menghitung total
+                        var total = dataJumlah.reduce(function (acc, val) {
+                            return acc + val;
+                        }, 0);
+        
+                        // Menghitung persentase masing-masing nilai
+                        var dataPersentase = dataJumlah.map(function (value) {
+                            return ((value / total) * 100).toFixed(2);
+                        });
+        
+                        var ctx = document.getElementById('generally-chart').getContext('2d');
+                        var myChart = new Chart(ctx, {
+                            type: 'doughnut',
+                            data: {
+                                datasets: [{
+                                    data: dataPersentase, // Menggunakan data persentase
+                                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    datalabels: {
+                                        formatter: function (value, context) {
+                                            return value + '%';
+                                        },
+                                        color: 'white',
+                                        labels: {
+                                            title: {
+                                                font: {
+                                                    weight: 'bold'
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    });
+        </script>
+        {{-- Less Urgent --}}
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // Contoh data jumlah
+                var dataJumlah = [30, 50, 20];
+
+                // Menghitung total
+                var total = dataJumlah.reduce(function (acc, val) {
+                    return acc + val;
+                }, 0);
+
+                // Menghitung persentase masing-masing nilai
+                var dataPersentase = dataJumlah.map(function (value) {
+                    return ((value / total) * 100).toFixed(2);
+                });
+
+                var ctx = document.getElementById('lessUrgent-chart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        datasets: [{
+                            data: dataPersentase, // Menggunakan data persentase
+                            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            datalabels: {
+                                formatter: function (value, context) {
+                                    return value + '%';
+                                },
+                                color: 'white',
+                                labels: {
+                                    title: {
+                                        font: {
+                                            weight: 'bold'
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+        </script>
+        {{-- Urgent --}}
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // Contoh data jumlah
+                var dataJumlah = [30, 50, 20];
+
+                // Menghitung total
+                var total = dataJumlah.reduce(function (acc, val) {
+                    return acc + val;
+                }, 0);
+
+                // Menghitung persentase masing-masing nilai
+                var dataPersentase = dataJumlah.map(function (value) {
+                    return ((value / total) * 100).toFixed(2);
+                });
+
+                var ctx = document.getElementById('urgent-chart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        datasets: [{
+                            data: dataPersentase, // Menggunakan data persentase
+                            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            datalabels: {
+                                formatter: function (value, context) {
+                                    return value + '%';
+                                },
+                                color: 'white',
+                                labels: {
+                                    title: {
+                                        font: {
+                                            weight: 'bold'
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+        </script>
+        {{-- Very Urgent --}}
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // Contoh data jumlah
+                var dataJumlah = [30, 50, 20];
+
+                // Menghitung total
+                var total = dataJumlah.reduce(function (acc, val) {
+                    return acc + val;
+                }, 0);
+
+                // Menghitung persentase masing-masing nilai
+                var dataPersentase = dataJumlah.map(function (value) {
+                    return ((value / total) * 100).toFixed(2);
+                });
+
+                var ctx = document.getElementById('veryUrgent-chart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        datasets: [{
+                            data: dataPersentase, // Menggunakan data persentase
+                            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            datalabels: {
+                                formatter: function (value, context) {
+                                    return value + '%';
+                                },
+                                color: 'white',
+                                labels: {
+                                    title: {
+                                        font: {
+                                            weight: 'bold'
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+        </script>
+
         {{-- chartJS --}}
         <script src="../assets/js/plugins/chartjs.min.js"></script>
         <script>
@@ -437,6 +627,17 @@
                 });
         </script>
     @endpush
+    <div class="col-12">
+        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+            <div class="row">
+                <div class="col-12">
+                    <h6 class="text-white text-uppercase ps-3 float-start">
+                        E - Ticketing
+                    </h6>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="col-xl-3 col-sm-6 mb-xl-0">
         <a href="/tickets">
             <div class="card" >
@@ -481,17 +682,16 @@
         <a href="/tickets">
             <div class="card">
                 <div class="row g-0">
-                    <div class="col-md-6 p-3 ">
+                    <div class="col-md-6 p-3">
                         <div class="text-start pt-1">
-                            {{-- <p class="text-sm mb-0 text-capitalize">New Ticket</p> --}}
                             <h5 class="text-sm mb-0 text-capitalize">Closed Ticket</h5>
-                            <h3 class="mb-0 mt-1 ">{{ $closedTicketCount }}</h3>
+                            <h3 class="mb-0 mt-4">{{ $closedTicketCount }}</h3>
                         </div>
                     </div>
                     <div class="col-md-6 p-1">
                         <div class="chart">
                             <canvas id="chart-closedTicket" class="chart-canvas" height="120px"></canvas>
-                        </div> 
+                        </div>
                     </div>
                 </div>
             </div>
@@ -503,80 +703,110 @@
                 <div class="row g-0">
                     <div class="col-md-6 p-3">
                         <div class="text-start pt-1">
-                            <h5 class="text-sm mb-0 text-capitalize">Unaassigned Ticket</h5>
-                            <h3 class="mb-0 mt-1">{{ $unassignedTicketCount }}</h3>
+                            {{-- <p class="text-sm mb-0 text-capitalize">New Ticket</p> --}}
+                            <h5 class="text-sm mb-0 text-capitalize">Unaassign Ticket</h5>
+                            <h3 class="mb-0 mt-2">{{ $unassignedTicketCount }}</h3>
                         </div>
                     </div>
                     <div class="col-md-6 p-1">
                         <div class="chart">
                             <canvas id="chart-unassignedTicket" class="chart-canvas" height="120px"></canvas>
-                        </div> 
+                        </div>
                     </div>
                 </div>
             </div>
         </a>
     </div>
 </div>
-{{-- <div class="row mt-4">
-    <div class="col-lg-4 col-md-6 mt-4 mb-4">
-        <div class="card z-index-2 ">
-            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
-                <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
-                    <div class="chart">
-                        <canvas id="chart-bars" class="chart-canvas" height="170"></canvas>
-                    </div>
-                </div>
-            </div>
-            <div class="card-body">
-                <h6 class="mb-0 ">Website Views</h6>
-                <p class="text-sm ">Last Campaign Performance</p>
-                <hr class="dark horizontal">
-                <div class="d-flex ">
-                    <i class="material-icons text-sm my-auto me-1">schedule</i>
-                    <p class="mb-0 text-sm"> campaign sent 2 days ago </p>
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+            <div class="row">
+                <div class="col-12">
+                    <h6 class="text-white text-uppercase ps-3 float-start">
+                        Priorities
+                    </h6>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-lg-4 col-md-6 mt-4 mb-4">
-        <div class="card z-index-2  ">
-            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
-                <div class="bg-gradient-success shadow-success border-radius-lg py-3 pe-1">
-                    <div class="chart">
-                        <canvas id="chart-line" class="chart-canvas" height="170"></canvas>
+    <div class="col-xl-3 col-sm-6 mb-xl-0">
+        <a href="/tickets">
+            <div class="card">
+                <div class="row g-0">
+                    <div class="col-md-6 p-3">
+                        <div class="text-start pt-1">
+                            {{-- <p class="text-sm mb-0 text-capitalize">New Ticket</p> --}}
+                            <h5 class="text-sm mb-0 text-capitalize">Generally</h5>
+                            <h3 class="mb-0 mt-4">{{ $generallyCount }}</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-6 p-1">
+                        <div class="chart">
+                            <canvas id="generally-chart" class="chart-canvas" height="120px"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="card-body">
-                <h6 class="mb-0 "> Daily Sales </h6>
-                <p class="text-sm "> (<span class="font-weight-bolder">+15%</span>) increase in today sales.
-                </p>
-                <hr class="dark horizontal">
-                <div class="d-flex ">
-                    <i class="material-icons text-sm my-auto me-1">schedule</i>
-                    <p class="mb-0 text-sm"> updated 4 min ago </p>
-                </div>
-            </div>
-        </div>
+        </a>
     </div>
-    <div class="col-lg-4 mt-4 mb-3">
-        <div class="card z-index-2 ">
-            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
-                <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
-                    <div class="chart">
-                        <canvas id="chart-line-tasks" class="chart-canvas" height="170"></canvas>
+    <div class="col-xl-3 col-sm-6 mb-xl-0">
+        <a href="/tickets">
+            <div class="card">
+                <div class="row g-0">
+                    <div class="col-md-6 p-3">
+                        <div class="text-start pt-1">
+                            {{-- <p class="text-sm mb-0 text-capitalize">New Ticket</p> --}}
+                            <h5 class="text-sm mb-0 text-capitalize">Less Urgent</h5>
+                            <h3 class="mb-0 mt-4">{{ $lessUrgentCount }}</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-6 p-1">
+                        <div class="chart">
+                            <canvas id="lessUrgent-chart" class="chart-canvas" height="120px"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="card-body">
-                <h6 class="mb-0 ">Completed Tasks</h6>
-                <p class="text-sm ">Last Campaign Performance</p>
-                <hr class="dark horizontal">
-                <div class="d-flex ">
-                    <i class="material-icons text-sm my-auto me-1">schedule</i>
-                    <p class="mb-0 text-sm">just updated</p>
+        </a>
+    </div>
+    <div class="col-xl-3 col-sm-6 mb-xl-0">
+        <a href="/tickets">
+            <div class="card">
+                <div class="row g-0">
+                    <div class="col-md-6 p-3 ">
+                        <div class="text-start pt-1">
+                            {{-- <p class="text-sm mb-0 text-capitalize">New Ticket</p> --}}
+                            <h5 class="text-sm mb-0 text-capitalize">Urgent</h5>
+                            <h3 class="mb-0 mt-1 ">{{ $urgentCount }}</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-6 p-1">
+                        <div class="chart">
+                            <canvas id="urgent-chart" class="chart-canvas" height="120px"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div> 
-</div> --}}
+        </a>
+    </div>
+    <div class="col-xl-3 col-sm-6 mb-xl-0">
+        <a href="/tickets">
+            <div class="card">
+                <div class="row g-0">
+                    <div class="col-md-6 p-3">
+                        <div class="text-start pt-1">
+                            <h5 class="text-sm mb-0 text-capitalize">Very Urgent</h5>
+                            <h3 class="mb-0 mt-1">{{ $veryUrgentCount }}</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-6 p-1">
+                        <div class="chart">
+                            <canvas id="veryUrgent-chart" class="chart-canvas" height="120px"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>

@@ -24,10 +24,11 @@ class UserSeeder extends Seeder
         User::create([
             'nama' => 'Mochammad Fiqri',
             'email' => 'admin@gmail.com',
+            'email_verified_at' => now(),
             'password' => Hash::make('admin'),
             'no_hp' => '085237742424',
-            'domisili' => 'Kota Bekasi',
-            'alamat' => 'Jl. cempaka',
+            // 'domisili' => 'Kota Bekasi',
+            // 'alamat' => 'Jl. cempaka',
             'role_id' => '1',
         ]);
     }

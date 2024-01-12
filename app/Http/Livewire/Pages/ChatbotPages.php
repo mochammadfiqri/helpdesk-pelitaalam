@@ -4,19 +4,18 @@ namespace App\Http\Livewire\Pages;
 
 use OpenAI;
 use Livewire\Component;
+use App\Models\ChatbotSetting;
+use Illuminate\Support\Facades\Auth;
 
 class ChatbotPages extends Component
 {
     public $sendPrompt;
-    // protected $listeners = ['editContext'];
     
-    // public function editContext($context) {
-        
-    // }
-
     public function newPrompt() {
+        $contextPrompt = ChatbotSetting::where('id', 1)->first();
+
         $content = $this->sendPrompt;
-        $context = session()->get('chat', [['role' => 'user', 'content' => 'Sekarang kamu adalah seorang IT di SMK Pelita Alam. Tugas kamu adalah menjawab pertanyaan seputar Teknologi']]);
+        $context = session()->get('chat.' . Auth::user()->id, [['role' => 'user', 'content' => $contextPrompt->context]]);
         $context[] = ['role' => 'user', 'content' => $content];
 
         $yourApiKey = env('OPENAI_API_KEY');
@@ -31,7 +30,7 @@ class ChatbotPages extends Component
             $context[] = ['role' => 'assistant', 'content' => $result->message->content];
         }
 
-        session(['chat' => $context]);
+        session(['chat.' . Auth::user()->id => $context]);
 
         return redirect('/chat-ai');
     }
@@ -47,13 +46,9 @@ class ChatbotPages extends Component
 
     public function render()
     {
-        $context = session()->get('chat', [['role' => 'user', 'content' => 'Sekarang kamu adalah seorang IT di SMK Pelita Alam. Tugas kamu adalah menjawab pertanyaan seputar Teknologi']]);
+        $contextPrompt = ChatbotSetting::where('id', 1)->first();
+        $context = session()->get('chat.' . Auth::user()->id, [['role' => 'user', 'content' => $contextPrompt->context]]);
 
-        // Hapus sesi 'chat' jika tidak berada di route '/chat-ai'
-        if (!request()->is('chat-ai')) {
-            session()->forget('chat');
-        }
-        
         return view('livewire.pages.chatbot-pages', [
             'context' => $context,
         ]);

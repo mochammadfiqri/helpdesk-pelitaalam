@@ -26,8 +26,8 @@
                         </div>
                     </div>
                 @endforeach --}}
-                @foreach ($context as $key => $result)
-                    @if ($context = 0)
+                @foreach ($context as $result)
+                    @if ($context == 0)
                         <div class="d-flex flex-column align-items-center pb-5">
                             <img src="../assets/img/ChatGPT-Logo.png" class="w-20">
                             <h3>how can i help you?</h3>

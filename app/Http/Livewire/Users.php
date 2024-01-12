@@ -143,59 +143,6 @@ class Users extends Component
         ]);
     }
 
-    // public function deleteUser($user_id) {
-    //     $this->user_id = $user_id;
-    // }
-
-    // public function destroyUser() {
-    //     $user = User::find($this->user_id);
-    //     if ($user) {
-    //         $this->nama = $user->nama;
-    //     }
-
-    //     if ($user->foto) {
-    //         Storage::delete($user->foto);
-    //     }
-
-    //     $user->delete();
-
-    //     return redirect('/users')->with([
-    //         'toast_type' => 'success', // Jenis pesan (success, error, warning, info)
-    //         'toast_message' => 'Pengguna Berhasil di Hapus!', // Isi pesan
-    //     ]);
-    // }
-
-    // public function deleteCheckedUser() {
-    //     $users = User::whereIn('id', $this->checkedUser)->get();
-    //     $tickets = Tickets::where('user_id', $this->checkedUser)->first();
-
-    //     foreach ($tickets as $ticket) {
-            
-    //         if ($ticket) {
-    //             Message::where('discussion_id', $ticket->id)->delete();
-    //             $ticket->delete();
-    //         }
-    //     }
-
-    //     foreach ($users as $user) {
-    //         if ($user) {
-    //             Tickets::where('user_id', $this->checkedUser)->delete();
-    //         }
-
-    //         if ($user->foto) {
-    //             Storage::delete($user->foto);
-    //         }
-    //     }
-
-    //     User::whereIn('id', $this->checkedUser)->delete();
-    //     $this->checkedUser = [];
-
-    //     return redirect('/users')->with([
-    //         'toast_type' => 'success', // Jenis pesan (success, error, warning, info)
-    //         'toast_message' => 'Pengguna Berhasil di Hapus!', // Isi pesan
-    //     ]);
-    // }
-
     public function deleteCheckedUser() {
     $users = User::whereIn('id', $this->checkedUser)->get();
 

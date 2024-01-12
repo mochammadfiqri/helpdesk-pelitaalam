@@ -1,3 +1,8 @@
+
+
+{{-- MOVE TO App.blade.php --}}
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +16,7 @@
         HELPDESK - PELITA ALAM
     </title>
     <!-- Fonts and icons -->
-    <link rel="stylesheet" type="text/css"
+    <link rel="stylesheet" type="text/css"s
         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
     <!-- Nucleo Icons -->
     <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
@@ -78,7 +83,6 @@
     @livewireScripts
 
     <!--   Core JS Files   -->
-    {{-- <script src="../assets/js/plugins/chartjs.min.js"></script> --}}
     <script src="../assets/js/core/popper.min.js"></script>
     <script src="../assets/js/core/bootstrap.min.js"></script>
     <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>

@@ -30,7 +30,7 @@
                                     <i class="fa-solid fa-file-lines fa-lg"></i>&nbsp;&nbsp;&nbsp;Dataset
                                 </a>
                             @endif
-                            @if (Auth::user()->role_id != 1)
+                            @if (Auth::user()->role_id != 1 && Auth::user()->role_id != 2)
                                 <div class="btn-group dropstart">
                                     <button type="button" class="btn btn-rounded btn-outline-secondary float-end dropdown-toggle mx-2 mx-sm-1" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="fa-solid fa-filter fa-xl"></i></i>&nbsp;&nbsp;&nbsp;Filter
@@ -50,6 +50,8 @@
                                         </li>
                                     </ul>
                                 </div>
+                            @endif
+                            @if (Auth::user()->role_id != 1)
                                 <a href="{{ route('create_ticket') }}"
                                     class="btn btn-rounded bg-gradient-info mx-2 mx-sm-1">
                                     <i class="fa-solid fa-plus fa-lg"></i>&nbsp;&nbsp;&nbsp;Create Ticket

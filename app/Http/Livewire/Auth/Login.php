@@ -2,8 +2,11 @@
 
 namespace App\Http\Livewire\Auth;
 
+use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\RateLimiter;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
@@ -20,10 +23,10 @@ class Login extends Component
     }
 
     // Sementara
-    // public function mount()
-    // {
-    //     $this->fill(['email' => 'admin@gmail.com', 'password' => 'admin']);
-    // }
+    public function mount()
+    {
+        $this->fill(['email' => 'admin@gmail.com', 'password' => 'admin']);
+    }
 
     public function login() {
         $this->validate();
@@ -48,6 +51,33 @@ class Login extends Component
             'toast_type' => 'success', // Jenis pesan (success, error, warning, info)
             'toast_message' => 'Berhasil Login ', // Isi pesan
         ]);
+    }
+
+    public function redirectToGoole() {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleGoogleCallback() {
+        try {
+            $user = Socialite::driver('google')->user();
+            $findUser = User::where('google_id', $user->id)->first();
+
+            if ($findUser) {
+                Auth::login($findUser);
+                return redirect()->intended('dashboard');
+            } else {
+                $newUser = User::updateOrCreate(['email' => $user->email],[
+                    'name' => $user->name,
+                    'google_id' => $user->id,
+                    // 'password' => Hash::make($this->password),
+                    'password' => Hash::make('123'),
+                ]);
+                Auth::login($newUser);
+                return redirect()->intended('dashboard');
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 
     public function render()

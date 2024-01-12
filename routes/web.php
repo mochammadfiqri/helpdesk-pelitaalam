@@ -26,6 +26,8 @@ use App\Http\Livewire\Botman\ChatbotMessenger;
 use App\Http\Livewire\KnowledgeBase\EditKnowledge;
 use App\Http\Livewire\KnowledgeBase\MainKnowledge;
 use App\Http\Livewire\KnowledgeBase\CreateKnowledge;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +43,7 @@ use App\Http\Livewire\KnowledgeBase\CreateKnowledge;
 // Auth::routes(['verify' => true]);
 
 Route::get('/', LandingPage::class)->name('landing-page');
+
 // Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
 Route::get('/botman', ChatbotMessenger::class)->name('ChatbotMessenger');
 Route::post('/botman', [ChatbotMessenger::class, 'handle']);
@@ -53,12 +56,31 @@ Route::get('/knowledge', KnowledgePages::class)->name('knowledge-page');
 Route::get('/knowledge/{slug}', KnowledgePost::class)->name('knowledge-post');
 Route::get('/e-ticket', TicketPages::class)->name('ticket-page');
 
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect('/dashboard');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::get('/forgot-password', function () {
+    return view('auth.forgot-password');
+})->middleware('guest')->name('password.request');
+
 Route::middleware('onlyGuest')->group(function () {
     Route::get('/login', Login::class)->name('login');
+
+    Route::get('/login/google', [Login::class, 'redirectToGoole'])->name('auth.google');
+    Route::get('/login/google/callback', [Login::class, 'handleGoogleCallback']);
+
     Route::get('/register', Register::class)->name('register'); 
+    // Route::get('register/verify/{verify_key}', [Register::class, 'verify'])->name('verify');
+    // Route::get('/register/verify/{token}', [Register::class, 'verifyAccount'])->name('user.verify'); 
 });
 
-Route::middleware('auth')->group(function() {
+Route::middleware('auth','verified')->group(function() {
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
 
     Route::get('/chat-ai', ChatbotPages::class)->name('chatbot');

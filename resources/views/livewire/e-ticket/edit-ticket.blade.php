@@ -159,10 +159,10 @@
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
                                     </select>
-                                    @if (Auth::user()->role_id == 1)
-                                    <span class="pt-2 ps-1" id="enableDisableBtnStatus" onclick="toggleDisabled('statusSelect', 'iconStatus')">
-                                        <i id="iconStatus" class="fa-solid fa-pen-to-square fa-md"></i>
-                                    </span>
+                                    @if (Auth::user()->role_id == 1 || (Auth::user()->role_id != 1 && $assigned_user_id == Auth::user()->id))
+                                        <span class="pt-2 ps-1" id="enableDisableBtnStatus" onclick="toggleDisabled('statusSelect', 'iconStatus')">
+                                            <i id="iconStatus" class="fa-solid fa-pen-to-square fa-md"></i>
+                                        </span>
                                     @endif
                                 </div>
                                 @error('status')
@@ -230,9 +230,10 @@
                         </label>
                     </div>
                     <div class="d-flex flex-wrap" >
-                        <button type="button" class="btn btn-secondary btn-rounded shadow-dark me-2" wire:click='fresh'
-                            onclick="window.history.back();">Cancel</button>
+                        {{-- <button type="button" class="btn btn-secondary btn-rounded shadow-dark me-2" wire:click='fresh'
+                            onclick="window.history.back();">Cancel</button> --}}
                         @if (Auth::user()->role_id == 1)
+                            <button type="submit" wire:click.prevent="importToDataset" class="btn btn-info btn-rounded shadow-dark me-2">import To Dataset</button>
                             <button type="submit" wire:click.prevent="updateTicket" class="btn btn-success btn-rounded shadow-dark ">Update
                                 Ticket</button>
                         @endif

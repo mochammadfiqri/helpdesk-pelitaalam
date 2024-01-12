@@ -50,7 +50,7 @@
                 @if ($knowledge_base->count() > 0)
                 <div class="row pt-3 pb-4">
                         @foreach ($knowledge_base as $data)
-                        <div class="col-4 pb-3" style="cursor: pointer;">
+                        <div class="col-12 col-lg-4 pb-3" style="cursor: pointer;">
                             <a wire:click="viewPost('{{ $data->slug }}')" class="text-decoration-none " style="color: #495057;">
                             <div class="card card-label card-body blur shadow-blur border-1 ">
                                 <i class="fa-solid fa-tag fa-lg text-primary"></i> <span class="fs-6">&nbsp;{{ $data->category->name }}</span>

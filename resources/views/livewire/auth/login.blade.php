@@ -20,7 +20,7 @@
                                     </a>
                                 </div>
                                 <div class="text-center me-auto">
-                                    <a class="btn btn-link px-3" href="javascript:;">
+                                    <a class="btn btn-link px-3" href="{{ route('auth.google') }}">
                                         <i class="fa fa-google text-white text-lg"></i>
                                     </a>
                                 </div>

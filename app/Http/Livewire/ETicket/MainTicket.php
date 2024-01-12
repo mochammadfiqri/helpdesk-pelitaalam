@@ -26,6 +26,10 @@ class MainTicket extends Component
         
     }
 
+    public function clearSearch() {
+        $this->search = '';    
+    }
+
     public function render()
     {
         $query = Tickets::query();
@@ -35,28 +39,34 @@ class MainTicket extends Component
 
         // Filter berdasarkan role user
         if (Auth::user()->role_id == 1) {
-            // Admin dapat melihat semua tiket
-        } else {
+            // dd($query);
+        } elseif (Auth::user()->role_id == 2) {
             // User biasa hanya dapat melihat tiket yang mereka buat
             $query->where('user_id', Auth::user()->id);
-        }
-
-        // Filter berdasarkan kondisi "My Tickets" atau "Assign Tickets"
-        if ($this->myTickets || $this->assignTickets) {
-            $query->where(function ($query) {
-                // Kondisi "My Tickets"
-                if ($this->myTickets) {
-                    $query->orWhere('user_id', Auth::user()->id);
-                }
-
-                // Kondisi "Assign Tickets"
-                if ($this->assignTickets) {
-                    $query->orWhere('assigned_user_id', Auth::user()->id);
-                }
-            });
         } else {
-            $query->where('id', '=', 0);
+            // User biasa hanya dapat melihat tiket yang mereka buat
+            $query->where(function ($query) {
+                $query->where('user_id', Auth::user()->id)
+                    ->orWhere('assigned_user_id', Auth::user()->id); // Jika ingin memperbolehkan melihat tiket yang ditugaskan ke pengguna juga
+            });
+            // Filter berdasarkan kondisi "My Tickets" atau "Assign Tickets"
+            if ($this->myTickets || $this->assignTickets) {
+                $query->where(function ($query) {
+                    // Kondisi "My Tickets"
+                    if ($this->myTickets) {
+                        $query->orWhere('user_id', Auth::user()->id);
+                    }
+    
+                    // Kondisi "Assign Tickets"
+                    if ($this->assignTickets) {
+                        $query->orWhere('assigned_user_id', Auth::user()->id);
+                    }
+                });
+            } else {
+                $query->where('id', '=', 0);
+            }
         }
+
 
         $tickets = $query->orderBy('created_at', 'desc')->paginate(5);
 

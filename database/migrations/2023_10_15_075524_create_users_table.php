@@ -20,12 +20,11 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('no_hp')->nullable();
-            $table->string('domisili')->nullable();
-            $table->text('alamat')->nullable();
+            // $table->string('domisili')->nullable();
+            // $table->text('alamat')->nullable();
             $table->text('foto')->nullable();
             $table->unsignedBigInteger('role_id');
             $table->foreign('role_id')->references('id')->on('roles');
-            // $table->string('status')->default('active');
             $table->rememberToken();
             $table->timestamps();
         });
