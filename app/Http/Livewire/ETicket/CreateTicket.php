@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\ETicket;
 
+use Carbon\Carbon;
 use App\Models\Type;
 use App\Models\User;
 use StopWordFactory;
@@ -19,7 +20,9 @@ use TextAnalysis\Filters\PunctuationFilter;
 class CreateTicket extends Component
 {
     public $ticket_key, $name, $email, $subject, $details, $user_id, $assigned_user_id, $type_id, $priority_id;
-    public $status_id, $category_id, $department_id, $sender_id, $receiver_id, $file;
+    public $respond_within, $resolve_within, $status_id, $category_id, $department_id, $sender_id, $receiver_id, $file;
+    // public Carbon $respond_within; // Perbarui deklarasi menjadi objek Carbon
+    // public Carbon $resolve_within; // Perbarui deklarasi menjadi objek Carbon
 
     public function rules() {
         return [
@@ -61,7 +64,7 @@ class CreateTicket extends Component
         $stemmedWords = array_map([$stemmer, 'stem'], $tokenizedText);
         $stemmedText = implode(" ", $stemmedWords);
 
-        // //Priority Predict
+        //Priority Predict
         $nb = naive_bayes();
         $dataset = DatasetTickets::all();
 
@@ -109,12 +112,34 @@ class CreateTicket extends Component
         $predict_department_id = $nb->predict(tokenize($stemmedText));
         $predictedDepartment = array_search(max($predict_department_id), $predict_department_id);
 
+        $priority = Priorities::find($predictedPriority);
+        // $this->resolve_within = Carbon::now()->addDays($priority->resolve_time);
+        // $this->respond_within = Carbon::now()->addHours($priority->response_time);
+
+        // $data = [
+        //     'email' => auth()->user()->email,
+        //     'subject' => $this->subject,
+        //     'details' => $this->details,
+        //     'resolve_within' => Carbon::now()->addDays($priority->resolve_time),
+        //     'respond_within' => Carbon::now()->addHours($priority->response_time),
+        //     'user_id' =>auth()->user()->id,
+        //     // 'assigned_user_id' => $this->assigned_user_id,
+        //     'priority_id' => "$predictedPriority",
+        //     'department_id' => "$predictedDepartment",
+        //     'type_id' => "$predictedType",
+        //     'category_id' => "$predictedCategory",
+        // ];
+
+        // dd($data);
+
         $this->validate();
         Tickets::create([
             'email' => auth()->user()->email,
             'subject' => $this->subject,
             'details' => $this->details,
-            'user_id' =>auth()->user()->id,
+            'resolve_within' => Carbon::now()->addDays($priority->resolve_time),
+            'respond_within' => Carbon::now()->addHours($priority->response_time),
+            'user_id' => auth()->user()->id,
             // 'assigned_user_id' => $this->assigned_user_id,
             'priority_id' => "$predictedPriority",
             'department_id' => "$predictedDepartment",

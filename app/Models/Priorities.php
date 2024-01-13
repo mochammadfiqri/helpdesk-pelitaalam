@@ -10,5 +10,7 @@ class Priorities extends Model
     use HasFactory;
     protected $fillable = [
         'name',
+        'resolve_time',
+        'response_time',
     ];
 }

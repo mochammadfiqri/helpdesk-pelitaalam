@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Laravel\Scout\Searchable;
 use App\Observers\TicketObserver;
 use Illuminate\Database\Eloquent\Model;
@@ -19,6 +20,8 @@ class Tickets extends Model
         'email',
         'subject',
         'details',
+        'resolve_within',
+        'respond_within',
         'user_id',
         'assigned_user_id',
         'type_id',
@@ -52,6 +55,16 @@ class Tickets extends Model
         static::creating(function ($ticket) {
             $ticket->ticket_key = now()->format('Ymd') . '-' . self::generateTicketNumber();
 
+        });
+
+        static::created(function ($ticket) {
+            if ($ticket->isDirty('respond_within') && $ticket->respond_within <= now()) {
+                $ticket->status = 6;
+            }
+            
+            if ($ticket->isDirty('resolve_within') && $ticket->resolve_within <= now()) {
+                $ticket->status = 3;
+            }
         });
     }
 

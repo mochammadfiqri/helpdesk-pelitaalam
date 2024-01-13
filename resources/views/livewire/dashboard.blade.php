@@ -47,7 +47,7 @@
                 });
             });
         </script>
-        {{-- openTicket --}}
+        {{-- InProgressTicket --}}
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 // Contoh data jumlah
@@ -63,7 +63,7 @@
                     return ((value / total) * 100).toFixed(2);
                 });
 
-                var ctx = document.getElementById('chart-openTicket').getContext('2d');
+                var ctx = document.getElementById('chart-inProgressTicket').getContext('2d');
                 var myChart = new Chart(ctx, {
                     type: 'doughnut',
                     data: {
@@ -141,7 +141,7 @@
                 });
             });
         </script>
-        {{-- unassignedTicket --}}
+        {{-- rejectORcanceledTicket --}}
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 // Contoh data jumlah
@@ -157,7 +157,7 @@
                     return ((value / total) * 100).toFixed(2);
                 });
 
-                var ctx = document.getElementById('chart-unassignedTicket').getContext('2d');
+                var ctx = document.getElementById('chart-rejectORcanceledTicket').getContext('2d');
                 var myChart = new Chart(ctx, {
                     type: 'doughnut',
                     data: {
@@ -189,7 +189,7 @@
             });
         </script>
 
-        {{-- Generally --}}
+        {{-- Low --}}
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                         // Contoh data jumlah
@@ -205,7 +205,7 @@
                             return ((value / total) * 100).toFixed(2);
                         });
         
-                        var ctx = document.getElementById('generally-chart').getContext('2d');
+                        var ctx = document.getElementById('low-chart').getContext('2d');
                         var myChart = new Chart(ctx, {
                             type: 'doughnut',
                             data: {
@@ -236,7 +236,7 @@
                         });
                     });
         </script>
-        {{-- Less Urgent --}}
+        {{-- Normal --}}
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 // Contoh data jumlah
@@ -252,7 +252,7 @@
                     return ((value / total) * 100).toFixed(2);
                 });
 
-                var ctx = document.getElementById('lessUrgent-chart').getContext('2d');
+                var ctx = document.getElementById('normal-chart').getContext('2d');
                 var myChart = new Chart(ctx, {
                     type: 'doughnut',
                     data: {
@@ -283,7 +283,7 @@
                 });
             });
         </script>
-        {{-- Urgent --}}
+        {{-- High --}}
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 // Contoh data jumlah
@@ -299,7 +299,7 @@
                     return ((value / total) * 100).toFixed(2);
                 });
 
-                var ctx = document.getElementById('urgent-chart').getContext('2d');
+                var ctx = document.getElementById('high-chart').getContext('2d');
                 var myChart = new Chart(ctx, {
                     type: 'doughnut',
                     data: {
@@ -330,7 +330,7 @@
                 });
             });
         </script>
-        {{-- Very Urgent --}}
+        {{-- Critical --}}
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 // Contoh data jumlah
@@ -346,7 +346,7 @@
                     return ((value / total) * 100).toFixed(2);
                 });
 
-                var ctx = document.getElementById('veryUrgent-chart').getContext('2d');
+                var ctx = document.getElementById('critical-chart').getContext('2d');
                 var myChart = new Chart(ctx, {
                     type: 'doughnut',
                     data: {
@@ -632,21 +632,21 @@
             <div class="row">
                 <div class="col-12">
                     <h6 class="text-white text-uppercase ps-3 float-start">
-                        E - Ticketing
+                        Tickets Statuses
                     </h6>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-sm-6 mb-xl-0">
+    <div class="col-xl-3 col-sm-6 mb-xl-0 mt-3">
         <a href="/tickets">
             <div class="card" >
                 <div class="row g-0">
                     <div class="col-md-6 p-3">
                         <div class="text-start pt-1">
                             {{-- <p class="text-sm mb-0 text-capitalize">New Ticket</p> --}}
-                            <h5 class="text-sm mb-0 text-capitalize">New Ticket</h5>
-                            <h3 class="mb-0 mt-4">{{ $newTicketCount }}</h3>
+                            <h5 class="text-sm mb-0 text-capitalize">Open Ticket</h5>
+                            <h3 class="mb-0 mt-4">{{ $openTicketCount }}</h3>
                         </div>
                     </div>
                     <div class="col-md-6 p-1">
@@ -658,27 +658,27 @@
             </div>
         </a>
     </div>
-    <div class="col-xl-3 col-sm-6 mb-xl-0">
+    <div class="col-xl-3 col-sm-6 mb-xl-0 mt-3">
         <a href="/tickets">
             <div class="card">
                 <div class="row g-0">
                     <div class="col-md-6 p-3">
                         <div class="text-start pt-1">
                             {{-- <p class="text-sm mb-0 text-capitalize">New Ticket</p> --}}
-                            <h5 class="text-sm mb-0 text-capitalize">Open Ticket</h5>
-                            <h3 class="mb-0 mt-4">{{ $openTicketCount }}</h3>
+                            <h5 class="text-sm mb-0 text-capitalize">In Progress Ticket</h5>
+                            <h3 class="mb-0 mt-4">{{ $inProgressTicketCount }}</h3>
                         </div>
                     </div>
                     <div class="col-md-6 p-1">
                         <div class="chart">
-                            <canvas id="chart-openTicket" class="chart-canvas" height="120px"></canvas>
+                            <canvas id="chart-inProgressTicket" class="chart-canvas" height="120px"></canvas>
                         </div> 
                     </div>
                 </div>
             </div>
         </a>
     </div>
-    <div class="col-xl-3 col-sm-6 mb-xl-0">
+    <div class="col-xl-3 col-sm-6 mb-xl-0 mt-3">
         <a href="/tickets">
             <div class="card">
                 <div class="row g-0">
@@ -697,20 +697,20 @@
             </div>
         </a>
     </div>
-    <div class="col-xl-3 col-sm-6 mb-xl-0">
+    <div class="col-xl-3 col-sm-6 mb-xl-0 mt-3">
         <a href="/tickets">
             <div class="card">
                 <div class="row g-0">
                     <div class="col-md-6 p-3">
                         <div class="text-start pt-1">
                             {{-- <p class="text-sm mb-0 text-capitalize">New Ticket</p> --}}
-                            <h5 class="text-sm mb-0 text-capitalize">Unaassign Ticket</h5>
-                            <h3 class="mb-0 mt-2">{{ $unassignedTicketCount }}</h3>
+                            <h5 class="text-sm mb-0 text-capitalize">Reject or Canceled Ticket</h5>
+                            <h3 class="mb-0 mt-2">{{ $rejectORcanceledTicketCount }}</h3>
                         </div>
                     </div>
                     <div class="col-md-6 p-1">
                         <div class="chart">
-                            <canvas id="chart-unassignedTicket" class="chart-canvas" height="120px"></canvas>
+                            <canvas id="chart-rejectORcanceledTicket" class="chart-canvas" height="120px"></canvas>
                         </div>
                     </div>
                 </div>
@@ -724,85 +724,85 @@
             <div class="row">
                 <div class="col-12">
                     <h6 class="text-white text-uppercase ps-3 float-start">
-                        Priorities
+                        Tickets Priorities
                     </h6>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-sm-6 mb-xl-0">
+    <div class="col-xl-3 col-sm-6 mb-xl-0 mt-3">
         <a href="/tickets">
             <div class="card">
                 <div class="row g-0">
-                    <div class="col-md-6 p-3">
+                    <div class="col-6 p-3">
                         <div class="text-start pt-1">
                             {{-- <p class="text-sm mb-0 text-capitalize">New Ticket</p> --}}
-                            <h5 class="text-sm mb-0 text-capitalize">Generally</h5>
-                            <h3 class="mb-0 mt-4">{{ $generallyCount }}</h3>
+                            <h5 class="text-sm mb-0 text-capitalize">Low Priority</h5>
+                            <h3 class="mb-0">{{ $lowCount }}</h3>
                         </div>
                     </div>
-                    <div class="col-md-6 p-1">
+                    <div class="col-6 p-1">
                         <div class="chart">
-                            <canvas id="generally-chart" class="chart-canvas" height="120px"></canvas>
+                            <canvas id="low-chart" class="chart-canvas" height="120px"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
         </a>
     </div>
-    <div class="col-xl-3 col-sm-6 mb-xl-0">
+    <div class="col-xl-3 col-sm-6 mb-xl-0 mt-3">
         <a href="/tickets">
             <div class="card">
                 <div class="row g-0">
-                    <div class="col-md-6 p-3">
+                    <div class="col-6 p-3">
                         <div class="text-start pt-1">
                             {{-- <p class="text-sm mb-0 text-capitalize">New Ticket</p> --}}
-                            <h5 class="text-sm mb-0 text-capitalize">Less Urgent</h5>
-                            <h3 class="mb-0 mt-4">{{ $lessUrgentCount }}</h3>
+                            <h5 class="text-sm mb-0 text-capitalize">Normal Priority</h5>
+                            <h3 class="mb-0 my-auto">{{ $normalCount }}</h3>
                         </div>
                     </div>
-                    <div class="col-md-6 p-1">
+                    <div class="col-6 p-1">
                         <div class="chart">
-                            <canvas id="lessUrgent-chart" class="chart-canvas" height="120px"></canvas>
+                            <canvas id="normal-chart" class="chart-canvas" height="120px"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
         </a>
     </div>
-    <div class="col-xl-3 col-sm-6 mb-xl-0">
+    <div class="col-xl-3 col-sm-6 mb-xl-0 mt-3">
         <a href="/tickets">
             <div class="card">
                 <div class="row g-0">
-                    <div class="col-md-6 p-3 ">
+                    <div class="col-6 p-3 ">
                         <div class="text-start pt-1">
                             {{-- <p class="text-sm mb-0 text-capitalize">New Ticket</p> --}}
-                            <h5 class="text-sm mb-0 text-capitalize">Urgent</h5>
-                            <h3 class="mb-0 mt-1 ">{{ $urgentCount }}</h3>
+                            <h5 class="text-sm mb-0 text-capitalize">High Priority</h5>
+                            <h3 class="mb-0 mt-1 ">{{ $highCount }}</h3>
                         </div>
                     </div>
-                    <div class="col-md-6 p-1">
+                    <div class="col-6 p-1">
                         <div class="chart">
-                            <canvas id="urgent-chart" class="chart-canvas" height="120px"></canvas>
+                            <canvas id="high-chart" class="chart-canvas" height="120px"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
         </a>
     </div>
-    <div class="col-xl-3 col-sm-6 mb-xl-0">
+    <div class="col-xl-3 col-sm-6 mb-xl-0 mt-3">
         <a href="/tickets">
             <div class="card">
                 <div class="row g-0">
-                    <div class="col-md-6 p-3">
+                    <div class="col-6 p-3">
                         <div class="text-start pt-1">
-                            <h5 class="text-sm mb-0 text-capitalize">Very Urgent</h5>
-                            <h3 class="mb-0 mt-1">{{ $veryUrgentCount }}</h3>
+                            <h5 class="text-sm mb-0 text-capitalize">Critical</h5>
+                            <h3 class="mb-0 mt-1">{{ $criticalCount }}</h3>
                         </div>
                     </div>
-                    <div class="col-md-6 p-1">
+                    <div class="col-6 p-1">
                         <div class="chart">
-                            <canvas id="veryUrgent-chart" class="chart-canvas" height="120px"></canvas>
+                            <canvas id="critical-chart" class="chart-canvas" height="120px"></canvas>
                         </div>
                     </div>
                 </div>

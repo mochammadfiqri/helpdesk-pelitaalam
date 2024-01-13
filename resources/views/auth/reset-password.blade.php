@@ -6,10 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/logo-smkpelita-100x100px.ico">
-    <link rel="preconnect" href="https://9T5VNL71TX.algolia.net" crossorigin />
-    <title>
-        HELPDESK - PELITA ALAM
-    </title>
+
+    <title>HELPDESK - PELITA ALAM | Reset Password</title>
+
     <!-- Fonts and icons -->
     <link rel="stylesheet" type="text/css" s
         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
@@ -60,65 +59,64 @@
         }
     </style>
 
-    {{-- autocomplete.js --}}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-theme-classic" />
-
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/docs-searchbar.js@latest/dist/cdn/docs-searchbar.min.css" />
     @livewireStyles
 </head>
 
-<body class="bg-gray-200">
-    <livewire:auth.index-verify-email />
+<body class="g-sidenav-show bg-gray-200">
+    <main class="main-content mt-0">
+        <livewire:auth.index-reset-password>
+    </main>
 
+    <!--   JS Files   -->
     <script src="../assets/js/core/popper.min.js"></script>
     <script src="../assets/js/core/bootstrap.min.js"></script>
     <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
     <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+    @livewireScripts
     <script>
-        var win = navigator.platform.indexOf('Win') > -1;
-            if (win && document.querySelector('#sidenav-scrollbar')) {
-                var options = {
-                    damping: '0.5'
-                }
-                Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-            }
-    </script>
-    @stack('scriptDashboard')
-    <!-- Github buttons -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-    <script src="../assets/js/material-dashboard.min.js?v=3.0.4"></script>
-    
-    {{-- Sweet Alert 2 --}}
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
-    <script>
-        // Menyiapkan SweetAlert2 Toast sesuai dengan definisi Anda
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3500,
-                timerProgressBar: true,
-                showCloseButton: true,
-                heightAuto: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
-    
-            // Menampilkan SweetAlert2 Toast berdasarkan jenis pesan
-            document.addEventListener("DOMContentLoaded", function() {
-                @if (session('toast_type'))
-                    Toast.fire({
-                        icon: '{{ session('toast_type') }}',
-                        title: '{{ session('toast_message') }}'
+        document.addEventListener('livewire:load', function () {
+                    const inputs = document.querySelectorAll('.form-control');
+            
+                    inputs.forEach(function (input) {
+                        const div = input.parentNode;
+                        const errorElement = div.querySelector('.text-danger');
+            
+                        // Check initial input value
+                        if (input.value.trim() !== '') {
+                            div.classList.add('is-filled');
+                            if (input.checkValidity() && !errorElement) {
+                                div.classList.add('is-valid');
+                            }
+                        }
+            
+                        // Check input on focusout
+                        input.addEventListener('focusout', function () {
+                            if (input.value.trim() !== '') {
+                                div.classList.add('is-filled');
+                                if (input.checkValidity() && !errorElement) {
+                                    div.classList.add('is-valid');
+                                    div.classList.remove('is-invalid');
+                                } else {
+                                    div.classList.remove('is-valid');
+                                    div.classList.add('is-invalid');
+                                }
+                            } else {
+                                div.classList.remove('is-filled');
+                                div.classList.remove('is-valid');
+                                div.classList.remove('is-invalid');
+                            }
+                        });
                     });
-                @endif
-            });
+                });
+            
+                function focused(input) {
+                    input.parentNode.classList.add('is-focused');
+                }
+            
+                function defocused(input) {
+                    input.parentNode.classList.remove('is-focused');
+                }
     </script>
-
 </body>
 
 </html>

@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\Statuses;
+use App\Models\Tickets;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class StatusSeeder extends Seeder
+class TicketTruncateSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,21 +17,7 @@ class StatusSeeder extends Seeder
     public function run()
     {
         Schema::disableForeignKeyConstraints();
-        Statuses::truncate();
+        Tickets::truncate();
         Schema::enableForeignKeyConstraints();
-        
-        $data = [
-            'Open',
-            'In Progress',
-            'Closed',
-            'Rejected',
-            'Canceled',
-        ];
-
-        foreach ($data as $value) {
-            Statuses::create([
-                'name' => $value
-            ]);
-        }
     }
 }

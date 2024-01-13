@@ -19,16 +19,16 @@
                     <h6 class="my-auto">Subject</h6>
                 </th>
                 <th>
-                    <h6 class="my-auto">Priority</h6>
+                    <h6 class="my-auto text-center">Priority</h6>
                 </th>
                 <th>
-                    <h6 class="my-auto">Status</h6>
+                    <h6 class="my-auto text-center">Status</h6>
                 </th>
                 <th>
-                    <h6 class="my-auto">Created</h6>
+                    <h6 class="my-auto text-center">Respond within</h6>
                 </th>
                 <th>
-                    <h6 class="my-auto">Updated</h6>
+                    <h6 class="my-auto text-center">Resolve within</h6>
                 </th>
             </tr>
         </thead>
@@ -54,23 +54,45 @@
                     </div>
                 </td>
                 <td>
-                    <div class="my-auto px-3 mb-0 ">
-                        <p class="text-sm text-start text-bold mb-0">{{ $data->priority->name }}</p>
+                    <div class="my-auto text-center px-3 mb-0 ">
+                        <p class="text-sm text-bold mb-0">{{ $data->priority->name }}</p>
                     </div>
                 </td> 
                 <td>
-                    <div class="my-auto px-3 mb-0 ">
-                        <p class="text-sm text-start text-bold mb-0">{{ $data->status->name }}</p>
+                    <div class="my-auto text-center px-3 mb-0 ">
+                        <p class="text-sm text-bold mb-0">{{ $data->status->name }}</p>
                     </div>
                 </td>
                 <td>
-                    <div class="my-auto px-3 mb-0 ">
-                        <p class="text-sm text-start text-bold mb-0">{{ $data->created_at->diffForHumans() }}</p>
+                    <div class="my-auto text-center px-3 mb-0 ">
+                        @php
+                            $expireTime = \Carbon\Carbon::parse($data->respond_within);
+                            $currentTime = \Carbon\Carbon::now();
+                        @endphp
+                        
+                        @if ($expireTime->isPast())
+                            <p class="text-sm text-bold mb-0">Expired</p>
+                        @else
+                            <p class="text-sm text-bold mb-0">
+                                {{ $expireTime->longAbsoluteDiffForHumans() }}
+                            </p>
+                        @endif
                     </div>
                 </td>
                 <td>
-                    <div class="my-auto px-3 mb-0 ">
-                        <p class="text-sm text-start text-bold mb-0">{{ $data->updated_at->diffForHumans() }}</p>
+                    <div class="my-auto text-center px-3 mb-0 ">
+                        @php
+                            $expireTime = \Carbon\Carbon::parse($data->resolve_within);
+                            $currentTime = \Carbon\Carbon::now();
+                        @endphp
+                        
+                        @if ($expireTime->isPast())
+                            <p class="text-sm text-bold mb-0">Expired</p>
+                        @else
+                            <p class="text-sm text-bold mb-0">
+                                {{ $expireTime->longAbsoluteDiffForHumans() }}
+                            </p>
+                        @endif
                     </div>
                 </td> 
             </tr>

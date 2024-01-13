@@ -10,25 +10,25 @@ class Dashboard extends Component
 {
     public function render()
     {
-        $newTicketCount = Tickets::where('status_id', 6)->count();
-        $openTicketCount = Tickets::where('status_id', [2,3,4,5])->count();
-        $closedTicketCount = Tickets::where('status_id', 1)->count();
-        $unassignedTicketCount = Tickets::where('assigned_user_id', null)->count();
+        $openTicketCount = Tickets::where('status_id', 1)->count();
+        $inProgressTicketCount = Tickets::where('status_id', 2)->count();
+        $closedTicketCount = Tickets::where('status_id', 3)->count();
+        $rejectORcanceledTicketCount = Tickets::where('assigned_user_id', [4,5])->count();
 
-        $generallyCount = Tickets::where('priority_id', 1)->count();
-        $lessUrgentCount = Tickets::where('priority_id', 2)->count();
-        $urgentCount = Tickets::where('priority_id', 3)->count();
-        $veryUrgentCount = Tickets::where('priority_id', 4)->count();
+        $lowCount = Tickets::where('priority_id', 1)->count();
+        $normalCount = Tickets::where('priority_id', 2)->count();
+        $highCount = Tickets::where('priority_id', 3)->count();
+        $criticalCount = Tickets::where('priority_id', 4)->count();
 
         return view('livewire.dashboard', [
-            'newTicketCount' => $newTicketCount,
             'openTicketCount' => $openTicketCount,
+            'inProgressTicketCount' => $inProgressTicketCount,
             'closedTicketCount' => $closedTicketCount,
-            'unassignedTicketCount' => $unassignedTicketCount,
-            'generallyCount' => $generallyCount,
-            'lessUrgentCount' => $lessUrgentCount,
-            'urgentCount' => $urgentCount,
-            'veryUrgentCount' => $veryUrgentCount,
+            'rejectORcanceledTicketCount' => $rejectORcanceledTicketCount,
+            'lowCount' => $lowCount,
+            'normalCount' => $normalCount,
+            'highCount' => $highCount,
+            'criticalCount' => $criticalCount,
         ]);
     }
 }

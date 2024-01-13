@@ -1,7 +1,9 @@
 <?php
 
+use Illuminate\Support\Str;
 use App\Http\Livewire\Types;
 use App\Http\Livewire\Users;
+use Illuminate\Http\Request;
 use App\Http\Livewire\Status;
 use App\Http\Livewire\Priority;
 use App\Http\Livewire\Dashboard;
@@ -12,22 +14,25 @@ use App\Http\Livewire\LandingPage;
 use App\Http\Livewire\Auth\Register;
 use App\Http\Livewire\GlobalSetting;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Pages\TicketPages;
+use Illuminate\Support\Facades\Password;
 use App\Http\Livewire\ETicket\EditTicket;
 use App\Http\Livewire\ETicket\MainTicket;
 use App\Http\Livewire\Pages\ChatbotPages;
+use Illuminate\Auth\Events\PasswordReset;
 use App\Http\Livewire\ETicket\MainDataset;
 use App\Http\Livewire\Pages\KnowledgePost;
 use App\Http\Livewire\ETicket\CreateTicket;
 use App\Http\Livewire\Pages\KnowledgePages;
 use App\Http\Livewire\Chatbot\ChatbotSetting;
 use App\Http\Livewire\Botman\ChatbotMessenger;
+use App\Http\Livewire\Auth\IndexForgotPassword;
 use App\Http\Livewire\KnowledgeBase\EditKnowledge;
 use App\Http\Livewire\KnowledgeBase\MainKnowledge;
 use App\Http\Livewire\KnowledgeBase\CreateKnowledge;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,9 +70,56 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
     return redirect('/dashboard');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
-Route::get('/forgot-password', function () {
-    return view('auth.forgot-password');
-})->middleware('guest')->name('password.request');
+
+Route::middleware('guest')->group(function() {
+    Route::get('/forgot-password', function () {
+        return view('auth.forgot-password');
+    })->name('password.request');
+
+    // Route::get('/forgot-password', IndexForgotPassword::class)->name('password.email');
+
+    Route::post('/forgot-password', function (Request $request) {
+        $request->validate(['email' => 'required|email']);
+    
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
+    
+        return $status === Password::RESET_LINK_SENT
+            ? back()->with(['status' => __($status)])
+            : back()->withErrors(['email' => __($status)]);
+    })->name('password.email');
+
+    Route::get('/reset-password/{token}', function ($token) {
+        return view('auth.reset-password', ['token' => $token]);
+    })->name('password.reset');
+
+    Route::post('/reset-password', function (Request $request) {
+        $request->validate([
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:5|confirmed',
+        ]);
+    
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function ($user, $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password)
+                ])->setRememberToken(Str::random(60));
+    
+                $user->save();
+    
+                event(new PasswordReset($user));
+            }
+        );
+    
+        return $status === Password::PASSWORD_RESET
+                    ? redirect()->route('login')->with('status', __($status))
+                    : back()->withErrors(['email' => [__($status)]]);
+    })->name('password.update');
+
+});
 
 Route::middleware('onlyGuest')->group(function () {
     Route::get('/login', Login::class)->name('login');
