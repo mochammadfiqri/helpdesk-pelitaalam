@@ -23,8 +23,6 @@ class Tickets extends Model
         'resolve_within',
         'respond_within',
         'user_id',
-        'assigned_user_id',
-        'type_id',
         'priority_id',
         'status_id',
         'category_id',
@@ -93,11 +91,6 @@ class Tickets extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function assigned_user(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'assigned_user_id', 'id');
-    }
-
     public function priority(): BelongsTo
     {
         return $this->belongsTo(Priorities::class, 'priority_id', 'id');
@@ -112,6 +105,7 @@ class Tickets extends Model
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
+    
     public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class, 'department_id', 'id');

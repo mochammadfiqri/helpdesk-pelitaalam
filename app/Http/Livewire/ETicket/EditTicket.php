@@ -47,8 +47,6 @@ class EditTicket extends Component
             $this->subject = $ticket->subject;
             $this->details = $ticket->details;
             $this->user_id = $ticket->user_id;
-            $this->assigned_user_id = $ticket->assigned_user_id;
-            $this->type_id = $ticket->type_id;
             $this->priority_id = $ticket->priority_id;
             $this->status_id = $ticket->status_id;
             $this->category_id = $ticket->category_id;
@@ -66,7 +64,7 @@ class EditTicket extends Component
          // Tentukan sender_id dan receiver_id berdasarkan peran pengguna saat ini
         $senderId = auth()->user()->id;
         // $receiverId = ($senderId == $discussionId->sender_id) ? $discussionId->user_id : $discussionId->sender_id;
-        $receiverId = ($senderId == $discussionId->sender_id) ? $discussionId->assigned_user_id : $discussionId->user_id;
+        $receiverId = ($senderId == $discussionId->sender_id) ? $discussionId->department_id : $discussionId->user_id;
 
         Message::create([
             'discussion_id' => $discussionId->id,

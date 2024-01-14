@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Pages;
 
+use Carbon\Carbon;
 use App\Models\Type;
 use App\Models\User;
 use StopWordFactory;
@@ -9,6 +10,7 @@ use App\Models\Tickets;
 use Livewire\Component;
 use App\Models\Category;
 use App\Models\Department;
+use App\Models\Priorities;
 use App\Models\DatasetTickets;
 use Sastrawi\Stemmer\StemmerFactory;
 use TextAnalysis\Filters\LowerCaseFilter;
@@ -69,16 +71,6 @@ class TicketPages extends Component
         // Ubah output prediksi menjadi nama priority
         $predictedPriority = array_search(max($predict_priority_id), $predict_priority_id);
 
-        //Type Predict
-        $nb = naive_bayes();
-        $dataset = DatasetTickets::all();
-        $trainingData = $dataset->slice(0, floor(0.8 * count($dataset)));
-        foreach ($trainingData as $key => $value) {
-            $nb->train($value->type_id, tokenize($value->details));
-        }
-        $predict_type_id = $nb->predict(tokenize($stemmedText));
-        $predictedType = array_search(max($predict_type_id), $predict_type_id);
-
         //Category Predict
         $nb = naive_bayes();
         $dataset = DatasetTickets::all();
@@ -99,7 +91,9 @@ class TicketPages extends Component
         $predict_department_id = $nb->predict(tokenize($stemmedText));
         $predictedDepartment = array_search(max($predict_department_id), $predict_department_id);
 
+        
         try {
+            $priority = Priorities::find($predictedPriority);
             $user = User::where('email', $this->email)->first();
             $this->validate();
             Tickets::create([
@@ -107,9 +101,10 @@ class TicketPages extends Component
                 'email' => $this->email,
                 'subject' => $this->subject,
                 'details' => $this->details,
+                'resolve_within' => Carbon::now()->addDays($priority->resolve_time),
+                'respond_within' => Carbon::now()->addHours($priority->response_time),
                 'priority_id' => "$predictedPriority",
                 'department_id' => "$predictedDepartment",
-                'type_id' => "$predictedType",
                 'category_id' => "$predictedCategory",
             ]);
             $this->fresh();
@@ -135,7 +130,6 @@ class TicketPages extends Component
         $department = Department::where('id','!=', '1')->orderBy('name','asc')->get();
         $type = Type::orderBy('name','asc')->get();
         $category = Category::orderBy('name', 'asc')->get();
-
 
         return view('livewire.pages.ticket-pages', [
             'department' => $department,

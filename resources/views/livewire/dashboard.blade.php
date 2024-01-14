@@ -380,7 +380,7 @@
 
         {{-- chartJS --}}
         <script src="../assets/js/plugins/chartjs.min.js"></script>
-        <script>
+        {{-- <script>
             var ctx = document.getElementById("chart-bars").getContext("2d");  
                 new Chart(ctx, {
                 type: "bar",
@@ -625,7 +625,7 @@
                     },
                 },
                 });
-        </script>
+        </script> --}}
     @endpush
     <div class="col-12">
         <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
@@ -642,14 +642,14 @@
         <a href="/tickets">
             <div class="card" >
                 <div class="row g-0">
-                    <div class="col-md-6 p-3">
+                    <div class="col-6 p-3">
                         <div class="text-start pt-1">
                             {{-- <p class="text-sm mb-0 text-capitalize">New Ticket</p> --}}
                             <h5 class="text-sm mb-0 text-capitalize">Open Ticket</h5>
-                            <h3 class="mb-0 mt-4">{{ $openTicketCount }}</h3>
+                            <h3 class="mb-0 my-auto">{{ $openTicketCount }}</h3>
                         </div>
                     </div>
-                    <div class="col-md-6 p-1">
+                    <div class="col-6 p-1">
                         <div class="chart">
                             <canvas id="doughnut-chart" class="chart-canvas" height="120px"></canvas>
                         </div> 
@@ -662,14 +662,14 @@
         <a href="/tickets">
             <div class="card">
                 <div class="row g-0">
-                    <div class="col-md-6 p-3">
+                    <div class="col-6 p-3">
                         <div class="text-start pt-1">
                             {{-- <p class="text-sm mb-0 text-capitalize">New Ticket</p> --}}
                             <h5 class="text-sm mb-0 text-capitalize">In Progress Ticket</h5>
-                            <h3 class="mb-0 mt-4">{{ $inProgressTicketCount }}</h3>
+                            <h3 class="mb-0 my-auto">{{ $inProgressTicketCount }}</h3>
                         </div>
                     </div>
-                    <div class="col-md-6 p-1">
+                    <div class="col-6 p-1">
                         <div class="chart">
                             <canvas id="chart-inProgressTicket" class="chart-canvas" height="120px"></canvas>
                         </div> 
@@ -682,13 +682,13 @@
         <a href="/tickets">
             <div class="card">
                 <div class="row g-0">
-                    <div class="col-md-6 p-3">
+                    <div class="col-6 p-3">
                         <div class="text-start pt-1">
                             <h5 class="text-sm mb-0 text-capitalize">Closed Ticket</h5>
-                            <h3 class="mb-0 mt-4">{{ $closedTicketCount }}</h3>
+                            <h3 class="mb-0 my-auto">{{ $closedTicketCount }}</h3>
                         </div>
                     </div>
-                    <div class="col-md-6 p-1">
+                    <div class="col-6 p-1">
                         <div class="chart">
                             <canvas id="chart-closedTicket" class="chart-canvas" height="120px"></canvas>
                         </div>
@@ -701,14 +701,14 @@
         <a href="/tickets">
             <div class="card">
                 <div class="row g-0">
-                    <div class="col-md-6 p-3">
+                    <div class="col-6 p-3">
                         <div class="text-start pt-1">
                             {{-- <p class="text-sm mb-0 text-capitalize">New Ticket</p> --}}
-                            <h5 class="text-sm mb-0 text-capitalize">Reject or Canceled Ticket</h5>
-                            <h3 class="mb-0 mt-2">{{ $rejectORcanceledTicketCount }}</h3>
+                            <h5 class="text-sm mb-0 text-capitalize">Canceled Ticket</h5>
+                            <h3 class="mb-0 my-auto">{{ $rejectORcanceledTicketCount }}</h3>
                         </div>
                     </div>
-                    <div class="col-md-6 p-1">
+                    <div class="col-6 p-1">
                         <div class="chart">
                             <canvas id="chart-rejectORcanceledTicket" class="chart-canvas" height="120px"></canvas>
                         </div>

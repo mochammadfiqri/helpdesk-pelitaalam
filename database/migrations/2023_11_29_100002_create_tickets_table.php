@@ -21,10 +21,10 @@ return new class extends Migration
             $table->longText('details')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('assigned_user_id')->nullable();
-            $table->foreign('assigned_user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('type_id');
-            $table->foreign('type_id')->references('id')->on('types');
+            // $table->unsignedBigInteger('assigned_user_id')->nullable();
+            // $table->foreign('assigned_user_id')->references('id')->on('users');
+            // $table->unsignedBigInteger('type_id');
+            // $table->foreign('type_id')->references('id')->on('types');
             $table->unsignedBigInteger('priority_id')->nullable();
             $table->foreign('priority_id')->references('id')->on('priorities');
             $table->unsignedBigInteger('status_id')->default(6);

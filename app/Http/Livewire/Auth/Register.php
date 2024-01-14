@@ -116,11 +116,11 @@ class Register extends Component
     // }
 
     public function render() {
-        $users = User::with('role')->get();
-        $role = Role::where('id', '!=', '1')->get();
+        // $users = User::with('role')->get();
+        $role = Role::whereIn('id', [13, 14])->get();
                 
         return view('livewire.auth.register', [
-            'users' => $users,
+            // 'users' => $users,
             'role' => $role,
         ]);
     }

@@ -19,11 +19,8 @@ class MainTicket extends Component
     public $discussions, $selectedDiscussion, $auth_id, $receiverInstance, $selectDiscussion;
     
     public function editTicket($ticket_id) {
-
         session(['editing_ticket' => $ticket_id]);
-
         return redirect()->to(route('edit_ticket', ['ticket_id' => $ticket_id]));
-        
     }
 
     public function clearSearch() {

@@ -21,15 +21,17 @@ class DepartmentSeeder extends Seeder
         Schema::enableForeignKeyConstraints();
 
         $data = [
-            'Admin',
-            'Keuangan',
-            'Akademik',
-            'Staff TU',
-            'Operator',
-            'Kesiswaan',
             'Kepala Sekolah',
             'Wakil Kepala Sekolah',
+            'Kurikulum',
+            'Kesiswaan',
+            'Sarpras',
+            'Humas',
+            'Tata Usaha',
             'Wali Kelas',
+            'Guru BK',
+            'Pustakawan Sekolah',
+            'Kepala Laboratorium',
             'Guru',
         ];
 

@@ -78,9 +78,6 @@
                                 <div class="input-group input-group-outline mt-n2">
                                     <select wire:model.defer='role_id' class="form-control">
                                         <option value="">Pilih Role</option>
-                                        {{-- @foreach ($users as $user)
-                                            <option value="{{ $user->role->id }}">{{ $user->role->name }}</option>
-                                        @endforeach --}}
                                         @foreach ($role as $item)
                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach

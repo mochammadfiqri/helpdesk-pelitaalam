@@ -31,6 +31,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'alamat',
         'foto',
         'role_id',
+        'department_id'
     ];
 
     /**
@@ -53,13 +54,23 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
 
-    public function role(): BelongsTo
+    // public function role(): BelongsTo
+    // {
+    //     return $this->belongsTo(Role::class, 'role_id', 'id');
+    // }
+
+    public function roles()
     {
-        return $this->belongsTo(Role::class, 'role_id', 'id');
+        return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id');
     }
 
     public function ticket() {
         
         return $this->hasMany(Tickets::class, 'sender_id')->orWhere('receiver_id', $this->id);
     }
+
+    // public function department(): BelongsTo
+    // {
+    //     return $this->belongsTo(Department::class, 'department_id', 'id');
+    // }
 }

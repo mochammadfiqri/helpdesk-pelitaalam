@@ -13,7 +13,7 @@ class Dashboard extends Component
         $openTicketCount = Tickets::where('status_id', 1)->count();
         $inProgressTicketCount = Tickets::where('status_id', 2)->count();
         $closedTicketCount = Tickets::where('status_id', 3)->count();
-        $rejectORcanceledTicketCount = Tickets::where('assigned_user_id', [4,5])->count();
+        $rejectORcanceledTicketCount = Tickets::where('status_id', [4,5])->count();
 
         $lowCount = Tickets::where('priority_id', 1)->count();
         $normalCount = Tickets::where('priority_id', 2)->count();

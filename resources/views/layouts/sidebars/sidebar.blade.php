@@ -21,7 +21,7 @@
     <hr class="horizontal light mt-0 mb-2">
     <div class="collapse navbar-collapse w-auto h-auto ps" id="sidenav-collapse-main">
         <ul class="navbar-nav mb-2">
-            @if (Auth::user()->role_id == 1)
+            @if (Auth::user()->roles->contains('id', 1))
                 <li class="nav-item mb-2 mt-0">
                     <a data-bs-toggle="collapse" href="#ProfileNav" class="nav-link text-white" aria-controls="ProfileNav" role="button"
                         aria-expanded="false">
@@ -192,7 +192,7 @@
                         </ul>
                     </div>
                 </li> --}}
-            @elseif (Auth::user()->role_id == 2)
+            @elseif (Auth::user()->roles->contains('id', 14))
                 <li class="nav-item mb-2 mt-0">
                     <a data-bs-toggle="collapse" href="#ProfileNav" class="nav-link text-white" aria-controls="ProfileNav" role="button"
                         aria-expanded="false">
@@ -234,7 +234,7 @@
                         <span class="nav-link-text px-1">Tickets</span>
                     </a>
                 </li>
-            @elseif (in_array(Auth::user()->role_id, [3, 4, 5, 6]))
+            @elseif (!Auth::user()->roles->whereIn('id', [1, 14])->isEmpty())
                 <li class="nav-item mb-2 mt-0">
                     <a data-bs-toggle="collapse" href="#ProfileNav" class="nav-link text-white" aria-controls="ProfileNav" role="button"
                         aria-expanded="false">

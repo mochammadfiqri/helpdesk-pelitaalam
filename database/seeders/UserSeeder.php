@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
         User::truncate();
         Schema::enableForeignKeyConstraints();
         
-        User::create([
+        $user = User::create([
             'nama' => 'Mochammad Fiqri',
             'email' => 'admin@gmail.com',
             'email_verified_at' => now(),
@@ -29,7 +29,8 @@ class UserSeeder extends Seeder
             'no_hp' => '085237742424',
             // 'domisili' => 'Kota Bekasi',
             // 'alamat' => 'Jl. cempaka',
-            'role_id' => '1',
+            // 'role_id' => '1',
         ]);
+        $user->roles()->attach(1);
     }
 }

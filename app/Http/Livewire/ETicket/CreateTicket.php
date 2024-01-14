@@ -82,16 +82,6 @@ class CreateTicket extends Component
         // Ubah output prediksi menjadi nama priority
         $predictedPriority = array_search(max($predict_priority_id), $predict_priority_id);
 
-        //Type Predict
-        $nb = naive_bayes();
-        $dataset = DatasetTickets::all();
-        $trainingData = $dataset->slice(0, floor(0.8 * count($dataset)));
-        foreach ($trainingData as $key => $value) {
-            $nb->train($value->type_id, tokenize($value->details));
-        }
-        $predict_type_id = $nb->predict(tokenize($stemmedText));
-        $predictedType = array_search(max($predict_type_id), $predict_type_id);
-
         //Category Predict
         $nb = naive_bayes();
         $dataset = DatasetTickets::all();
@@ -113,24 +103,6 @@ class CreateTicket extends Component
         $predictedDepartment = array_search(max($predict_department_id), $predict_department_id);
 
         $priority = Priorities::find($predictedPriority);
-        // $this->resolve_within = Carbon::now()->addDays($priority->resolve_time);
-        // $this->respond_within = Carbon::now()->addHours($priority->response_time);
-
-        // $data = [
-        //     'email' => auth()->user()->email,
-        //     'subject' => $this->subject,
-        //     'details' => $this->details,
-        //     'resolve_within' => Carbon::now()->addDays($priority->resolve_time),
-        //     'respond_within' => Carbon::now()->addHours($priority->response_time),
-        //     'user_id' =>auth()->user()->id,
-        //     // 'assigned_user_id' => $this->assigned_user_id,
-        //     'priority_id' => "$predictedPriority",
-        //     'department_id' => "$predictedDepartment",
-        //     'type_id' => "$predictedType",
-        //     'category_id' => "$predictedCategory",
-        // ];
-
-        // dd($data);
 
         $this->validate();
         Tickets::create([
@@ -140,10 +112,8 @@ class CreateTicket extends Component
             'resolve_within' => Carbon::now()->addDays($priority->resolve_time),
             'respond_within' => Carbon::now()->addHours($priority->response_time),
             'user_id' => auth()->user()->id,
-            // 'assigned_user_id' => $this->assigned_user_id,
             'priority_id' => "$predictedPriority",
             'department_id' => "$predictedDepartment",
-            'type_id' => "$predictedType",
             'category_id' => "$predictedCategory",
         ]);
         $this->fresh();

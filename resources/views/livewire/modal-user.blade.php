@@ -92,11 +92,6 @@
                     <div class="row mb-0">
                         <div class="d-flex">
                             <div class="p-4 ps-0">
-                                {{-- @if ($foto)
-                                    <img src="{{ $foto->temporaryUrl() }}" class="avatar avatar-scale-up avatar-xxl">
-                                @else
-                                    <img src="../assets/img/user.png" class="avatar avatar-scale-up avatar-xxl">
-                                @endif --}}
                                 @if ($foto)
                                     @if (is_string($foto))
                                         <img src="{{ asset('storage/foto-pengguna/'.$foto) }}" class="avatar avatar-scale-up avatar-xxl">
@@ -223,11 +218,6 @@
                     <div class="row mb-0">
                         <div class="d-flex">
                             <div class="p-4 ps-0">
-                                {{-- @if ($foto)
-                                    <img src="{{ Storage::url($foto) }}" class="avatar avatar-scale-up avatar-xxl">
-                                @else
-                                    <img src="../assets/img/user.png" class="avatar avatar-scale-up avatar-xxl">
-                                @endif --}}
                                 @if ($foto)
                                     @if (is_string($foto))
                                         <img src="{{ asset('storage/foto-pengguna/'.$foto) }}" class="avatar avatar-scale-up avatar-xxl">

@@ -32,6 +32,8 @@ use App\Http\Livewire\Auth\IndexForgotPassword;
 use App\Http\Livewire\KnowledgeBase\EditKnowledge;
 use App\Http\Livewire\KnowledgeBase\MainKnowledge;
 use App\Http\Livewire\KnowledgeBase\CreateKnowledge;
+use App\Http\Livewire\Users\CreateUser;
+use App\Http\Livewire\Users\EditUser;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /*
@@ -69,7 +71,6 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
     $request->fulfill();
     return redirect('/dashboard');
 })->middleware(['auth', 'signed'])->name('verification.verify');
-
 
 Route::middleware('guest')->group(function() {
     Route::get('/forgot-password', function () {
@@ -151,20 +152,16 @@ Route::middleware('auth','verified')->group(function() {
     Route::middleware('onlyAdmin')->group(function() {
         Route::get('/categories', Categories::class)->name('category');
         Route::get('/department', Department::class)->name('department');
+
         Route::get('/users', Users::class)->name('users');
+        Route::get('/users/create-new-user', CreateUser::class)->name('create.user');
+        Route::get('/users/edit-user', EditUser::class)->name('edit.user');
+
         Route::get('/priorities', Priority::class)->name('priority');
         Route::get('/statuses', Status::class)->name('status');
         Route::get('/types', Types::class)->name('types');
         Route::get('/settings/global', GlobalSetting::class)->name('global_setting');
         Route::get('/chatbot-setting', ChatbotSetting::class)->name('chatbot-setting');
-    });
-
-    Route::middleware('onlyStaff')->group(function() {
-        // Route::get('/tickets', MainTicket::class)->name('main_ticket');
-    });
-
-    Route::middleware('onlyStudent')->group(function() {
-        // Route::get('/tickets', MainTicket::class)->name('main_ticket');
     });
 
 });

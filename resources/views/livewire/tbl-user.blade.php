@@ -14,19 +14,15 @@
                     <input class="form-check-input" type="checkbox" value="" wire:model="selectAll">
                 </div>
             </th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-0">
+            <th class="text-start text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-0">
                 No.</th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-0">
+            <th class="text-start text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-0">
                 Foto</th>
             <th class="text-start text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-2">
                 Nama</th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+            <th class="text-start text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                 No.Hp</th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                Domisili</th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                Alamat</th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+            <th class="text-start text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                 Aksi</th>
         </thead>
         <tbody>
@@ -38,10 +34,10 @@
                         <input class="form-check-input" type="checkbox" value="{{ $data->id }}" wire:key='{{ $data->id }}' wire:model="checkedUser">
                     </div>
                 </td>
-                <td class="text-center ">
-                    <span class="text-secondary text-xs font-weight-bold text-center">{{ $users->firstItem() + $value }}</span>
+                <td class="text-start ">
+                    <span class="text-secondary text-xs font-weight-bold text-start">{{ $users->firstItem() + $value }}</span>
                 </td>
-                <td class="text-center ">
+                <td class="text-start ">
                     @if ($data->foto !== null)
                         <img src="{{ asset('storage/'.$data->foto) }}" class="avatar avatar-sm">
                     @else
@@ -56,12 +52,6 @@
                 </td>
                 <td class="text-center">
                     <span class="text-secondary text-xs font-weight-bold text-center">{{ $data->no_hp }}</span>
-                </td>
-                <td class="text-center">
-                    <span class="text-secondary text-xs font-weight-bold text-center">{{ $data->domisili }}</span>
-                </td>
-                <td class="text-center">
-                    <span class="text-secondary text-xs font-weight-bold text-center">{{ $data->alamat }}</span>
                 </td>
                 <td class="text-center">
                     <style>
@@ -88,9 +78,7 @@
                         </button>
                         <ul class="dropdown-menu px-2 py-3" aria-labelledby="dropdownMenuButton">
                             <li>
-                                <a class="dropdown-item border-radius-md" data-bs-toggle="modal"
-                                    data-bs-target="#editUser" wire:click='editUser({{ $data->id }})'>Edit
-                                </a>
+                                <a class="dropdown-item border-radius-md" wire:click='editUser({{ $data->id }})'>Edit</a>
                             </li>
                             {{-- <li>
                                 <a class="dropdown-item border-radius-md" data-bs-toggle="modal"
@@ -105,7 +93,7 @@
             @endforeach
             @else
             <tr>
-                <td colspan="8" >
+                <td colspan="6" >
                     <div class="d-flex justify-content-center">
                         <img src="../assets/img/no-record-file.svg" class="w-40">
                     </div>

@@ -68,9 +68,14 @@
 
     {{-- autocomplete.js --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-theme-classic" />
-
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/docs-searchbar.js@latest/dist/cdn/docs-searchbar.min.css" />
+
+    {{-- select2 --}}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+        
     @livewireStyles
 </head>
 
@@ -95,13 +100,15 @@
                 'main_dataset',
                 // 'edit_dataset',
                 'chatbot-setting',
+                'create.user',
+                'edit.user',
             ]))
             @include('layouts.sidebars.sidebar')
             <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
                 <div class="container-fluid py-1">
                     @include('layouts.navbars.auth.nav')
                     {{ $slot }}
-                    @include('layouts.footer')
+                    {{-- @include('layouts.footer') --}}
                 </div>
                 <script>
                     document.addEventListener('DOMContentLoaded', function() {
@@ -374,6 +381,11 @@
         ];
     </script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    {{-- select2 --}}
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    @stack('select2-roleFilter')
 </body>
 
 </html>
