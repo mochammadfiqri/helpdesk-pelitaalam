@@ -23,13 +23,13 @@ class Tickets extends Model
         'resolve_within',
         'respond_within',
         'user_id',
+        'department_id',
+        'assign_to_id',
         'priority_id',
         'status_id',
         'category_id',
-        'department_id',
         'receiver_id',
         'sender_id',
-        'file',
     ];
 
     public function toSearchableArray()
@@ -81,9 +81,14 @@ class Tickets extends Model
         return $this->hasMany(Message::class);
     }
 
-    public function type(): BelongsTo
+    public function role(): BelongsTo
     {
-        return $this->belongsTo(Type::class, 'type_id', 'id');
+        return $this->belongsTo(Role::class, 'department_id', 'id');
+    }
+
+    public function photos()
+    {
+        return $this->hasMany(TicketPhoto::class, 'ticket_id', 'id');
     }
 
     public function user(): BelongsTo
@@ -106,8 +111,4 @@ class Tickets extends Model
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
     
-    public function department(): BelongsTo
-    {
-        return $this->belongsTo(Department::class, 'department_id', 'id');
-    }
 }

@@ -24,11 +24,8 @@ class KnowledgePages extends Component
             ->orderBy('created_at', 'desc') // Sesuaikan dengan kolom dan urutan yang diinginkan
             ->paginate(6);
 
-        $type = Type::all();
-
         return view('livewire.pages.knowledge-pages', [
             'knowledge_base' => $knowledge_base,
-            'type' => $type,
         ]);
     }
 }

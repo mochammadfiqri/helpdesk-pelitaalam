@@ -27,10 +27,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('admin'),
             'no_hp' => '085237742424',
-            // 'domisili' => 'Kota Bekasi',
-            // 'alamat' => 'Jl. cempaka',
-            // 'role_id' => '1',
         ]);
-        $user->roles()->attach(1);
+        $user->roles()->attach([1,2]);
     }
 }

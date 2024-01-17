@@ -53,9 +53,8 @@ class Users extends Component
     public function updatedSelectAll() {
         if ($this->selectAll) {
         $this->checkedUser = User::whereHas('roles', function ($query) {
-                $query->where('id', '!=', 1);
-            })
-            ->pluck('id')
+                $query->where('roles.id', '!=', 1);
+            })->pluck('id')
             ->map(function ($id) {
                 return (string) $id;
             })
@@ -65,79 +64,9 @@ class Users extends Component
         }
     }
 
-    // public function createUser() {
-    //     $this->validate();
-    //     $pathFoto = null;
-    //     if ($this->foto !== null) {
-    //         $newName  = now()->timestamp . '_' . $this->foto->getClientOriginalName();
-    //         $pathFoto = $this->foto->storeAs('foto-pengguna', $newName);
-    //     }
-
-    //     User::create([
-    //         'nama' => $this->nama,
-    //         'email' => $this->email,
-    //         'password' => Hash::make($this->password),
-    //         'no_hp' => $this->no_hp,
-    //         'foto' => $pathFoto,
-    //     ]);
-    //     $this->resetModal();
-    //     return redirect('/users')->with([
-    //         'toast_type' => 'success', // Jenis pesan (success, error, warning, info)
-    //         'toast_message' => 'Berhasil Menambahkan Pengguna', // Isi pesan
-    //     ]);
-    // }
-
     public function editUser($user_id) {
-        $user = User::find($user_id);
-        if ($user) {
-            $this->user_id = $user->id;
-            $this->nama = $user->nama;
-            $this->email = $user->email;
-            // $this->password = $user->password;
-            $this->no_hp = $user->no_hp;
-            $this->foto = $user->foto;
-            // $this->oldFoto = $user->foto;
-            $this->role_id = $user->roles->pluck('id')->toArray();
-            // dd($user);
-        } else {
-            return redirect()->to('/users');
-        }
-    }
-
-    public function updateUser() {
-        // $this->validate();
-        $user = User::find($this->user_id);
-
-        $user->nama = $this->nama;
-        $user->email = $this->email;
-        if (!empty($this->password)) {
-            $user->password = Hash::make($this->password);
-        }
-        $user->no_hp = $this->no_hp;
-
-        if ($this->foto !== null && is_object($this->foto)) {
-            // Hapus foto lama jika ada
-            if ($user->foto) {
-                Storage::delete($user->foto);
-            }
-
-            $newName  = now()->timestamp . '_' . $this->foto->getClientOriginalName();
-            $pathFoto = $this->foto->storeAs('foto-pengguna', $newName);
-            $user->foto = $pathFoto;
-        }
-
-        // $user->role_id = $this->role_id;
-        $user->save();
-
-        // Pembaruan roles (peran)
-        if ($this->roles) {
-            $user->roles()->sync($this->roles);
-        }
-
-        return redirect('/users')->with([
-            'toast_type' => 'success',
-            'toast_message' => 'Berhasil Memperbaharui Pengguna',
-        ]);
+        session(['editing_user' => $user_id]);
+        return redirect()->to(route('edit.user', ['user_id' => $user_id]));
     }
 
     public function deleteCheckedUser() {
@@ -160,6 +89,9 @@ class Users extends Component
         // Hapus pengguna
         User::whereIn('id', $this->checkedUser)->delete();
         $this->checkedUser = [];
+
+        // Menghapus relasi
+        $users->roles()->detach();
 
         return redirect('/users')->with([
             'toast_type' => 'success',

@@ -6,6 +6,7 @@ use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\RateLimiter;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -38,19 +39,50 @@ class Login extends Component
             ]));
             return null;
         }
-        if (!Auth::attempt($this->only(['email','password']), $this->remember_me)) {
 
-            RateLimiter::hit($throttleKey);
+        $user = User::where('email', $this->email)->first();
 
-            $this->addError('email',__('auth.failed'));
-            return null;
-        }
+            if ($user && $user->email_verified_at) {
+                if (!Auth::attempt($this->only(['email', 'password']), $this->remember_me)) {
+                    RateLimiter::hit($throttleKey);
 
-        // return redirect()->to('/dashboard')->with('toast_success', 'Login Berhasil');
-        return redirect('/dashboard')->with([
-            'toast_type' => 'success', // Jenis pesan (success, error, warning, info)
-            'toast_message' => 'Berhasil Login ', // Isi pesan
-        ]);
+                    $this->addError('email', __('auth.failed'));
+                    return null;
+                }
+
+                return redirect('/dashboard')->with([
+                    'toast_type' => 'success',
+                    'toast_message' => 'Selamat datang '. $user->nama,
+                ]);
+            } else {
+                // Kirim email verifikasi jika belum verifikasi
+
+                event(new Registered($user));
+
+                Auth::login($user);
+                
+                // return redirect('/email/verify');
+
+                // $user->sendEmailVerificationNotification();
+
+                return redirect('/login')->with([
+                    'toast_type' => 'info',
+                    'toast_message' => 'Akun belum diverifikasi. Silakan periksa email Anda untuk verifikasi.',
+                ]);
+            }
+
+        // if (!Auth::attempt($this->only(['email','password']), $this->remember_me)) {
+
+        //     RateLimiter::hit($throttleKey);
+
+        //     $this->addError('email',__('auth.failed'));
+        //     return null;
+        // }
+
+        // return redirect('/dashboard')->with([
+        //     'toast_type' => 'success', // Jenis pesan (success, error, warning, info)
+        //     'toast_message' => 'Berhasil Login ', // Isi pesan
+        // ]);
     }
 
     public function redirectToGoole() {
@@ -70,7 +102,7 @@ class Login extends Component
                     'name' => $user->name,
                     'google_id' => $user->id,
                     // 'password' => Hash::make($this->password),
-                    'password' => Hash::make('123'),
+                    'password' => $user->password,
                 ]);
                 Auth::login($newUser);
                 return redirect()->intended('dashboard');

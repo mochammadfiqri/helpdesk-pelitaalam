@@ -26,17 +26,17 @@
                                         @enderror
                                     </div>
                                     <div class="col-6">
-                                        <label class="form-label text-bold">Assigned To</label>
+                                        <label class="form-label text-bold">To Department</label>
                                         <div class="input-group input-group-outline mt-n2">
-                                            <select wire:model.defer='assigned_user_id' class="form-control">
-                                                <option value="">Select User</option>
-                                                @foreach ($assignToUser as $item)
-                                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                            <select wire:model.defer='department_id' class="form-control">
+                                                <option value="">Select Department</option>
+                                                @foreach ($department as $item)
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
-                                        @error('user_id')
-                                        <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
+                                        @error('department_id')
+                                            <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
@@ -50,12 +50,14 @@
                                                 placeholder="Enter subject">
                                         </div>
                                     </div>
+                                    @error('subject')
+                                        <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="mb-3">
-                                {{-- {{ $details }} --}}
                                 <label class="form-label text-bold">Details</label>
-                                <div wire:ignore class="mt-n2 mb-2">
+                                <div wire:ignore class="mt-n2">
                                     <textarea id="details_add"></textarea>
                                     <script>
                                         document.addEventListener('livewire:load', function () {
@@ -76,15 +78,36 @@
                                     </script>
                                 </div>
                                 @error('details')
-                                <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
+                                    <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
                                 @enderror
-                            </div>
-                            <div class="mb-3 ">
-                                <label for="fileInput" class="form-label">
-                                    <i class="fa-solid fa-file-circle-plus fa-xl"></i>
-                                    <input type="file" class="form-control" id="fileInput" style="display: none;">
-                                    <span class="text-sm">Attach File</span>
-                                </label>
+                            </div> 
+                            @if (count($file) == 3)
+                                <div class="mb-3">
+                                    <span class="text-danger text-xs font-weight-light">Maximum 3 attachments allowed.</span>
+                                </div>
+                            @else
+                                <div class="mb-3 ">
+                                    <label for="fileInput" class="form-label">
+                                        <i class="fa-solid fa-file-circle-plus fa-xl"></i>
+                                        <input type="file" wire:model="file" class="form-control" id="fileInput" style="display: none;" multiple>
+                                        <span class="text-sm">Attachment</span>
+                                    </label>
+                                    @error('file')
+                                        <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
+                                    @enderror
+                                    <br>
+                                    <div class="text-success text-sm font-weight-light" wire:loading wire:target="file">Uploading...</div>
+                                </div>
+                            @endif
+                                        
+                            <div class="row justify-content-start mb-1">
+                                @if ($file)
+                                    @foreach ($file as $url)
+                                        <div class="col-12 col-md-3 col-lg-3 mx-2 my-2">
+                                            <img src="{{ $url->temporaryUrl() }}" class="avatar-scale-up shadow border-radius-2xl" style="width: 250px" alt="Temporary Image">
+                                        </div>
+                                    @endforeach
+                                @endif
                             </div>
                             <div style="float: right;" class="border-0 mt-3">
                                 <button type="submit"

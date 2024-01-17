@@ -35,16 +35,16 @@ class MainTicket extends Component
         $query->where('subject', 'like', '%' . $this->search . '%');
 
         // Filter berdasarkan role user
-        if (Auth::user()->role_id == 1) {
+        if (Auth::user()->roles->contains('id', 1)) {
             // dd($query);
-        } elseif (Auth::user()->role_id == 2) {
+        } elseif (Auth::user()->roles->contains('id', 14)) {
             // User biasa hanya dapat melihat tiket yang mereka buat
             $query->where('user_id', Auth::user()->id);
         } else {
             // User biasa hanya dapat melihat tiket yang mereka buat
             $query->where(function ($query) {
                 $query->where('user_id', Auth::user()->id)
-                    ->orWhere('assigned_user_id', Auth::user()->id); // Jika ingin memperbolehkan melihat tiket yang ditugaskan ke pengguna juga
+                    ->orWhere('assign_to_id', Auth::user()->id); // Jika ingin memperbolehkan melihat tiket yang ditugaskan ke pengguna juga
             });
             // Filter berdasarkan kondisi "My Tickets" atau "Assign Tickets"
             if ($this->myTickets || $this->assignTickets) {
@@ -56,15 +56,13 @@ class MainTicket extends Component
     
                     // Kondisi "Assign Tickets"
                     if ($this->assignTickets) {
-                        $query->orWhere('assigned_user_id', Auth::user()->id);
+                        $query->orWhere('assign_to_id', Auth::user()->id);
                     }
                 });
             } else {
                 $query->where('id', '=', 0);
             }
         }
-
-
         $tickets = $query->orderBy('created_at', 'desc')->paginate(5);
 
         return view('livewire.e-ticket.main-ticket', [

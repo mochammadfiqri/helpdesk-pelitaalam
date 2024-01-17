@@ -12,19 +12,14 @@ class DatasetTickets extends Model
     protected $fillable = [
         'subject',
         'details',
-        'type_id',
+        'department_id',
         'priority_id',
         'category_id',
-        'department_id',
     ];
 
     public function priority(): BelongsTo
     {
         return $this->belongsTo(Priorities::class, 'priority_id', 'id');
-    }
-    public function type(): BelongsTo
-    {
-        return $this->belongsTo(Type::class, 'type_id', 'id');
     }
     public function category(): BelongsTo
     {
@@ -32,6 +27,6 @@ class DatasetTickets extends Model
     }
     public function department(): BelongsTo
     {
-        return $this->belongsTo(Department::class, 'department_id', 'id');
+        return $this->belongsTo(Role::class, 'department_id', 'id');
     }
 }

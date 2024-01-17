@@ -34,23 +34,36 @@
                             </div>
                             <div class="col-4">
                                 <label class="form-label">Category</label>
-                                <div class="input-group input-group-outline mt-n2">
-                                    <select wire:model.defer='category_id' class="form-control">
-                                        <option value="">Pilih Category</option>
+                                <div class="mt-n2" wire:ignore>
+                                    <select class="js-example-basic-multiple" wire:model="selectedCategory" id="select2-selectedCategory" data-placeholder="Pilih Category" multiple>
                                         @foreach ($category as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
                                     </select>
+                                
+                                    @push('select2-selectedCategory')
+                                    <script>
+                                        $(document).ready(function() {
+                                            $('#select2-selectedCategory').select2({
+                                                theme: "bootstrap-5",
+                                                width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+                                                placeholder: $( this ).data( 'placeholder' ),
+                                                closeOnSelect: false,
+                                            });
+                                            $('#select2-selectedCategory').on('change', function(e){
+                                                var data = $(this).val(); // gunakan $(this) untuk merujuk ke elemen saat ini
+                                                @this.set('selectedCategory', data);
+                                            });
+                                        });
+                                    </script>
+                                    @endpush
                                 </div>
-                                @error('category_id')
-                                <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
-                                @enderror
                             </div>
                         </div>
                     </div>
                     <div class="mb-3"> 
                         <label class="form-label">Details</label>
-                        <div wire:ignore class="mt-n2 mb-5">
+                        <div wire:ignore class="mt-n2 mb-1">
                             <textarea id="details_edit">{{ $details }}</textarea>
                             <script>
                                 document.addEventListener('livewire:load', function () {
@@ -74,9 +87,9 @@
                             <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="border-0">
-                        <button type="submit" wire:click="updateKnowledge" class="btn btn-success btn-rounded shadow-dark float-end">Update</button>
-                        <button type="button" class="btn btn-danger btn-rounded shadow-dark me-2 float-end"
+                    <div class="float-start border-0">
+                        <button type="submit" wire:click="updateKnowledge" class="btn btn-success btn-rounded shadow-dark">Update</button>
+                        <button type="button" class="btn btn-danger btn-rounded shadow-dark me-2"
                             data-bs-dismiss="modal" onclick="window.history.back();">Batal</button>
                     </div>
                     

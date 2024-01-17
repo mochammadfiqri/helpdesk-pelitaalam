@@ -15,9 +15,9 @@
                 <div class="row mt-3">
                     <div class="col-5 col-md-4 col-lg-2">
                         <div class="justify-content-start align-items-center ">
-                            @if ($checkedPost)
-                                <a class="btn btn-rounded bg-gradient-danger" wire:click='deleteCheckedPost'>
-                                    <i class="fa-solid fa-trash-can fa-fade"></i>&nbsp;&nbsp;&nbsp;Delete ({{ count($checkedPost) }})
+                            @if ($checkedCategory)
+                                <a class="btn btn-rounded bg-gradient-danger" wire:click='deleteChecked'>
+                                    <i class="fa-solid fa-trash-can fa-fade"></i>&nbsp;&nbsp;&nbsp;Delete ({{ count($checkedCategory) }})
                                 </a>
                             @endif
                         </div>
@@ -54,7 +54,7 @@
                                         <td>
                                             <div class="form-check p-0 mx-auto">
                                                 <input class="form-check-input" type="checkbox" value="{{ $data->id }}"
-                                                    wire:key='{{ $data->id }}' wire:model="checkedPost" onclick="stopPropagation(event)">
+                                                    wire:key='{{ $data->id }}' wire:model="checkedCategory" onclick="stopPropagation(event)">
                                             </div>
                                         </td>
                                         <td>

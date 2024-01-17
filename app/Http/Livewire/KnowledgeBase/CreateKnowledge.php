@@ -9,7 +9,8 @@ use App\Models\KnowledgeBase;
 
 class CreateKnowledge extends Component
 {
-    public $title, $category_id, $details, $kb_id, $search;
+    public $title, $details, $kb_id, $search;
+    public $selectedCategory = [];
     
     public function rules() {
         return [
@@ -19,12 +20,20 @@ class CreateKnowledge extends Component
     }
 
     public function createKnowledge() {
+        // $data = [
+        //     'title' => $this->title,
+        //     'details' => $this->details,
+        //     $this->selectedCategory
+        // ];
+        // dd($data);
+
         $this->validate();
-        KnowledgeBase::create([
+        $newKB = KnowledgeBase::create([
             'title' => $this->title,
             'details' => $this->details,
-            'category_id' => $this->category_id,
         ]);
+        $newKB->categories()->attach($this->selectedCategory);
+
         $this->fresh();
         return redirect()->to('/knowledge-base')->with([
             'toast_type' => 'success', // Jenis pesan (success, error, warning, info)

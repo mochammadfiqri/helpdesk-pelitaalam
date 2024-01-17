@@ -29,7 +29,7 @@
                         <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
                     @enderror
                     <div class="border-0 mt-2 float-end">
-                        <button type="button" class="btn btn-danger btn-rounded shadow-dark me-2" wire:click="resetModal" data-bs-dismiss="modal">Batal</button>
+                        <button type="button" class="btn btn-danger btn-rounded shadow-dark me-2" data-bs-dismiss="modal">Batal</button>
                         <button type="submit" class="btn btn-success btn-rounded shadow-dark ">Import</button>
                     </div>
                 </div>

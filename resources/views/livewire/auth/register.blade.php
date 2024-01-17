@@ -52,26 +52,7 @@
                                         <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                {{-- <div class="col-6">
-                                    <label class="form-label">Domisili</label>
-                                    <div class="input-group input-group-outline mt-n2">
-                                        <input wire:model.defer="domisili" type="text" class="form-control @error('domisili') is-invalid @enderror"
-                                            placeholder="Tempat Tinggal">
-                                    </div>
-                                    @error('domisili')
-                                        <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
-                                    @enderror
-                                </div> --}}
                             </div>
-                            {{-- <div class="mb-3">
-                                <label class="form-label">Alamat</label>
-                                <div class="input-group input-group-outline mt-n2">
-                                    <textarea wire:model.defer="alamat" id="alamat" cols="30" rows="5" class="form-control" placeholder="Masukan Alamat"></textarea>
-                                </div>
-                                @error('alamat')
-                                    <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
-                                @enderror
-                            </div> --}}
                             <div class="mb-3">
                                 {{-- Data : {{ var_export($role_id) }} --}}
                                 <label class="form-label">Jenis Role</label>

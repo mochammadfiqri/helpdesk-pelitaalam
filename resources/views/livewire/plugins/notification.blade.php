@@ -14,7 +14,7 @@
     <ul class="dropdown-menu  dropdown-menu-end px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
         @foreach ($notif as $data)
         <li class="mb-2">
-            <a class="dropdown-item border-radius-md" wire:click="markAsRead('{{ $data->id }}')">
+            <a class="dropdown-item border-radius-md" wire:click="markAsRead('{{ $data->ticket_key }}')" style="cursor: pointer;">
                 <div class="d-flex py-1">
                     <div class="my-auto">
                         {{-- <img src="../assets/img/user.png" class="avatar avatar-sm  me-3 "> --}}

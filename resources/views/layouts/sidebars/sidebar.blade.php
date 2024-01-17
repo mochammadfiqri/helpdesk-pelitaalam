@@ -89,7 +89,7 @@
                     </a>
                 </li>                
                 <li class="nav-item">
-                    <a class="nav-link text-white {{ request()->routeIs('users') ? 'active bg-gradient-primary' : '' }}" href="{{ route('users') }}">
+                    <a class="nav-link text-white {{ (request()->routeIs('users') || request()->routeIs('create.user') || request()->routeIs('edit.user')) ? 'active bg-gradient-primary' : '' }}" href="{{ route('users') }}">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="fa-solid fa-user fa-xl"></i>
                         </div>
@@ -123,15 +123,15 @@
                                     </div>
                                 </a>
                             </li>
-                            <li class="nav-item ">
+                            {{-- <li class="nav-item ">
                                 <a class="nav-link text-white {{ request()->routeIs('department') ? 'active bg-gradient-primary' : '' }}" href="{{ route('department') }}">
                                     <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
                                         <i class="fa-regular fa-building fa-sm"></i>
                                         <span class="nav-link-text text-sm ms-2">Department</span>
                                     </div>
                                 </a>
-                            </li>
-                            <li class="nav-item">
+                            </li> --}}
+                            {{-- <li class="nav-item">
                                 <a class="nav-link text-white {{ request()->routeIs('types') ? 'active bg-gradient-primary' : '' }}"
                                     href="{{ route('types') }}">
                                     <div class="text-white text-center ms-2 d-flex align-items-center justify-content-center">
@@ -139,7 +139,7 @@
                                     </div>
                                     <span class="nav-link-text ms-2">Types</span>
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item">
                                 <a class="nav-link text-white {{ request()->routeIs('priority') ? 'active bg-gradient-primary' : '' }}"
                                     href="{{ route('priority') }}">
@@ -234,7 +234,7 @@
                         <span class="nav-link-text px-1">Tickets</span>
                     </a>
                 </li>
-            @elseif (!Auth::user()->roles->whereIn('id', [1, 14])->isEmpty())
+            @elseif (Auth::user()->roles->whereNotIn('id', [1, 14])->isNotEmpty())
                 <li class="nav-item mb-2 mt-0">
                     <a data-bs-toggle="collapse" href="#ProfileNav" class="nav-link text-white" aria-controls="ProfileNav" role="button"
                         aria-expanded="false">

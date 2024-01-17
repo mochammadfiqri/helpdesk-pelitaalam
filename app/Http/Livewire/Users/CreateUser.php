@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 class CreateUser extends Component
 {
     use WithFileUploads;
-    public $email, $password, $remember_me, $nama, $no_hp, $foto, $role_id, $user_id, $file;
+    public $email, $password, $remember_me, $nama, $no_hp, $foto, $role_id, $user_id;
     public $role;
     public $selectedRole = [];
 
@@ -27,24 +27,13 @@ class CreateUser extends Component
     }
 
     public function createUser() {
-        // dd($this->nama);
-
+        
         $this->validate();
         $pathFoto = null;
         if ($this->foto !== null) {
             $newName  = now()->timestamp . '_' . $this->foto->getClientOriginalName();
             $pathFoto = $this->foto->storeAs('foto-pengguna', $newName);
         }
-
-        // $data = [
-        //     'nama' => $this->nama,
-        //     'email' => $this->email,
-        //     'password' => Hash::make($this->password),
-        //     'no_hp' => $this->no_hp,        
-        //     'foto' => $pathFoto,
-        //     $this->selectedRole
-        // ];
-        // dd($data);
 
         $user = User::create([
             'nama' => $this->nama,

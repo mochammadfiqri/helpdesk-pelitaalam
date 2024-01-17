@@ -10,7 +10,7 @@ class Categories extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
-    public $checkedPost = [];
+    public $checkedCategory = [];
     public $selectAll = false;
     public $category_id, $name;
 
@@ -53,11 +53,28 @@ class Categories extends Component
     public function updatedSelectAll() {
         if ($this->selectAll) {
             // Menggunakan pluck secara langsung untuk mendapatkan array ID
-            $this->checkedPost = Category::pluck('id')->map(function ($id) {
+            $this->checkedCategory = Category::pluck('id')->map(function ($id) {
                 return (string) $id;
             })->all();
         } else {
-            $this->checkedPost = [];
+            $this->checkedCategory = [];
+        }
+    }
+
+    public function deleteChecked() {
+        try {
+            //code...
+            Category::whereIn('id', $this->checkedCategory)->delete();
+            $this->checkedCategory = [];
+            return redirect('/categories')->with([
+                'toast_type' => 'success', // Jenis pesan (success, error, warning, info)
+                'toast_message' => 'Kategori Berhasil di Hapus !', // Isi pesan
+            ]);
+        } catch (\Throwable $th) {
+            return redirect('/categories')->with([
+                'toast_type' => 'error', // Jenis pesan (success, error, warning, info)
+                'toast_message' => 'Kategori gagal di Hapus !', // Isi pesan
+            ]);
         }
     }
 

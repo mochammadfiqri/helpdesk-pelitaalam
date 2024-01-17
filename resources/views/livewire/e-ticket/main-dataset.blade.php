@@ -37,6 +37,9 @@
                 </div>
                 <div class="mb-3 mt-1">
                     @include('livewire.e-ticket.tbl-dataset')
+                    <div class="d-flex float-end me-3 mt-3">
+                        {{ $dataset->links() }}
+                    </div>
                 </div>
             </div>
         </div>

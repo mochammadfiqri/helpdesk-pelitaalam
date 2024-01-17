@@ -3,7 +3,7 @@
         style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1920&amp;q=80');">
         <span class="mask  bg-gradient-primary  opacity-6"></span>
     </div>
-    <div class="card card-body mx-3 mx-md-4 mt-n10">
+    <div class="card card-body mx-3 mx-md-4 mt-n9">
         <form wire:submit.prevent="createUser">
             <div class="row p-2">
                 <div class="col-3">
@@ -24,7 +24,7 @@
                     <div class="flex-fill align-self-center p-0">
                         <label class="text-sm mb-0" for="foto">Pilih Foto</label>
                         <div class="input-group input-group-outline my-1">
-                            <input wire:model.defer="foto" type="file" class="form-control" name="foto">
+                            <input wire:model="foto" type="file" class="form-control" name="foto">
                         </div>
                         @error('foto')
                         <span class="text-danger text-xs font-weight-light">{{ $message }}</span>

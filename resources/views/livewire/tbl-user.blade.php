@@ -7,99 +7,77 @@
             </a>
         </div>
     @endif
-    <table class="table align-items-center mb-0">
+    <table class="table @if($users->count() > 0) table-hover @endif align-items-center justify-content-start mb-0">
         <thead>
-            <th class="text-start px-0">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" wire:model="selectAll">
+            <th class="px-auto ps-3" style="width: 1rem">
+                <div class="form-check p-0 ms-2">
+                    <input class="form-check-input" type="checkbox" wire:model="selectAll">
                 </div>
             </th>
-            <th class="text-start text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-0">
-                No.</th>
-            <th class="text-start text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-0">
-                Foto</th>
-            <th class="text-start text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 px-2">
-                Nama</th>
-            <th class="text-start text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                No.Hp</th>
-            <th class="text-start text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                Aksi</th>
+            <th class="px-auto" style="width: 3rem">
+                <h6 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 my-auto">No.</h6>
+            </th>
+            <th class="px-auto" style="width: 3rem">
+                <h6 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 my-auto">Foto</h6>
+            </th>
+            <th>
+                <h6 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 my-auto">Nama</h6>
+            </th>
+            <th>
+                <h6 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 my-auto">No. HP</h6>
+            </th>
         </thead>
         <tbody>
             @if ($users->count() > 0)
             @foreach ($users as $value => $data)
-            <tr>
-                <td class="text-start align-content-center px-0">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="{{ $data->id }}" wire:key='{{ $data->id }}' wire:model="checkedUser">
+            <tr wire:click="editUser('{{ $data->id }}')" style="cursor: pointer;">
+                <td>
+                    <div class="form-check p-0 ps-3 mx-auto">
+                        <input class="form-check-input" type="checkbox" value="{{ $data->id }}" wire:key='{{ $data->id }}' wire:model="checkedUser" onclick="stopPropagation(event)">
                     </div>
                 </td>
-                <td class="text-start ">
-                    <span class="text-secondary text-xs font-weight-bold text-start">{{ $users->firstItem() + $value }}</span>
-                </td>
-                <td class="text-start ">
-                    @if ($data->foto !== null)
-                        <img src="{{ asset('storage/'.$data->foto) }}" class="avatar avatar-sm">
-                    @else
-                        <img src="https://ui-avatars.com/api/?background=random&bold=true&name={{ $data->nama }}" class="avatar avatar-sm">
-                    @endif
-                </td>
-                <td class="text-center">
-                    <div class="d-flex flex-column justify-content-center">
-                        <h6 class="text-sm text-start mb-0">{{ $data->nama }}</h6>
-                        <p class="text-xs text-secondary text-start mb-0">{{ $data->email }}</p>
+                <td>
+                    <div class="my-auto px-3 mb-0 ">
+                        <span class="text-secondary text-xs font-weight-bold">{{ $users->firstItem() + $value }}</span>
                     </div>
                 </td>
-                <td class="text-center">
-                    <span class="text-secondary text-xs font-weight-bold text-center">{{ $data->no_hp }}</span>
+                <td>
+                    <div class="my-auto px-3 mb-0 ">
+                        @if ($data->foto !== null)
+                            <img src="{{ asset('storage/'.$data->foto) }}" class="avatar avatar-sm">
+                        @else
+                            <img src="https://ui-avatars.com/api/?background=random&bold=true&name={{ $data->nama }}" class="avatar avatar-sm">
+                        @endif
+                    </div>
                 </td>
-                <td class="text-center">
-                    <style>
-                        /* Menyembunyikan tanda dropdown */
-                        .dropdown-toggle::after {
-                            content: none !important;
-                        }
-
-                        /* Penanganan Z-Index */
-                        .dropdown {
-                            position: relative;
-                            z-index: 1000;
-                        }
-
-                        /* Hindari elemen anak dropdown tertutup oleh overflow tabel */
-                        /* .table-responsive {
-                                overflow: visible;
-                                } */
-                    </style>
-                    <div class="btn-group dropstart">
-                        <button type="button" class="btn btn-link text-secondary mb-0 dropdown-toggle"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="material-icons">more_vert</span>
-                        </button>
-                        <ul class="dropdown-menu px-2 py-3" aria-labelledby="dropdownMenuButton">
-                            <li>
-                                <a class="dropdown-item border-radius-md" wire:click='editUser({{ $data->id }})'>Edit</a>
-                            </li>
-                            {{-- <li>
-                                <a class="dropdown-item border-radius-md" data-bs-toggle="modal"
-                                    data-bs-target="#deleteUser" wire:click='deleteUser({{ $data->id }})'>
-                                    Hapus
-                                </a>
-                            </li> --}}
-                        </ul>
+                <td>
+                    <div class="my-auto px-3 mb-0">
+                        <h6 class="text-sm mb-0">{{ $data->nama }}</h6>
+                        <p class="text-xs text-secondary mb-0">{{ $data->email }}</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="my-auto px-3 mb-0">
+                        <span class="text-secondary text-xs font-weight-bold">{{ $data->no_hp }}</span>
                     </div>
                 </td>
             </tr>
             @endforeach
             @else
             <tr>
-                <td colspan="6" >
+                <td colspan="5" >
                     <div class="d-flex justify-content-center">
                         <img src="../assets/img/no-record-file.svg" class="w-40">
                     </div>
                 </td>
             </tr>
             @endif
+            <script>
+                function stopPropagation(event) {
+                    // Mencegah propagasi event ke atas ke elemen <tr>
+                    event.stopPropagation();
+                }
+            </script>
         </tbody>
     </table>
     <div class="float-end me-3">

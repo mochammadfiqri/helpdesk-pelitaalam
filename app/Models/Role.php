@@ -13,10 +13,10 @@ class Role extends Model
         'name',
     ];
 
-    // public function users()
-    // {
-    //     return $this->belongsToMany(User::class, 'user_role', 'role_id', 'user_id');
-    // }
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_role', 'role_id', 'user_id');
+    }
 
     public function scopeSearch($query, $q)
     {

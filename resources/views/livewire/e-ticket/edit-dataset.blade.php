@@ -35,7 +35,7 @@
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>
-                                @if (Auth::user()->role_id == 1)
+                                @if (Auth::user()->roles->contains('id', 1))
                                     <span class="pt-2 ps-1" id="enableDisableBtnPriority"
                                         onclick="toggleDisabled('prioritySelect', 'iconPriority')">
                                         <i id="iconPriority" class="fa-solid fa-pen-to-square fa-md"></i>
@@ -56,7 +56,7 @@
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>
-                                @if (Auth::user()->role_id == 1)
+                                @if (Auth::user()->roles->contains('id', 1))
                                     <span class="pt-2 ps-1" id="enableDisableBtnDepartment"
                                         onclick="toggleDisabled('departmentSelect', 'iconDepartment')">
                                         <i id="iconDepartment" class="fa-solid fa-pen-to-square fa-md"></i>
@@ -81,7 +81,7 @@
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>
-                                @if (Auth::user()->role_id == 1)
+                                @if (Auth::user()->roles->contains('id', 1))
                                     <span class="pt-2 ps-1" id="enableDisableBtnType"
                                         onclick="toggleDisabled('typeSelect', 'iconType')">
                                         <i id="iconType" class="fa-solid fa-pen-to-square fa-md"></i>
@@ -102,7 +102,7 @@
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>
-                                @if (Auth::user()->role_id == 1)
+                                @if (Auth::user()->roles->contains('id', 1))
                                     <span class="pt-2 ps-1" id="enableDisableBtnCategory"
                                         onclick="toggleDisabled('categorySelect', 'iconCategory')">
                                         <i id="iconCategory" class="fa-solid fa-pen-to-square fa-md"></i>
@@ -123,7 +123,7 @@
                                 <input wire:model.defer="subject" type="text" id="subject"
                                     style="border: none" disabled class="form-control "
                                     placeholder="Enter subject">
-                                @if (Auth::user()->role_id == 1)
+                                @if (Auth::user()->roles->contains('id', 1))
                                     <span class="pt-2 ps-1" id="enableDisableBtnSubject"
                                         onclick="toggleDisabled('subject', 'iconSubject')">
                                         <i id="iconSubject" class="fa-solid fa-pen-to-square fa-md"></i>
@@ -138,7 +138,7 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label text-bold">Details</label>
-                    @if (Auth::user()->role_id == 1)
+                    @if (Auth::user()->roles->contains('id', 1))
                         <div wire:ignore class="mt-n2 mb-2">
                             <textarea class="form-control" rows="1" id="details_add" style="background: transparent">{{ $details }}</textarea>
                             <script>

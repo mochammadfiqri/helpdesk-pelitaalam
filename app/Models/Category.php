@@ -22,4 +22,9 @@ class Category extends Model
             ]
         ];
     }
+
+    public function knowledgeBase()
+    {
+        return $this->belongsToMany(KnowledgeBase::class);
+    }
 }

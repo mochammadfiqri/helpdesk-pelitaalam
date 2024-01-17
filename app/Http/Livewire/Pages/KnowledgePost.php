@@ -27,10 +27,7 @@ class KnowledgePost extends Component
 
     public function render()
     {
-        $kb_post = KnowledgeBase::latest()
-            ->where('slug', '!=', $this->slug)
-            ->take(5)
-            ->get();
+        $kb_post = KnowledgeBase::latest()->where('slug', '!=', $this->slug)->take(5)->get();
 
         return view('livewire.pages.knowledge-post', [
             'knowledge_base' => $this->knowledge_base,

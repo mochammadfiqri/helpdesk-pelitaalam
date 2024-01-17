@@ -29,8 +29,23 @@ class MainKnowledge extends Component
     }
 
     public function deleteCheckedPost() {
-        KnowledgeBase::whereIn('id', $this->checkedPost)->delete();
+        // $kb = KnowledgeBase::find('id', $this->checkedPost);
+
+        // Ambil instance KnowledgeBase yang dipilih
+        $kbToDelete = KnowledgeBase::whereIn('id', $this->checkedPost)->get();
+
+        // Loop melalui setiap instance untuk melakukan detach dan hapus
+        foreach ($kbToDelete as $knowledgeBase) {
+            // Melepas relasi many-to-many dengan detach
+            $knowledgeBase->categories()->detach();
+            
+            // Hapus instance dari database
+            $knowledgeBase->delete();
+        }
+
+        // Reset array $checkedPost
         $this->checkedPost = [];
+
         return redirect('/knowledge-base')->with([
             'toast_type' => 'success', // Jenis pesan (success, error, warning, info)
             'toast_message' => 'Knowledge Berhasil di Hapus !', // Isi pesan

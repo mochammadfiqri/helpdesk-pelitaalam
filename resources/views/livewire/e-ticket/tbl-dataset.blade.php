@@ -22,9 +22,6 @@
                     <h6 class="my-auto">Department</h6>
                 </th>
                 <th>
-                    <h6 class="my-auto">Type</h6>
-                </th>
-                <th>
                     <h6 class="my-auto">Priority</h6>
                 </th>
                 <th>
@@ -34,47 +31,42 @@
         </thead>
         <tbody>
             @if ($dataset->count() > 0)
-            @foreach ($dataset as $data)
-            {{-- <tr wire:click="editDataset('{{ $data->id }}')" style="cursor: pointer;"> --}}
-            <tr>
-                <td>
-                    <div class="form-check p-0 mx-auto">
-                        <input class="form-check-input" type="checkbox" value="{{ $data->id }}"
-                            wire:key='{{ $data->id }}' wire:model="checkedPost" onclick="stopPropagation(event)">
-                    </div>
-                </td>
-                <td>
-                    <div class="my-auto px-3 mb-0 ">
-                        {{ $data->subject }}
-                    </div>
-                </td>
-                <td data-bs-toggle="tooltip" data-bs-placement="top" data-container="body" data-animation="true" title="{{ $data->details }}">
-                    <div class="my-auto px-3 mb-0 ">
-                        {{ Str::limit(htmlspecialchars_decode($data->details), 50) }}
-                    </div>
-                </td>
-                <td>
-                    <div class="my-auto px-3 mb-0 ">
-                        {{ $data->department->name }}
-                    </div>
-                </td>
-                <td>
-                    <div class="my-auto px-3 mb-0 ">
-                        {{ $data->type->name }}
-                    </div>
-                </td>
-                <td>
-                    <div class="my-auto px-3 mb-0 ">
-                        {{ $data->priority->name }}
-                    </div>
-                </td>
-                <td>
-                    <div class="my-auto px-3 mb-0 ">
-                        {{ $data->category->name }}
-                    </div>
-                </td>
-            </tr>
-            @endforeach
+                @foreach ($dataset as $data)
+                {{-- <tr wire:click="editDataset('{{ $data->id }}')" style="cursor: pointer;"> --}}
+                <tr>
+                    <td>
+                        <div class="form-check p-0 mx-auto">
+                            <input class="form-check-input" type="checkbox" value="{{ $data->id }}"
+                                wire:key='{{ $data->id }}' wire:model="checkedPost" onclick="stopPropagation(event)">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="my-auto px-3 mb-0 ">
+                            {{ $data->subject }}
+                        </div>
+                    </td>
+                    <td data-bs-toggle="tooltip" data-bs-placement="top" data-container="body" data-animation="true" title="{{ $data->details }}">
+                        <div class="my-auto px-3 mb-0 ">
+                            {{ Str::limit(htmlspecialchars_decode($data->details), 50) }}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="my-auto px-3 mb-0 ">
+                            {{ $data->department->name }}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="my-auto px-3 mb-0 ">
+                            {{ $data->priority->name }}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="my-auto px-3 mb-0 ">
+                            {{ $data->category->name }}
+                        </div>
+                    </td>
+                </tr>
+                @endforeach
             @else
             <tr>
                 <td colspan="7">
@@ -92,8 +84,4 @@
             </script>
         </tbody>
     </table>
-    <div class="d-flex me-3 mt-3">
-        <button type="button" class="btn btn-danger btn-rounded shadow-dark me-auto" onclick="window.history.back();"><i class="fa-solid fa-arrow-left-long fa-lg"></i>&nbsp;&nbsp;&nbsp;Ticket Pages</button>
-        {{ $dataset->links() }}
-    </div>
 </div>

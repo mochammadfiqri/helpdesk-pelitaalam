@@ -17,7 +17,6 @@ class KnowledgeBase extends Model
         'title',
         'slug',
         'details',
-        'category_id',
     ];
     
     public function toSearchableArray()
@@ -25,7 +24,7 @@ class KnowledgeBase extends Model
         return [
             'title' => $this->title,
             'details' => $this->details,
-            'type_id' => $this->type_id,
+            // 'type_id' => $this->type_id,
             // Add other relevant fields
         ];
     }
@@ -44,10 +43,10 @@ class KnowledgeBase extends Model
         ];
     }
 
-    public function category(): BelongsTo
-    {
-        return $this->belongsTo(Category::class, 'category_id', 'id');
-    }
+    // public function category(): BelongsTo
+    // {
+    //     return $this->belongsTo(Category::class, 'kb_category', 'kb_id', 'category_id');
+    // }
 
     protected static function boot()
     {
@@ -65,5 +64,10 @@ class KnowledgeBase extends Model
     public function setSlugAttribute($value)
     {
         $this->attributes['slug'] = Str::slug($value);
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'kb_category', 'kb_id', 'category_id');
     }
 }

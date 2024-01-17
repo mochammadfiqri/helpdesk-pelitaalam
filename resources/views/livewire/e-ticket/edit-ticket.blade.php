@@ -35,7 +35,7 @@
                                         <option value="{{ $item->id }}">{{ $item->nama }}</option>
                                         @endforeach
                                     </select>
-                                    @if (Auth::user()->role_id == 1)
+                                    @if (Auth::user()->roles->contains('id', 1))
                                     <span class="pt-2 ps-1" id="enableDisableBtnUser" onclick="toggleDisabled('userSelect', 'iconUser')">
                                         <i id="iconUser" class="fa-solid fa-pen-to-square fa-md"></i>
                                     </span>
@@ -54,7 +54,7 @@
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
                                     </select>
-                                    @if (Auth::user()->role_id == 1)
+                                    @if (Auth::user()->roles->contains('id', 1))
                                     <span class="pt-2 ps-1" id="enableDisableBtnPriority"
                                         onclick="toggleDisabled('prioritySelect', 'iconPriority')">
                                         <i id="iconPriority" class="fa-solid fa-pen-to-square fa-md"></i>
@@ -68,13 +68,13 @@
                             <div class="col-4">
                                 <label class="form-label text-bold">Department</label>
                                 <div class="input-group input-group-outline mt-n2">
-                                    <select wire:model.defer='department_id' class="form-control" id="departmentSelect" style="border: none" disabled>
+                                    <select wire:model='department_id' class="form-control" id="departmentSelect" style="border: none" disabled>
                                         <option value="">Select Department</option>
                                         @foreach ($department as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
                                     </select>
-                                    @if (Auth::user()->role_id == 1)
+                                    @if (Auth::user()->roles->contains('id', 1))
                                     <span class="pt-2 ps-1" id="enableDisableBtnDepartment"
                                         onclick="toggleDisabled('departmentSelect', 'iconDepartment')">
                                         <i id="iconDepartment" class="fa-solid fa-pen-to-square fa-md"></i>
@@ -82,7 +82,7 @@
                                     @endif
                                 </div>
                                 @error('department_id')
-                                <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
+                                    <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
@@ -90,41 +90,43 @@
                     <div class="mb-3">
                         <div class="row">
                             <div class="col-4">
-                                <label class="form-label text-bold">Assigned To</label>
+                                <label class="form-label text-bold">Assign To</label>
                                 <div class="input-group input-group-outline mt-n2">
-                                    <select wire:model.defer='assigned_user_id' class="form-control" id="assignSelect" style="border: none" disabled>
+                                    <select wire:model='assign_to_id' class="form-control" id="assignSelect" style="border: none" disabled>
                                         <option value="">Select User</option>
                                         @foreach ($assignToUser as $item)
                                         <option value="{{ $item->id }}">{{ $item->nama }}</option>
                                         @endforeach
                                     </select>
-                                    @if (Auth::user()->role_id == 1)
+                                    @if (Auth::user()->roles->contains('id', 1))
                                     <span class="pt-2 ps-1" id="enableDisableBtnAssigned" onclick="toggleDisabled('assignSelect', 'iconAssign')">
                                         <i id="iconAssign" class="fa-solid fa-pen-to-square fa-md"></i>
                                     </span>
                                     @endif
                                 </div>
-                                @error('assigned_user_id')
+                                @error('assign_to_id')
                                 <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="col-4">
-                                <label class="form-label text-bold">Type</label>
+                                <label class="form-label text-bold">Status</label>
                                 <div class="input-group input-group-outline mt-n2">
-                                    <select wire:model.defer='type_id' class="form-control" id="typeSelect" style="border: none" disabled>
-                                        <option value="">Select Type</option>
-                                        @foreach ($type as $item)
+                                    <select wire:model.defer='status_id' class="form-control" id="statusSelect" style="border: none" disabled>
+                                        <option value="">Select Status</option>
+                                        @foreach ($status as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
                                     </select>
-                                    @if (Auth::user()->role_id == 1)
-                                    <span class="pt-2 ps-1" id="enableDisableBtnType" onclick="toggleDisabled('typeSelect', 'iconType')">
-                                        <i id="iconType" class="fa-solid fa-pen-to-square fa-md"></i>
+                                    {{-- (Auth::user()->roles->contains('id', 1)) --}}
+                                    @if (Auth::user()->roles->contains('id', 1) || (!Auth::user()->roles->contains('id', 1) && $assign_to_id ==
+                                    Auth::user()->id))
+                                    <span class="pt-2 ps-1" id="enableDisableBtnStatus" onclick="toggleDisabled('statusSelect', 'iconStatus')">
+                                        <i id="iconStatus" class="fa-solid fa-pen-to-square fa-md"></i>
                                     </span>
                                     @endif
                                 </div>
-                                @error('type_id')
-                                <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
+                                @error('status_id')
+                                    <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="col-4">
@@ -136,7 +138,7 @@
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
                                     </select>
-                                    @if (Auth::user()->role_id == 1)
+                                    @if (Auth::user()->roles->contains('id', 1))
                                     <span class="pt-2 ps-1" id="enableDisableBtnCategory" onclick="toggleDisabled('categorySelect', 'iconCategory')">
                                         <i id="iconCategory" class="fa-solid fa-pen-to-square fa-md"></i>
                                     </span>
@@ -151,23 +153,7 @@
                     <div class="mb-3">
                         <div class="row"> 
                             <div class="col-5">
-                                <label class="form-label text-bold">Status</label>
-                                <div class="input-group input-group-outline mt-n2">
-                                    <select wire:model.defer='status_id' class="form-control" id="statusSelect" style="border: none" disabled>
-                                        <option value="">Select Status</option>
-                                        @foreach ($status as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    @if (Auth::user()->role_id == 1 || (Auth::user()->role_id != 1 && $assigned_user_id == Auth::user()->id))
-                                        <span class="pt-2 ps-1" id="enableDisableBtnStatus" onclick="toggleDisabled('statusSelect', 'iconStatus')">
-                                            <i id="iconStatus" class="fa-solid fa-pen-to-square fa-md"></i>
-                                        </span>
-                                    @endif
-                                </div>
-                                @error('status')
-                                    <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
-                                @enderror
+                                
                             </div>
                         </div>
                     </div>
@@ -177,7 +163,7 @@
                                 <label class="form-label text-bold">Subject</label>
                                 <div class="input-group input-group-outline rounded-full mt-n2">
                                     <input wire:model.defer="subject" type="text" id="subject" style="border: none" disabled class="form-control " placeholder="Enter subject">
-                                    @if (Auth::user()->role_id == 1)
+                                    @if (Auth::user()->roles->contains('id', 1))
                                     <span class="pt-2 ps-1" id="enableDisableBtnSubject" onclick="toggleDisabled('subject', 'iconSubject')">
                                         <i id="iconSubject" class="fa-solid fa-pen-to-square fa-md"></i>
                                     </span>
@@ -191,7 +177,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label text-bold">Details</label>
-                        @if (Auth::user()->role_id == 1)
+                        @if (Auth::user()->roles->contains('id', 1))
                             <div wire:ignore class="mt-n2 mb-2">
                                 <textarea class="form-control" rows="1" id="details_add" style="background: transparent" >{{ $details }}</textarea>
                                 <script>
@@ -222,17 +208,33 @@
                         <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="mb-3 ">
-                        <label for="fileInput" class="form-label">
-                            <i class="fa-solid fa-file-circle-plus fa-xl"></i>
-                            <input type="file" class="form-control" id="fileInput" style="display: none;">
-                            <span class="text-sm">Attach File</span>
-                        </label>
+                    @if ($ticketPhoto === null)
+                        <div class="mb-3 ">
+                            <label for="fileInput" class="form-label">
+                                <i class="fa-solid fa-file-circle-plus fa-xl"></i>
+                                <input type="file" wire:model="file" class="form-control" id="fileInput" style="display: none;">
+                                <span class="text-sm">Attachment</span>
+                            </label>
+                            @error('file')
+                                <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    @endif
+                    
+                    <div class="row justify-content-start mb-1">
+                        @if ($ticketPhoto)
+                            @foreach ($ticketPhoto->photos()->get() as $foto)
+                                <div class="col-12 col-md-6 col-lg-6 mx-2 my-2">
+                                    <img src="{{ asset('storage/'.$foto->file_path) }}" class="shadow border-radius-2xl" style="width: 250px"
+                                        alt="Image">
+                                </div>
+                            @endforeach
+                        @endif
                     </div>
                     <div class="d-flex flex-wrap" >
                         {{-- <button type="button" class="btn btn-secondary btn-rounded shadow-dark me-2" wire:click='fresh'
                             onclick="window.history.back();">Cancel</button> --}}
-                        @if (Auth::user()->role_id == 1)
+                        @if (Auth::user()->roles->contains('id', 1))
                             <button type="submit" wire:click.prevent="importToDataset" class="btn btn-info btn-rounded shadow-dark me-2">import To Dataset</button>
                             <button type="submit" wire:click.prevent="updateTicket" class="btn btn-success btn-rounded shadow-dark ">Update
                                 Ticket</button>

@@ -25,7 +25,7 @@
                     </div>
                     <div class="col-12 col-md-8 col-lg-8">
                         <div class="d-flex justify-content-end align-items-center ">
-                            @if (Auth::user()->role_id == 1)
+                            @if (Auth::user()->roles->contains('id', 1))
                                 <a class="btn btn-rounded bg-gradient-info " href="#">
                                     <i class="fa-solid fa-upload "></i>&nbsp;&nbsp;&nbsp;Unggah Data
                                 </a>

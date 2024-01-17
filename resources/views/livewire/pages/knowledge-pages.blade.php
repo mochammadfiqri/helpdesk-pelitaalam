@@ -53,7 +53,11 @@
                         <div class="col-12 col-lg-4 pb-3" style="cursor: pointer;">
                             <a wire:click="viewPost('{{ $data->slug }}')" class="text-decoration-none " style="color: #495057;">
                             <div class="card card-label card-body blur shadow-blur border-1 ">
-                                <i class="fa-solid fa-tag fa-lg text-primary"></i> <span class="fs-6">&nbsp;{{ $data->category->name }}</span>
+                                <i class="fa-solid fa-tag fa-lg text-primary"></i> 
+                                    @foreach ($data->categories as $category)
+                                        {{-- {{ $category->name }}, <br> --}}
+                                        <span class="fs-6">&nbsp;{{ $category->name }},</span>
+                                    @endforeach
                                     <h5 class="font-weight-bolder mt-3">{{ $data->title }}</h5>
                                     <p class="pe-5 mb-3 text-truncate" style="max-width: 100%; overflow: hidden; text-overflow: ellipsis;">
                                         {{ strip_tags($data->details) }}

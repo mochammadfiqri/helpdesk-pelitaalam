@@ -21,7 +21,10 @@
                         <div class="row justify-content-start">
                             <div class="col-md-12">
                                 <div class="info">
-                                    <i class="fa-solid fa-tag fa-xl text-primary"></i> <span class="fs-5">&nbsp;{{ $knowledge_base->category->name }}</span>
+                                    <i class="fa-solid fa-tag fa-xl text-primary"></i> 
+                                    @foreach ($knowledge_base->categories as $category)
+                                        <span class="fs-5">&nbsp;{{ $category->name }},</span>
+                                    @endforeach
                                     {{-- <i class="material-icons text-gradient text-primary text-3xl">content_copy</i> --}}
                                     {{-- <h5 class="font-weight-bolder mt-3">Full Documentation</h5> --}}
                                     <p class="pe-5 text-justify">{!! $knowledge_base->details !!}</p>
@@ -38,8 +41,10 @@
                                 <a wire:click="viewPost('{{ $data->slug }}')" class="text-decoration-none " style="color: #495057;">
                                     <div class="card card-label card-body blur shadow-blur border-1 ">
                                         <div class="justify-content-between">
-                                            <i class="fa-solid fa-tag fa-lg text-primary"></i> <span class="fs-6">&nbsp;{{ $data->category->name
-                                                }}</span>
+                                            <i class="fa-solid fa-tag fa-lg text-primary"></i> 
+                                            @foreach ($data->categories as $category)
+                                                <span class="fs-6">&nbsp;{{ $category->name }},</span>
+                                            @endforeach
                                             <h5 class="font-weight-bolder mt-3">{{ $data->title }}</h5>
                                         </div>
                                         <p class="pe-5 mb-3 text-truncate" style="max-width: 100%; overflow: hidden; text-overflow: ellipsis;">

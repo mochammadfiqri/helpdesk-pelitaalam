@@ -2,30 +2,31 @@
 
 namespace App\Http\Livewire\ETicket;
 
-use App\Models\Type;
+use Carbon\Carbon;
+use App\Models\Role;
 use App\Models\User;
 use App\Models\Message;
 use App\Models\Tickets;
 use Livewire\Component;
 use App\Models\Category;
 use App\Models\Statuses;
-use App\Models\Department;
 use App\Models\Priorities;
-use App\Events\MessageSent;
+use App\Models\TicketPhoto;
 use App\Models\DatasetTickets;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class EditTicket extends Component
 {
-    public $ticket_key, $email, $subject, $details, $user_id, $assigned_user_id;
-    public $type_id, $priority_id, $status_id, $category_id, $department_id, $sender_id, $receiver_id, $file;
+    public $ticket_key, $email, $subject, $details, $user_id, $assign_to_id;
+    public $type_id, $priority_id, $status_id, $category_id, $department_id, $sender_id, $receiver_id;
+    public $file = [];
     public $ticketId;
     public $messages = [];
     public $newMessage, $sentMessage, $pushMessage;
     public $selectedDiscussion, $receiverInstance, $message, $messages_count;
     public $paginateVar = 10;
     public $discussionId;
+    public $ticketPhoto;
     
     public function mount()
     {
@@ -34,7 +35,11 @@ class EditTicket extends Component
     }
 
     public function loadTicketEditing() {
+        
         $ticket = Tickets::where('ticket_key', $this->ticket_key)->first();
+
+        $ticket->read_at = Carbon::now();
+        $ticket->save();
 
         $this->messages_count = Message::where('discussion_id', $ticket->id)->count();
         $this->messages = Message::where('discussion_id', $ticket->id)
@@ -51,6 +56,7 @@ class EditTicket extends Component
             $this->status_id = $ticket->status_id;
             $this->category_id = $ticket->category_id;
             $this->department_id = $ticket->department_id;
+            $this->assign_to_id = $ticket->assign_to_id;
             $this->file = $ticket->file;
         }
     }
@@ -91,15 +97,14 @@ class EditTicket extends Component
             $ticket->subject = $this->subject;
             $ticket->details = $this->details;
             $ticket->user_id = $this->user_id;
-            $ticket->assigned_user_id = $this->assigned_user_id;
-            $ticket->type_id = $this->type_id;
+            $ticket->assign_to_id = $this->assign_to_id;
             $ticket->priority_id = $this->priority_id;
             $ticket->status_id = $this->status_id;
             $ticket->category_id = $this->category_id;
             $ticket->department_id = $this->department_id;
             $ticket->sender_id = $this->user_id;
-            $ticket->receiver_id = $this->assigned_user_id;
-            $ticket->file = $this->file;
+            $ticket->receiver_id = $this->assign_to_id;
+            // $ticket->file = $this->file;
     
             $ticket->save(); // Use save instead of update
 
@@ -152,6 +157,14 @@ class EditTicket extends Component
             // Hapus semua pesan terkait dengan tiket
             Message::where('discussion_id', $ticket->id)->delete();
 
+            //hapus foto dari storage
+            $ticketPhotos = TicketPhoto::where('ticket_id', $ticket->id)->get();
+            $photoPaths = $ticketPhotos->pluck('file_path')->toArray();
+
+            foreach ($photoPaths as $photoPath) {
+                Storage::delete($photoPath);
+            }
+
             // Hapus tiket
             $ticket->delete();
 
@@ -169,11 +182,18 @@ class EditTicket extends Component
 
     public function render()
     {
-        $user = User::where('role_id', '!=', '1')->get();
-        $assignToUser = User::where('role_id', '!=', '2')->get();
+        $user = User::whereDoesntHave('roles', function ($query) {
+            $query->where('roles.id', 1);
+        })->get();
+
+        $assignToUser = User::when($this->department_id, function ($query) {
+            $query->whereHas('roles', function ($roleQuery) {
+                $roleQuery->where('roles.id', $this->department_id);
+            });
+        })->get();;
+
         $priority = Priorities::all();
-        $department = Department::all();
-        $type = Type::all();
+        $department = Role::where('id', '!=', 14)->get();
         $category = Category::all();
         $status = Statuses::all();
 
@@ -189,16 +209,16 @@ class EditTicket extends Component
             ->orderBy('created_at', 'asc') // Sesuaikan dengan kolom timestamp yang sesuai
             ->get();
 
+            $this->ticketPhoto = Tickets::where('ticket_key', $this->ticket_key)->first();
         return view('livewire.e-ticket.edit-ticket', [
-            // 'receiverInstance' => $receiverInstance,
             'checkedDiscussion' => $checkedDiscussion,
             'user' => $user,
             'assignToUser' => $assignToUser,
             'priority' => $priority,
             'department' => $department,
-            'type' => $type,
             'category' => $category,
             'status' => $status,
+            // 'ticketPhoto' => $ticketPhoto,
         ]);
     }
 }
