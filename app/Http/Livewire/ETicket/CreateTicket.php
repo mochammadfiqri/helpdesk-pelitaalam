@@ -56,7 +56,7 @@ class CreateTicket extends Component
 
         //Priority Predict
         $nb = naive_bayes();
-        $dataset = DatasetTickets::all();
+        $dataset = DatasetTickets::select('subject', 'details', 'priority_id')->get();
         // Bagi data menjadi data latih (training) dan data uji (testing)
         $trainingData = $dataset->slice(0, floor(0.8 * count($dataset))); // 80% data training, 20% data testing
         // Latih model dengan data latih
@@ -70,7 +70,7 @@ class CreateTicket extends Component
 
         //Category Predict
         $nb = naive_bayes();
-        $dataset = DatasetTickets::all();
+        $dataset = DatasetTickets::select('subject', 'details', 'category_id')->get();
         // Bagi data menjadi data latih (training) dan data uji (testing)
         $trainingData = $dataset->slice(0, floor(0.8 * count($dataset)));
         // Latih model dengan data latih

@@ -133,7 +133,7 @@ class EditTicket extends Component
                 'details' => $this->details,
                 'priority_id' => $this->priority_id,
                 'department_id' => $this->department_id,
-                'type_id' => $this->type_id,
+                // 'type_id' => $this->type_id,
                 'category_id' => $this->category_id,
             ]);
             return redirect()->to('/tickets')->with([
