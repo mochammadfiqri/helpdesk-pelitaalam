@@ -13,6 +13,7 @@ use App\Models\Statuses;
 use App\Models\Priorities;
 use App\Models\TicketPhoto;
 use App\Models\DatasetTickets;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class EditTicket extends Component
@@ -38,8 +39,10 @@ class EditTicket extends Component
         
         $ticket = Tickets::where('ticket_key', $this->ticket_key)->first();
 
-        $ticket->read_at = Carbon::now();
-        $ticket->save();
+        if (Auth::user()->roles->contains('id', 1)) {
+            $ticket->read_at = Carbon::now();
+            $ticket->save();
+        }
 
         $this->messages_count = Message::where('discussion_id', $ticket->id)->count();
         $this->messages = Message::where('discussion_id', $ticket->id)

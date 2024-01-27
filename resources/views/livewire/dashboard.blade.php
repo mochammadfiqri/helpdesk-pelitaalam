@@ -1,29 +1,32 @@
 <div class="row mt-3">
     @push('scriptDashboard')
-        {{-- openTicket --}}
+        {{-- Status Ticket --}}
         <script>
             document.addEventListener("DOMContentLoaded", function () {
-                // Contoh data jumlah
-                var dataJumlah = [30, 50, 20];
-
-                // Menghitung total
-                var total = dataJumlah.reduce(function (acc, val) {
-                    return acc + val;
-                }, 0);
-
-                // Menghitung persentase masing-masing nilai
-                var dataPersentase = dataJumlah.map(function (value) {
-                    return ((value / total) * 100).toFixed(2);
-                });
-
-                var ctx = document.getElementById('doughnut-chart').getContext('2d');
+                var ctx = document.getElementById('ticket-chart').getContext('2d');
                 var myChart = new Chart(ctx, {
                     type: 'doughnut',
                     data: {
+                        labels: [
+                            'Open Ticket',
+                            'In Progress Ticket',
+                            'Closed Ticket',
+                            'Reject Ticket'
+                        ],
                         datasets: [{
-                            data: dataPersentase, // Menggunakan data persentase
-                            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-                        }]
+                            data: [
+                                {{ $openTicketCount }},
+                                {{ $inProgressTicketCount }},
+                                {{ $closedTicketCount }},
+                                {{ $rejectORcanceledTicketCount }},
+                            ],
+                            backgroundColor: [
+                                '#FF6384', 
+                                '#36A2EB', 
+                                '#FFCE56', 
+                                '#4CAF50'], // Sesuaikan warna
+                        }],
+                        hoverOffset: 4
                     },
                     options: {
                         responsive: true,
@@ -41,225 +44,46 @@
                                         }
                                     }
                                 }
-                            }
-                        }
-                    }
-                });
-            });
-        </script>
-        {{-- InProgressTicket --}}
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                // Contoh data jumlah
-                var dataJumlah = [30, 50, 20];
-
-                // Menghitung total
-                var total = dataJumlah.reduce(function (acc, val) {
-                    return acc + val;
-                }, 0);
-
-                // Menghitung persentase masing-masing nilai
-                var dataPersentase = dataJumlah.map(function (value) {
-                    return ((value / total) * 100).toFixed(2);
-                });
-
-                var ctx = document.getElementById('chart-inProgressTicket').getContext('2d');
-                var myChart = new Chart(ctx, {
-                    type: 'doughnut',
-                    data: {
-                        datasets: [{
-                            data: dataPersentase, // Menggunakan data persentase
-                            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            datalabels: {
-                                formatter: function (value, context) {
-                                    return value + '%';
-                                },
-                                color: 'white',
-                                labels: {
-                                    title: {
-                                        font: {
-                                            weight: 'bold'
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-            });
-        </script>
-        {{-- closedTicket --}}
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                // Contoh data jumlah
-                var dataJumlah = [30, 50, 20];
-
-                // Menghitung total
-                var total = dataJumlah.reduce(function (acc, val) {
-                    return acc + val;
-                }, 0);
-
-                // Menghitung persentase masing-masing nilai
-                var dataPersentase = dataJumlah.map(function (value) {
-                    return ((value / total) * 100).toFixed(2);
-                });
-
-                var ctx = document.getElementById('chart-closedTicket').getContext('2d');
-                var myChart = new Chart(ctx, {
-                    type: 'doughnut',
-                    data: {
-                        datasets: [{
-                            data: dataPersentase, // Menggunakan data persentase
-                            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            datalabels: {
-                                formatter: function (value, context) {
-                                    return value + '%';
-                                },
-                                color: 'white',
-                                labels: {
-                                    title: {
-                                        font: {
-                                            weight: 'bold'
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-            });
-        </script>
-        {{-- rejectORcanceledTicket --}}
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                // Contoh data jumlah
-                var dataJumlah = [30, 50, 20];
-
-                // Menghitung total
-                var total = dataJumlah.reduce(function (acc, val) {
-                    return acc + val;
-                }, 0);
-
-                // Menghitung persentase masing-masing nilai
-                var dataPersentase = dataJumlah.map(function (value) {
-                    return ((value / total) * 100).toFixed(2);
-                });
-
-                var ctx = document.getElementById('chart-rejectORcanceledTicket').getContext('2d');
-                var myChart = new Chart(ctx, {
-                    type: 'doughnut',
-                    data: {
-                        datasets: [{
-                            data: dataPersentase, // Menggunakan data persentase
-                            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            datalabels: {
-                                formatter: function (value, context) {
-                                    return value + '%';
-                                },
-                                color: 'white',
-                                labels: {
-                                    title: {
-                                        font: {
-                                            weight: 'bold'
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-            });
-        </script>
-
-        {{-- Low --}}
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                        // Contoh data jumlah
-                        var dataJumlah = [30, 50, 20];
-        
-                        // Menghitung total
-                        var total = dataJumlah.reduce(function (acc, val) {
-                            return acc + val;
-                        }, 0);
-        
-                        // Menghitung persentase masing-masing nilai
-                        var dataPersentase = dataJumlah.map(function (value) {
-                            return ((value / total) * 100).toFixed(2);
-                        });
-        
-                        var ctx = document.getElementById('low-chart').getContext('2d');
-                        var myChart = new Chart(ctx, {
-                            type: 'doughnut',
-                            data: {
-                                datasets: [{
-                                    data: dataPersentase, // Menggunakan data persentase
-                                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-                                }]
                             },
-                            options: {
-                                responsive: true,
-                                maintainAspectRatio: false,
-                                plugins: {
-                                    datalabels: {
-                                        formatter: function (value, context) {
-                                            return value + '%';
-                                        },
-                                        color: 'white',
-                                        labels: {
-                                            title: {
-                                                font: {
-                                                    weight: 'bold'
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
+                            legend: {
+                                position: 'left', // Atur posisi legend di sebelah kiri
+                                align: 'center', // Posisi teks legend
+                                
                             }
-                        });
-                    });
+                        },
+                    }
+                });
+            });
         </script>
-        {{-- Normal --}}
+
+        {{-- Priority Ticket --}}
         <script>
             document.addEventListener("DOMContentLoaded", function () {
-                // Contoh data jumlah
-                var dataJumlah = [30, 50, 20];
-
-                // Menghitung total
-                var total = dataJumlah.reduce(function (acc, val) {
-                    return acc + val;
-                }, 0);
-
-                // Menghitung persentase masing-masing nilai
-                var dataPersentase = dataJumlah.map(function (value) {
-                    return ((value / total) * 100).toFixed(2);
-                });
-
-                var ctx = document.getElementById('normal-chart').getContext('2d');
+                var ctx = document.getElementById('priority-chart').getContext('2d');
                 var myChart = new Chart(ctx, {
                     type: 'doughnut',
                     data: {
+                        labels: [
+                            'Low',
+                            'Normal',
+                            'High',
+                            'Critical'
+                        ],
                         datasets: [{
-                            data: dataPersentase, // Menggunakan data persentase
-                            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-                        }]
+                            data: [
+                                {{ $lowCount }},
+                                {{ $normalCount }},
+                                {{ $highCount }},
+                                {{ $criticalCount }},
+                            ],
+                            backgroundColor: [
+                                '#00ff00', 
+                                '#d3d3d3', 
+                                '#cd5c5c', 
+                                '#dc143c'
+                            ], // Sesuaikan warna
+                        }],
+                        hoverOffset: 4
                     },
                     options: {
                         responsive: true,
@@ -277,536 +101,175 @@
                                         }
                                     }
                                 }
+                            },
+                            legend: {
+                                position: 'left', // Atur posisi legend di sebelah kiri
+                                align: 'center', // Posisi teks legend
+                                
                             }
                         }
                     }
                 });
             });
         </script>
-        {{-- High --}}
+
+        {{-- Dataset --}}
         <script>
             document.addEventListener("DOMContentLoaded", function () {
-                // Contoh data jumlah
-                var dataJumlah = [30, 50, 20];
-
-                // Menghitung total
-                var total = dataJumlah.reduce(function (acc, val) {
-                    return acc + val;
-                }, 0);
-
-                // Menghitung persentase masing-masing nilai
-                var dataPersentase = dataJumlah.map(function (value) {
-                    return ((value / total) * 100).toFixed(2);
-                });
-
-                var ctx = document.getElementById('high-chart').getContext('2d');
+                var ctx = document.getElementById('chart-line').getContext('2d');
                 var myChart = new Chart(ctx, {
-                    type: 'doughnut',
+                    type: "line",
                     data: {
+                        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                         datasets: [{
-                            data: dataPersentase, // Menggunakan data persentase
-                            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-                        }]
+                            label: "Datasets",
+                            tension: 0,
+                            borderWidth: 0,
+                            pointRadius: 5,
+                            pointBackgroundColor: "rgba(255, 255, 255, .8)",
+                            pointBorderColor: "transparent",
+                            borderColor: "rgba(255, 255, 255, .8)",
+                            borderWidth: 4,
+                            backgroundColor: "transparent",
+                            fill: true,
+                            data: {{ $datasets }},
+                            maxBarThickness: 6
+                        }],
                     },
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
                         plugins: {
-                            datalabels: {
-                                formatter: function (value, context) {
-                                    return value + '%';
-                                },
-                                color: 'white',
-                                labels: {
-                                    title: {
-                                        font: {
-                                            weight: 'bold'
-                                        }
-                                    }
-                                }
+                            legend: {
+                                display: false,
                             }
-                        }
-                    }
-                });
-            });
-        </script>
-        {{-- Critical --}}
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                // Contoh data jumlah
-                var dataJumlah = [30, 50, 20];
-
-                // Menghitung total
-                var total = dataJumlah.reduce(function (acc, val) {
-                    return acc + val;
-                }, 0);
-
-                // Menghitung persentase masing-masing nilai
-                var dataPersentase = dataJumlah.map(function (value) {
-                    return ((value / total) * 100).toFixed(2);
-                });
-
-                var ctx = document.getElementById('critical-chart').getContext('2d');
-                var myChart = new Chart(ctx, {
-                    type: 'doughnut',
-                    data: {
-                        datasets: [{
-                            data: dataPersentase, // Menggunakan data persentase
-                            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-                        }]
+                        },
+                        interaction: {
+                            intersect: false,
+                            mode: 'index',
+                        },
+                        scales: {
+                            y: {
+                                grid: {
+                                    drawBorder: false,
+                                    display: true,
+                                    drawOnChartArea: true,
+                                    drawTicks: false,
+                                    borderDash: [5, 5],
+                                    color: 'rgba(255, 255, 255, .2)'
+                                },
+                                ticks: {
+                                    display: true,
+                                    color: '#f8f9fa',
+                                    padding: 10,
+                                    font: {
+                                        size: 14,
+                                        weight: 300,
+                                        family: "Roboto",
+                                        style: 'normal',
+                                        lineHeight: 2
+                                    },
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    drawBorder: false,
+                                    display: false,
+                                    drawOnChartArea: false,
+                                    drawTicks: false,
+                                    borderDash: [5, 5]
+                                },
+                                ticks: {
+                                    display: true,
+                                    color: '#f8f9fa',
+                                    padding: 10,
+                                    font: {
+                                        size: 14,
+                                        weight: 300,
+                                        family: "Roboto",
+                                        style: 'normal',
+                                        lineHeight: 2
+                                    },
+                                }
+                            },
+                        },
                     },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            datalabels: {
-                                formatter: function (value, context) {
-                                    return value + '%';
-                                },
-                                color: 'white',
-                                labels: {
-                                    title: {
-                                        font: {
-                                            weight: 'bold'
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
                 });
             });
         </script>
 
         {{-- chartJS --}}
         <script src="../assets/js/plugins/chartjs.min.js"></script>
-        {{-- <script>
-            var ctx = document.getElementById("chart-bars").getContext("2d");  
-                new Chart(ctx, {
-                type: "bar",
-                data: {
-                    labels: ["M", "T", "W", "T", "F", "S", "S"],
-                    datasets: [{
-                    label: "Sales",
-                    tension: 0.4,
-                    borderWidth: 0,
-                    borderRadius: 4,
-                    borderSkipped: false,
-                    backgroundColor: "rgba(255, 255, 255, .8)",
-                    data: [50, 20, 10, 22, 50, 10, 40],
-                    maxBarThickness: 6
-                    }, ],
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                    legend: {
-                        display: false,
-                    }
-                    },
-                    interaction: {
-                    intersect: false,
-                    mode: 'index',
-                    },
-                    scales: {
-                    y: {
-                        grid: {
-                        drawBorder: false,
-                        display: true,
-                        drawOnChartArea: true,
-                        drawTicks: false,
-                        borderDash: [5, 5],
-                        color: 'rgba(255, 255, 255, .2)'
-                        },
-                        ticks: {
-                        suggestedMin: 0,
-                        suggestedMax: 500,
-                        beginAtZero: true,
-                        padding: 10,
-                        font: {
-                            size: 14,
-                            weight: 300,
-                            family: "Roboto",
-                            style: 'normal',
-                            lineHeight: 2
-                        },
-                        color: "#fff"
-                        },
-                    },
-                    x: {
-                        grid: {
-                        drawBorder: false,
-                        display: true,
-                        drawOnChartArea: true,
-                        drawTicks: false,
-                        borderDash: [5, 5],
-                        color: 'rgba(255, 255, 255, .2)'
-                        },
-                        ticks: {
-                        display: true,
-                        color: '#f8f9fa',
-                        padding: 10,
-                        font: {
-                            size: 14,
-                            weight: 300,
-                            family: "Roboto",
-                            style: 'normal',
-                            lineHeight: 2
-                        },
-                        }
-                    },
-                    },
-                },
-                });
-            
-            
-                var ctx2 = document.getElementById("chart-line").getContext("2d");
-            
-                new Chart(ctx2, {
-                type: "line",
-                data: {
-                    labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                    datasets: [{
-                    label: "Mobile apps",
-                    tension: 0,
-                    borderWidth: 0,
-                    pointRadius: 5,
-                    pointBackgroundColor: "rgba(255, 255, 255, .8)",
-                    pointBorderColor: "transparent",
-                    borderColor: "rgba(255, 255, 255, .8)",
-                    borderColor: "rgba(255, 255, 255, .8)",
-                    borderWidth: 4,
-                    backgroundColor: "transparent",
-                    fill: true,
-                    data: [50, 40, 300, 320, 500, 350, 200, 230, 500],
-                    maxBarThickness: 6
-            
-                    }],
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                    legend: {
-                        display: false,
-                    }
-                    },
-                    interaction: {
-                    intersect: false,
-                    mode: 'index',
-                    },
-                    scales: {
-                    y: {
-                        grid: {
-                        drawBorder: false,
-                        display: true,
-                        drawOnChartArea: true,
-                        drawTicks: false,
-                        borderDash: [5, 5],
-                        color: 'rgba(255, 255, 255, .2)'
-                        },
-                        ticks: {
-                        display: true,
-                        color: '#f8f9fa',
-                        padding: 10,
-                        font: {
-                            size: 14,
-                            weight: 300,
-                            family: "Roboto",
-                            style: 'normal',
-                            lineHeight: 2
-                        },
-                        }
-                    },
-                    x: {
-                        grid: {
-                        drawBorder: false,
-                        display: false,
-                        drawOnChartArea: false,
-                        drawTicks: false,
-                        borderDash: [5, 5]
-                        },
-                        ticks: {
-                        display: true,
-                        color: '#f8f9fa',
-                        padding: 10,
-                        font: {
-                            size: 14,
-                            weight: 300,
-                            family: "Roboto",
-                            style: 'normal',
-                            lineHeight: 2
-                        },
-                        }
-                    },
-                    },
-                },
-                });
-            
-                var ctx3 = document.getElementById("chart-line-tasks").getContext("2d");
-            
-                new Chart(ctx3, {
-                type: "line",
-                data: {
-                    labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                    datasets: [{
-                    label: "Mobile apps",
-                    tension: 0,
-                    borderWidth: 0,
-                    pointRadius: 5,
-                    pointBackgroundColor: "rgba(255, 255, 255, .8)",
-                    pointBorderColor: "transparent",
-                    borderColor: "rgba(255, 255, 255, .8)",
-                    borderWidth: 4,
-                    backgroundColor: "transparent",
-                    fill: true,
-                    data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-                    maxBarThickness: 6
-            
-                    }],
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                    legend: {
-                        display: false,
-                    }
-                    },
-                    interaction: {
-                    intersect: false,
-                    mode: 'index',
-                    },
-                    scales: {
-                    y: {
-                        grid: {
-                        drawBorder: false,
-                        display: true,
-                        drawOnChartArea: true,
-                        drawTicks: false,
-                        borderDash: [5, 5],
-                        color: 'rgba(255, 255, 255, .2)'
-                        },
-                        ticks: {
-                        display: true,
-                        padding: 10,
-                        color: '#f8f9fa',
-                        font: {
-                            size: 14,
-                            weight: 300,
-                            family: "Roboto",
-                            style: 'normal',
-                            lineHeight: 2
-                        },
-                        }
-                    },
-                    x: {
-                        grid: {
-                        drawBorder: false,
-                        display: false,
-                        drawOnChartArea: false,
-                        drawTicks: false,
-                        borderDash: [5, 5]
-                        },
-                        ticks: {
-                        display: true,
-                        color: '#f8f9fa',
-                        padding: 10,
-                        font: {
-                            size: 14,
-                            weight: 300,
-                            family: "Roboto",
-                            style: 'normal',
-                            lineHeight: 2
-                        },
-                        }
-                    },
-                    },
-                },
-                });
-        </script> --}}
+        
     @endpush
-    <div class="col-12">
+    <div class="col-xl-6 col-sm-6 mb-xl-0">
         <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
             <div class="row">
-                <div class="col-12">
-                    <h6 class="text-white text-uppercase ps-3 float-start">
-                        Tickets Statuses
-                    </h6>
+                <h6 class="text-white text-uppercase ps-4 float-start">
+                    Tickets Statuses
+                </h6>
+            </div>
+        </div>
+        <div class=" mt-3">
+            <a href="/tickets">
+                <div class="card" >
+                    <div class="row g-0 p-2">
+                        <div class="chart">
+                            <canvas id="ticket-chart" class="chart-canvas" height="250px"></canvas>
+                        </div> 
+                        {{-- <hr class="dark horizontal mt-3">
+                        <div class="d-flex ms-3 my-2">
+                            <i class="material-icons text-sm my-auto me-1">schedule</i>
+                            <p class="mb-0 text-sm"> updated 4 min ago </p>
+                        </div> --}}
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-xl-6 col-sm-6 mb-xl-0">
+        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+            <div class="row">
+                <h6 class="text-white text-uppercase ps-4 float-start">
+                    Tickets Priorities
+                </h6>
+            </div>
+        </div>
+        <div class=" mt-3">
+            <a href="/tickets">
+                <div class="card">
+                    <div class="row g-0 p-2">
+                        <div class="chart">
+                            <canvas id="priority-chart" class="chart-canvas" height="250px"></canvas>
+                        </div>
+                        {{-- <hr class="dark horizontal mt-3">
+                        <div class="d-flex ms-3 my-2">
+                            <i class="material-icons text-sm my-auto me-1">schedule</i>
+                            <p class="mb-0 text-sm"> updated 4 min ago </p>
+                        </div> --}}
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-12 mt-5">
+        <div class="card z-index-2 mb-3">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
+                    <div class="chart">
+                        <canvas id="chart-line" class="chart-canvas" height="170"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <h6 class="mb-0 "> Dataset Ticket</h6>
+                <p class="text-sm ">Total Dataset saat ini (<span class="font-weight-bolder">{{ $totalDataset }}</span>) </p>
+                <hr class="dark horizontal">
+                <div class="d-flex ">
+                    <i class="material-icons text-sm my-auto me-1">schedule</i>
+                    <p class="mb-0 text-sm"> {{ optional($latestDataset)->updated_at->diffForHumans() ?? 'Never updated' }} </p>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-xl-3 col-sm-6 mb-xl-0 mt-3">
-        <a href="/tickets">
-            <div class="card" >
-                <div class="row g-0">
-                    <div class="col-6 p-3">
-                        <div class="text-start pt-1">
-                            {{-- <p class="text-sm mb-0 text-capitalize">New Ticket</p> --}}
-                            <h5 class="text-sm mb-0 text-capitalize">Open Ticket</h5>
-                            <h3 class="mb-0 my-auto">{{ $openTicketCount }}</h3>
-                        </div>
-                    </div>
-                    <div class="col-6 p-1">
-                        <div class="chart">
-                            <canvas id="doughnut-chart" class="chart-canvas" height="120px"></canvas>
-                        </div> 
-                    </div>
-                </div>
-            </div>
-        </a>
-    </div>
-    <div class="col-xl-3 col-sm-6 mb-xl-0 mt-3">
-        <a href="/tickets">
-            <div class="card">
-                <div class="row g-0">
-                    <div class="col-6 p-3">
-                        <div class="text-start pt-1">
-                            {{-- <p class="text-sm mb-0 text-capitalize">New Ticket</p> --}}
-                            <h5 class="text-sm mb-0 text-capitalize">In Progress Ticket</h5>
-                            <h3 class="mb-0 my-auto">{{ $inProgressTicketCount }}</h3>
-                        </div>
-                    </div>
-                    <div class="col-6 p-1">
-                        <div class="chart">
-                            <canvas id="chart-inProgressTicket" class="chart-canvas" height="120px"></canvas>
-                        </div> 
-                    </div>
-                </div>
-            </div>
-        </a>
-    </div>
-    <div class="col-xl-3 col-sm-6 mb-xl-0 mt-3">
-        <a href="/tickets">
-            <div class="card">
-                <div class="row g-0">
-                    <div class="col-6 p-3">
-                        <div class="text-start pt-1">
-                            <h5 class="text-sm mb-0 text-capitalize">Closed Ticket</h5>
-                            <h3 class="mb-0 my-auto">{{ $closedTicketCount }}</h3>
-                        </div>
-                    </div>
-                    <div class="col-6 p-1">
-                        <div class="chart">
-                            <canvas id="chart-closedTicket" class="chart-canvas" height="120px"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-    </div>
-    <div class="col-xl-3 col-sm-6 mb-xl-0 mt-3">
-        <a href="/tickets">
-            <div class="card">
-                <div class="row g-0">
-                    <div class="col-6 p-3">
-                        <div class="text-start pt-1">
-                            {{-- <p class="text-sm mb-0 text-capitalize">New Ticket</p> --}}
-                            <h5 class="text-sm mb-0 text-capitalize">Canceled Ticket</h5>
-                            <h3 class="mb-0 my-auto">{{ $rejectORcanceledTicketCount }}</h3>
-                        </div>
-                    </div>
-                    <div class="col-6 p-1">
-                        <div class="chart">
-                            <canvas id="chart-rejectORcanceledTicket" class="chart-canvas" height="120px"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-    </div>
-</div>
-<div class="row mt-4">
-    <div class="col-12">
-        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-            <div class="row">
-                <div class="col-12">
-                    <h6 class="text-white text-uppercase ps-3 float-start">
-                        Tickets Priorities
-                    </h6>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-sm-6 mb-xl-0 mt-3">
-        <a href="/tickets">
-            <div class="card">
-                <div class="row g-0">
-                    <div class="col-6 p-3">
-                        <div class="text-start pt-1">
-                            {{-- <p class="text-sm mb-0 text-capitalize">New Ticket</p> --}}
-                            <h5 class="text-sm mb-0 text-capitalize">Low Priority</h5>
-                            <h3 class="mb-0">{{ $lowCount }}</h3>
-                        </div>
-                    </div>
-                    <div class="col-6 p-1">
-                        <div class="chart">
-                            <canvas id="low-chart" class="chart-canvas" height="120px"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-    </div>
-    <div class="col-xl-3 col-sm-6 mb-xl-0 mt-3">
-        <a href="/tickets">
-            <div class="card">
-                <div class="row g-0">
-                    <div class="col-6 p-3">
-                        <div class="text-start pt-1">
-                            {{-- <p class="text-sm mb-0 text-capitalize">New Ticket</p> --}}
-                            <h5 class="text-sm mb-0 text-capitalize">Normal Priority</h5>
-                            <h3 class="mb-0 my-auto">{{ $normalCount }}</h3>
-                        </div>
-                    </div>
-                    <div class="col-6 p-1">
-                        <div class="chart">
-                            <canvas id="normal-chart" class="chart-canvas" height="120px"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-    </div>
-    <div class="col-xl-3 col-sm-6 mb-xl-0 mt-3">
-        <a href="/tickets">
-            <div class="card">
-                <div class="row g-0">
-                    <div class="col-6 p-3 ">
-                        <div class="text-start pt-1">
-                            {{-- <p class="text-sm mb-0 text-capitalize">New Ticket</p> --}}
-                            <h5 class="text-sm mb-0 text-capitalize">High Priority</h5>
-                            <h3 class="mb-0 mt-1 ">{{ $highCount }}</h3>
-                        </div>
-                    </div>
-                    <div class="col-6 p-1">
-                        <div class="chart">
-                            <canvas id="high-chart" class="chart-canvas" height="120px"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-    </div>
-    <div class="col-xl-3 col-sm-6 mb-xl-0 mt-3">
-        <a href="/tickets">
-            <div class="card">
-                <div class="row g-0">
-                    <div class="col-6 p-3">
-                        <div class="text-start pt-1">
-                            <h5 class="text-sm mb-0 text-capitalize">Critical</h5>
-                            <h3 class="mb-0 mt-1">{{ $criticalCount }}</h3>
-                        </div>
-                    </div>
-                    <div class="col-6 p-1">
-                        <div class="chart">
-                            <canvas id="critical-chart" class="chart-canvas" height="120px"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
     </div>
 </div>

@@ -57,14 +57,14 @@
                                 {{-- Data : {{ var_export($role_id) }} --}}
                                 <label class="form-label">Jenis Role</label>
                                 <div class="input-group input-group-outline mt-n2">
-                                    <select wire:model.defer='role_id' class="form-control">
+                                    <select wire:model='selectedRole' class="form-control">
                                         <option value="">Pilih Role</option>
                                         @foreach ($role as $item)
                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                                @error('role_id')
+                                @error('selectedRole')
                                 <span class="text-danger text-xs font-weight-light">{{ $message }}</span>
                                 @enderror
                             </div>

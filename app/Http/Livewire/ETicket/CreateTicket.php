@@ -133,7 +133,6 @@ class CreateTicket extends Component
             ]);
         }
     }
-        
 
     public function fresh() {
         $this->reset();

@@ -77,6 +77,7 @@ class TicketPages extends Component
         // Urutkan id berdasarkan probabilitas tertinggi
         $predictedPriority = array_search(max($predict_priority_id), $predict_priority_id);
 
+
         //Category Predict
         // Bagi data menjadi data latih (training) dan data uji (testing)
         $trainingData = $dataset->slice(0, floor(1 * count($dataset)));
@@ -87,11 +88,11 @@ class TicketPages extends Component
         //Probabilitas
         $predict_category_id = $nb->predict(tokenize($stemmedText));
         // Urutkan id berdasarkan probabilitas tertinggi
-        $predictedCategory = array_search(max($predict_category_id), $predict_category_id);    
+        $predictedCategory = array_search(max($predict_category_id), $predict_category_id);
 
         $priority = Priorities::find($predictedPriority);
         $user = User::where('email', $this->email)->first();
-        
+
         $this->validate([
             'email' => 'required|email|exists:users,email',
             'subject' => 'required',
@@ -147,33 +148,37 @@ class TicketPages extends Component
 
     // public function createTicket() {
     //     // Query data
-    //     // $data = DB::table('dataset_tickets')
-    //     //     ->select('subject','details','department_id','category_id','priority_id')
-    //     //     ->orderBy('id')
-    //     //     ->get();
+    //     $data = DB::table('dataset_tickets')
+    //         ->select('subject','details','department_id','category_id','priority_id')
+    //         ->orderBy('id')
+    //         ->get();
 
-    //     // // Pisahkan atribut dan label
-    //     // $arr_atribute = [];
-    //     // $arr_label = [];
-    //     // foreach ($data as $row) {
-    //     //     $arr_atribute[] = array_slice(get_object_vars($row), 0, -1); // Gunakan get_object_vars() untuk mengubah menjadi array
-    //     //     $arr_label[] = $row->priority_id;
-    //     // }
+    //     // Pisahkan atribut dan label
+    //     $arr_atribute = [];
+    //     $arr_label = [];
+    //     foreach ($data as $row) {
+    //         $arr_atribute[] = array_slice(get_object_vars($row), 0, -1); // Gunakan get_object_vars() untuk mengubah menjadi array
+    //         $arr_label[] = $row->priority_id;
+    //     }
 
-    //     // // Buat dataset
-    //     // $dataset = new ArrayDataset($arr_atribute, $arr_label);
-    //     // $samples = $dataset->getSamples();
-    //     // $targets = $dataset->getTargets();
-
-    //     // // Ambil data testing dari request (ganti dengan sesuai kebutuhan)
-    //     // // $testing = request()->all(); // Asumsikan data testing dikirim melalui form POST
+    //     // Buat dataset
+    //     $dataset = new ArrayDataset($arr_atribute, $arr_label);
+    //     $samples = $dataset->getSamples();
+    //     $targets = $dataset->getTargets();
+        
+        
+    //     // Ambil data testing dari request (ganti dengan sesuai kebutuhan)
+    //     $testing = request()->all(); // Asumsikan data testing dikirim melalui form POST
     //     // $testing = [
     //     //     'subject' => $this->subject,
     //     //     'details' => $this->details,
     //     //     'department_id' => $this->department_id,
     //     // ];
-    //     // // $testing = array_slice($testing, 1, count($testing) - 2); // Filter data testing
-    //     // // $testing = array_values($testing); // Reset indeks array
+    //     // $testing = array_slice($testing, 1, count($testing) - 2); // Filter data testing
+        
+    //     $testing = array_values($testing); // Reset indeks array
+        
+    //     dd($testing);
         
     //     // $classifier = new NaiveBayes();
     //     // $classifier->train($samples, $targets);
