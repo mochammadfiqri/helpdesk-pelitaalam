@@ -2,21 +2,67 @@
 
 namespace App\Http\Livewire\ETicket;
 
+use Carbon\Carbon;
 use App\Models\Tickets;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
+use App\Exports\DatasetExport;
+use App\Models\DatasetTickets;
+use App\Imports\DatasetTicketImport;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MainTicket extends Component
 {
-    public $search, $ticket_id, $user_id;
+    public $search, $ticket_id, $user_id, $file;
     use WithFileUploads;
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     public $myTickets = true;
     public $assignTickets = true;
     public $discussions, $selectedDiscussion, $auth_id, $receiverInstance, $selectDiscussion;
+    
+    public function deleteDataset() {
+        if (DatasetTickets::count() > 0) {
+            try {
+                DatasetTickets::truncate();
+                return redirect()->to('/tickets')->with([
+                    'toast_type' => 'success',
+                    'toast_message' => 'Dataset berhasil dihapus.',
+                ]);
+            } catch (\Throwable $th) {
+                return redirect()->to('/tickets')->with([
+                    'toast_type' => 'error',
+                    'toast_message' => 'Dataset gagal dihapus.',
+                ]);
+            }
+        } else {
+            return redirect()->to('/tickets')->with([
+                'toast_type' => 'info',
+                'toast_message' => 'Dataset sudah kosong.',
+            ]);
+        }
+    }
+
+    public function datasetExport() {
+        $dataset = DatasetTickets::with('priority','category','department')->get();
+        return Excel::download(new DatasetExport($dataset), 'dataset_' . Carbon::now()->timestamp . '.xlsx');
+    }
+
+    public function importDatasetTicket() {
+        $this->validate([
+            'file' => 'required|mimes:xlsx,xls,csv',
+        ]);
+
+        Excel::import(new DatasetTicketImport, $this->file->getRealPath());
+        // dd($import);
+
+        return redirect('/dashboard')->with([
+            'toast_type' => 'success',
+            'toast_message' => 'Import Berhasil',
+        ]);
+    }
     
     public function editTicket($ticket_id) {
         session(['editing_ticket' => $ticket_id]);

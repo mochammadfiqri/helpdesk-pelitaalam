@@ -267,7 +267,13 @@
                 <hr class="dark horizontal">
                 <div class="d-flex ">
                     <i class="material-icons text-sm my-auto me-1">schedule</i>
-                    <p class="mb-0 text-sm"> {{ optional($latestDataset)->updated_at->diffForHumans() ?? 'Never updated' }} </p>
+                    <p class="mb-0 text-sm">
+                        @if ($latestDataset)
+                            {{ $latestDataset->updated_at->diffForHumans() }}
+                        @else
+                            Dataset Kosong
+                        @endif
+                    </p>
                 </div>
             </div>
         </div>

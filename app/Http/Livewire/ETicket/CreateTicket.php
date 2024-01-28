@@ -35,6 +35,8 @@ class CreateTicket extends Component
     }
 
     public function createTicket() { 
+        
+
         // Lower Case Filter
         $transformer = new LowerCaseFilter();
         $lowerText = $transformer->transform($this->details);
@@ -54,33 +56,41 @@ class CreateTicket extends Component
         $stemmedWords = array_map([$stemmer, 'stem'], $tokenizedText);
         $stemmedText = implode(" ", $stemmedWords);
 
-        //Priority Predict
-        $nb = naive_bayes();
-        $dataset = DatasetTickets::select('subject', 'details', 'priority_id')->get();
-        // Bagi data menjadi data latih (training) dan data uji (testing)
-        $trainingData = $dataset->slice(0, floor(0.8 * count($dataset))); // 80% data training, 20% data testing
-        // Latih model dengan data latih
-        foreach ($trainingData as $key => $value) {
-            $nb->train($value->priority_id, tokenize($value->details));
-        }
-        //Probabilitas
-        $predict_priority_id = $nb->predict(tokenize($stemmedText));
-        // Ubah output prediksi menjadi nama priority
-        $predictedPriority = array_search(max($predict_priority_id), $predict_priority_id);
+        if (DatasetTickets::count() > 0) {
+            //Priority Predict
+            $nb = naive_bayes();
+            $dataset = DatasetTickets::select('subject', 'details', 'priority_id')->get();
+            // Bagi data menjadi data latih (training) dan data uji (testing)
+            $trainingData = $dataset->slice(0, floor(0.8 * count($dataset))); // 80% data training, 20% data testing
+            // Latih model dengan data latih
+            foreach ($trainingData as $key => $value) {
+                $nb->train($value->priority_id, tokenize($value->details));
+            }
+            //Probabilitas
+            $predict_priority_id = $nb->predict(tokenize($stemmedText));
+            // Ubah output prediksi menjadi nama priority
+            $predictedPriority = array_search(max($predict_priority_id), $predict_priority_id);
 
-        //Category Predict
-        $nb = naive_bayes();
-        $dataset = DatasetTickets::select('subject', 'details', 'category_id')->get();
-        // Bagi data menjadi data latih (training) dan data uji (testing)
-        $trainingData = $dataset->slice(0, floor(0.8 * count($dataset)));
-        // Latih model dengan data latih
-        foreach ($trainingData as $key => $value) {
-            $nb->train($value->category_id, tokenize($value->details));
+            //Category Predict
+            $nb = naive_bayes();
+            $dataset = DatasetTickets::select('subject', 'details', 'category_id')->get();
+            // Bagi data menjadi data latih (training) dan data uji (testing)
+            $trainingData = $dataset->slice(0, floor(0.8 * count($dataset)));
+            // Latih model dengan data latih
+            foreach ($trainingData as $key => $value) {
+                $nb->train($value->category_id, tokenize($value->details));
+            }
+            //Probabilitas
+            $predict_category_id = $nb->predict(tokenize($stemmedText));
+            // Ubah output prediksi menjadi nama priority
+            $predictedCategory = array_search(max($predict_category_id), $predict_category_id);
+        } else {
+            $this->fresh();
+            return redirect()->to('/tickets')->with([
+                'toast_type' => 'error', // Jenis pesan (success, error, warning, info)
+                'toast_message' => 'Tidak ada dataset, silahkan tambahkan terlebih dahulu', // Isi pesan
+            ]);
         }
-        //Probabilitas
-        $predict_category_id = $nb->predict(tokenize($stemmedText));
-        // Ubah output prediksi menjadi nama priority
-        $predictedCategory = array_search(max($predict_category_id), $predict_category_id);    
 
         $priority = Priorities::find($predictedPriority);
 

@@ -44,7 +44,7 @@ class Categories extends Component
         $category->name = $this->name;
         $category->save();
 
-        return redirect('/category')->with([
+        return redirect('/categories')->with([
             'toast_type' => 'success',
             'toast_message' => 'Berhasil Memperbaharui Category',
         ]);

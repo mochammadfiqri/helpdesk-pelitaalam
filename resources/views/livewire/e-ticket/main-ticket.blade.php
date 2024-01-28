@@ -1,4 +1,5 @@
 <div class="row ">
+    @include('livewire.e-ticket.import-dataset')
     <div class="col-12 mt-3">
         <div class="card my-2">
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 ">
@@ -26,8 +27,17 @@
                     <div class="col-12 col-md-8 col-lg-8">
                         <div class="d-flex justify-content-between justify-content-sm-end justify-content-lg-end align-items-center ">
                             @if (Auth::user()->roles->contains('id', 1))
-                                <a href="{{ route('main_dataset') }}" class="btn btn-rounded bg-gradient-info mx-2 mx-sm-1">
+                                {{-- <a href="{{ route('main_dataset') }}" class="btn btn-rounded bg-gradient-info mx-2 mx-sm-1">
                                     <i class="fa-solid fa-file-lines fa-lg"></i>&nbsp;&nbsp;&nbsp;Dataset
+                                </a> --}}
+                                <a class="btn btn-rounded bg-gradient-danger mx-2 mx-sm-1" data-bs-toggle="modal" data-bs-target="#deleteDataset">
+                                    <i class="fa-solid fa-trash-can fa-lg"></i>&nbsp;&nbsp;&nbsp;Delete All Dataset
+                                </a>
+                                <a class="btn btn-rounded bg-gradient-info mx-2 mx-sm-1" data-bs-toggle="modal" data-bs-target="#importDataset">
+                                    <i class="fa-solid fa-file-import fa-lg"></i>&nbsp;&nbsp;&nbsp;Import Dataset
+                                </a>
+                                <a class="btn btn-rounded bg-gradient-info mx-2 mx-sm-1" wire:click="datasetExport">
+                                    <i class="fa-solid fa-file-export fa-lg"></i>&nbsp;&nbsp;&nbsp;Export Dataset
                                 </a>
                             @endif
                             @if (!Auth::user()->roles->contains('id', 1) && !Auth::user()->roles->contains('id', 14))
