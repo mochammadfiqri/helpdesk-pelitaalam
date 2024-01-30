@@ -71,10 +71,10 @@
                         @endphp
                         
                         @if ($expireTime->isPast())
-                            <p class="text-sm text-bold mb-0">Expired</p>
+                            <p class="text-sm text-danger text-bold mb-0">Expired</p>
                         @else
                             <p class="text-sm text-bold mb-0">
-                                {{ $expireTime->longAbsoluteDiffForHumans() }}
+                                {{ $expireTime->longAbsoluteDiffForHumans() }} left
                             </p>
                         @endif
                     </div>
@@ -87,10 +87,10 @@
                         @endphp
                         
                         @if ($expireTime->isPast())
-                            <p class="text-sm text-bold mb-0">Expired</p>
+                            <p class="text-sm text-danger text-bold mb-0">Expired</p>
                         @else
                             <p class="text-sm text-bold mb-0">
-                                {{ $expireTime->longAbsoluteDiffForHumans() }}
+                                {{ $expireTime->longAbsoluteDiffForHumans() }} left
                             </p>
                         @endif
                     </div>
