@@ -55,13 +55,20 @@ class MainTicket extends Component
             'file' => 'required|mimes:xlsx,xls,csv',
         ]);
 
-        Excel::import(new DatasetTicketImport, $this->file->getRealPath());
-        // dd($import);
+        try {
+            Excel::import(new DatasetTicketImport, $this->file->getRealPath());
+    
+            return redirect('/dashboard')->with([
+                'toast_type' => 'success',
+                'toast_message' => 'Import Berhasil',
+            ]);
 
-        return redirect('/dashboard')->with([
-            'toast_type' => 'success',
-            'toast_message' => 'Import Berhasil',
-        ]);
+        } catch (\Throwable $th) {
+            return redirect('/tickets')->with([
+                'toast_type' => 'error',
+                'toast_message' => 'Import gagal, sesuaikan format sesuai template',
+            ]);
+        }
     }
     
     public function editTicket($ticket_id) {
