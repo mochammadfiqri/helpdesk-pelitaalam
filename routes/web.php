@@ -149,7 +149,7 @@ Route::middleware('auth','verified')->group(function() {
 
     Route::middleware('onlyAdmin')->group(function() {
         Route::get('/categories', Categories::class)->name('category');
-        Route::get('/department', Department::class)->name('department');
+        // Route::get('/department', Department::class)->name('department');
 
         Route::get('/users', Users::class)->name('users');
         Route::get('/users/create-new-user', CreateUser::class)->name('create.user');

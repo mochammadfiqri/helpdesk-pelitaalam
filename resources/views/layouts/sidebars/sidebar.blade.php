@@ -97,14 +97,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#settings" class="nav-link text-white {{ request()->is('settings') ? 'active' : '' }}" aria-controls="ProfileNav" role="button"
+                    <a data-bs-toggle="collapse" href="#settings" class="nav-link text-white {{ (request()->routeIs('category') || request()->routeIs('priority') || request()->routeIs('status')) ? 'active' : '' }}" aria-controls="ProfileNav" role="button"
                         aria-expanded="false">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="fa-solid fa-screwdriver-wrench fa-xl"></i>
                         </div>
-                        <span class="nav-link-text px-1">Settings</span>
+                        <span class="nav-link-text px-1 ">Settings</span>
                     </a>
-                    <div class="collapse" id="settings" >
+                    <div class="collapse {{ (request()->routeIs('category') || request()->routeIs('priority') || request()->routeIs('status')) ? 'show' : '' }}" id="settings" >
                         <ul class="nav ">
                             {{-- <li class="nav-item">
                                 <a class="nav-link text-white {{ request()->routeIs('global_setting') ? 'active bg-gradient-primary' : '' }}"
